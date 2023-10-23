@@ -5,8 +5,6 @@
 #include <jessy_io.h>
 #include <Wire.h>
 
-JessyAgent agent;
-
 void setup() {
     Serial.begin(115200);
     while(!Serial)
@@ -16,9 +14,10 @@ void setup() {
     JessyBIOS::fileSystemCheck();
     JessyIO::println();
 
-    agent.setName("<anon>");
+    currentAgent.setName("<anon>");
+    currentAgent.setWorkingDirectory("/");
 
-    JessyIO::print(agent.shellString());
+    JessyIO::print(currentAgent.shellString());
     delay(50);
 }
 
@@ -27,6 +26,6 @@ void loop() {
         String out = Serial.readStringUntil('\n');
 
         JessyIO::println(out);
-        JessyIO::print(agent.shellString());
+        JessyIO::print(currentAgent.shellString());
     }
 }

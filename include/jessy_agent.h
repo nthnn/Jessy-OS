@@ -8,10 +8,16 @@ public:
     void setName(String name);
     String getName();
 
+    void setWorkingDirectory(String wd);
+    String getWorkingDirectory();
+
     String shellString();
 
 private:
     String name;
+    String wd;
 };
+
+static JessyAgent currentAgent;
 
 #endif
