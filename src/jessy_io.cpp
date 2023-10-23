@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <FS.h>
 #include <jessy_io.h>
-#include <jessy_utils.h>
+#include <jessy_util.h>
 #include <SD.h>
 #include <SPI.h>
 
@@ -38,7 +38,7 @@ String JessyIO::readFile(String fileName) {
 }
 
 bool JessyIO::writeFile(String fileName, String content) {
-    File file = SD.open(fileName, FILE_WRITE);
+    File file = SD.open(fileName, FILE_WRITE, true);
     if(!file)
         return false;
 
@@ -83,7 +83,7 @@ String JessyIO::getPath(String fileName) {
     return path;
 }
 
-String getAbsoluteName(String fileName) {
+String JessyIO::getAbsoluteName(String fileName) {
     File file = SD.open(fileName);
     String name = file.name();
 
@@ -95,7 +95,7 @@ bool JessyIO::exists(String path) {
     return SD.exists(path);
 }
 
-bool isFile(String path) {
+bool JessyIO::isFile(String path) {
     File file = SD.open(path);
     bool isfile = !file.isDirectory();
 
@@ -103,7 +103,7 @@ bool isFile(String path) {
     return isfile;
 }
 
-bool isDirectory(String path) {
+bool JessyIO::isDirectory(String path) {
     File file = SD.open(path);
     bool isdir = file.isDirectory();
 

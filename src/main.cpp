@@ -2,8 +2,10 @@
 #include <jessy_agent.h>
 #include <jessy_bios.h>
 #include <jessy_const.h>
+#include <jessy_io.h>
+#include <Wire.h>
 
-JessyAgent agent("<anon>");
+JessyAgent agent;
 
 void setup() {
     Serial.begin(115200);
@@ -11,14 +13,20 @@ void setup() {
         yield();
 
     JessyBIOS::bootUp();
-    Serial.print(agent.shellString());
+    JessyBIOS::fileSystemCheck();
+    JessyIO::println();
+
+    agent.setName("<anon>");
+
+    JessyIO::print(agent.shellString());
+    delay(50);
 }
 
 void loop() {
     if(Serial.available() > 0) {
         String out = Serial.readStringUntil('\n');
 
-        Serial.println(out);
-        Serial.print(agent.shellString());
+        JessyIO::println(out);
+        JessyIO::print(agent.shellString());
     }
 }

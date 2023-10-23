@@ -5,9 +5,9 @@
 
 class JessyAgent {
 public:
-    JessyAgent(String _name);
-
+    void setName(String name);
     String getName();
+
     String shellString();
 
 private:

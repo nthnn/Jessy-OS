@@ -6,7 +6,8 @@
 typedef enum _JessyLogType {
     JSY_LOG_PLAIN,
     JSY_LOG_WARNING,
-    JSY_LOG_ERROR
+    JSY_LOG_ERROR,
+    JSY_LOG_SUCCESS
 } JessyLogType;
 
 typedef struct _JessyRTC {

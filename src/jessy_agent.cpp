@@ -1,7 +1,8 @@
 #include <jessy_agent.h>
 
-JessyAgent::JessyAgent(String _name):
-    name(_name) { }
+void JessyAgent::setName(String name) {
+    this->name = name;
+}
 
 String JessyAgent::getName() {
     return this->name;

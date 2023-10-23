@@ -1,10 +1,8 @@
-#include <jessy_obj.h>
-#include <jessy_utils.h>
+#include <jessy_bios.h>
+#include <jessy_io.h>
+#include <jessy_util.h>
 #include <RTClib.h>
 #include <TimeLib.h>
-
-void JessyUtility::log(JessyLogType logType, String message) {
-}
 
 JessyRTC JessyUtility::fromTime(long time) {
     tmElements_t tm;
@@ -21,10 +19,8 @@ JessyRTC JessyUtility::fromTime(long time) {
     return rtc;
 }
 
-JessyRTC JessyUtility::getRTC() {
+JessyRTC JessyUtility::getRTC(DateTime dateTime) {
     JessyRTC rtc;
-    DateTime dateTime = JessyDS1307.now();
-
     rtc.year = dateTime.year();
     rtc.month = dateTime.month();
     rtc.day = dateTime.day();
@@ -33,4 +29,34 @@ JessyRTC JessyUtility::getRTC() {
     rtc.second = dateTime.second();
 
     return rtc;
+}
+
+void JessyUtility::log(JessyLogType logType, String message) {
+    switch(logType) {
+        case JSY_LOG_ERROR:
+            JessyIO::print(F("[-] "));
+            break;
+        
+        case JSY_LOG_PLAIN:
+            JessyIO::print(F("[+] "));
+            break;
+
+        case JSY_LOG_WARNING:
+            JessyIO::print(F("[!] "));
+            break;
+
+        case JSY_LOG_SUCCESS:
+            JessyIO::print(F("[*] "));
+            break;
+    }
+
+    JessyIO::println(message);
+}
+
+String JessyUtility::getRTCString(DateTime dateTime) {
+    JessyRTC rtc = JessyUtility::getRTC(dateTime);
+
+    return String(rtc.month) + "/" + String(rtc.day) + "/" +
+        String(rtc.year) + " " + String(rtc.hour) + ":" +
+        String(rtc.minute) + ":" + String(rtc.second);
 }
