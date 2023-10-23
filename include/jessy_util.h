@@ -12,6 +12,8 @@ public:
 
     static void log(JessyLogType logType, String message);
     static String getRTCString(DateTime dateTime);
+
+    static void shellTokenizer(String &input, String *output, uint8_t &count);
 };
 
 #endif

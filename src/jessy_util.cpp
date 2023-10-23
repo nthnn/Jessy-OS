@@ -60,3 +60,37 @@ String JessyUtility::getRTCString(DateTime dateTime) {
         String(rtc.year) + " " + String(rtc.hour) + ":" +
         String(rtc.minute) + ":" + String(rtc.second);
 }
+
+void JessyUtility::shellTokenizer(String &input, String *output, uint8_t &count) {
+    int startIndex = 0;
+    count = 0;
+
+    for(uint16_t i = 0; i < input.length(); i++) {
+        if(input[i] == '"') {
+            int endIndex = input.indexOf('"', i + 1);
+
+            if(endIndex != -1) {
+                output[count] = input.substring(i + 1, endIndex);
+                i = endIndex;
+            }
+        }
+        else if(input[i] == ' ') {
+            output[count] = input.substring(startIndex, i);
+            count++;
+
+            startIndex = i + 1;
+        }
+    }
+
+    if(startIndex < input.length()) {
+        output[count] = input.substring(startIndex);
+        count++;
+    }
+
+    for(uint8_t i = 0; i < count; i++) {
+        String out = output[i];
+
+        if(out.startsWith(F("\"")) && out.endsWith(F("\"")))
+            output[i] = out.substring(1, out.length() - 1);
+    }
+}

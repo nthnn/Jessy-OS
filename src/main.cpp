@@ -3,6 +3,7 @@
 #include <jessy_bios.h>
 #include <jessy_const.h>
 #include <jessy_io.h>
+#include <jessy_util.h>
 #include <Wire.h>
 
 void setup() {
@@ -17,15 +18,21 @@ void setup() {
     currentAgent.setName("<anon>");
     currentAgent.setWorkingDirectory("/");
 
+    delay(100);
     JessyIO::print(currentAgent.shellString());
-    delay(50);
 }
 
 void loop() {
     if(Serial.available() > 0) {
         String out = Serial.readStringUntil('\n');
 
-        JessyIO::println(out);
+        String tokens[16];
+        uint8_t count;
+
+        JessyUtility::shellTokenizer(out, tokens, count);
+        for(uint8_t i = 0; i < count; i++)
+            Serial.println("-> " + tokens[i]);
+
         JessyIO::print(currentAgent.shellString());
     }
 }
