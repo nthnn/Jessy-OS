@@ -8,10 +8,11 @@ public:
     void setName(String name);
     String getName();
 
-    void setWorkingDirectory(String wd);
+    bool setWorkingDirectory(String wd);
     String getWorkingDirectory();
 
     String shellString();
+    void anonymous();
 
 private:
     String name;

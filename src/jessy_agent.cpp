@@ -1,4 +1,6 @@
 #include <jessy_agent.h>
+#include <jessy_io.h>
+#include <jessy_util.h>
 
 void JessyAgent::setName(String name) {
     this->name = name;
@@ -8,8 +10,22 @@ String JessyAgent::getName() {
     return this->name;
 }
 
-void JessyAgent::setWorkingDirectory(String wd) {
-    this->wd = "/root/" + wd;
+bool JessyAgent::setWorkingDirectory(String wd) {
+    String target = "";
+    
+    if(wd.startsWith("/"))
+        target = "/root/" + (this->name == "anonymous" ?
+            "shared" : this->name) + wd;
+    else if(wd.startsWith("./"))
+        target = this->wd + wd.substring(1);
+    else if(wd == "~")
+        target = "/root/" + (this->name == "anonymous" ?
+            "shared" : this->name);
+    else return false;
+
+    this->wd = target;
+    return !JessyIO::exists(target) ||
+        (JessyIO::exists(target) && JessyIO::isFile(target));
 }
 
 String JessyAgent::getWorkingDirectory() {
@@ -36,5 +52,5 @@ String JessyAgent::shellString() {
 
 void JessyAgent::anonymous() {
     this->setName("anonymous");
-    this->setWorkingDirectory("shared");
+    this->setWorkingDirectory("~");
 }
