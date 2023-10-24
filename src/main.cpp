@@ -15,9 +15,7 @@ void setup() {
     JessyBIOS::fileSystemCheck();
     JessyIO::println();
 
-    currentAgent.setName("<anon>");
-    currentAgent.setWorkingDirectory("/");
-
+    currentAgent.anonymous();
     delay(100);
     JessyIO::print(currentAgent.shellString());
 }

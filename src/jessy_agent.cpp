@@ -8,8 +8,8 @@ String JessyAgent::getName() {
     return this->name;
 }
 
-void JessyAgent::setWorkingDirectory(String wd){
-    this->wd = wd;
+void JessyAgent::setWorkingDirectory(String wd) {
+    this->wd = "/root/" + wd;
 }
 
 String JessyAgent::getWorkingDirectory() {
@@ -17,13 +17,24 @@ String JessyAgent::getWorkingDirectory() {
 }
 
 String JessyAgent::shellString() {
-    int idx = this->wd.lastIndexOf('/');
-    if(idx == -1)
-        idx = 0;
+    String path = "";
 
-    String path = this->wd.substring(idx);
-    if(path == "/")
-        path = "root";
+    if(this->getWorkingDirectory() == ("/root/" + this->name) ||
+        (this->getName() == "anonymous" &&
+            this->getWorkingDirectory() == ("/root/shared")))
+        path = F("root");
+    else {
+        int idx = this->wd.lastIndexOf(F('/'));
+        if(idx == -1)
+            idx = 0;
+
+        path = this->wd.substring(idx);
+    }
 
     return this->name + "@" + path + " #~ ";
+}
+
+void JessyAgent::anonymous() {
+    this->setName("anonymous");
+    this->setWorkingDirectory("shared");
 }
