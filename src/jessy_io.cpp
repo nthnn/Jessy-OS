@@ -118,3 +118,49 @@ JessyRTC JessyIO::getLastWrite(String path) {
     file.close();
     return rtc;
 }
+
+uint16_t JessyIO::listFiles(String path, String files[]) {
+    File directory = SD.open(path);
+    uint16_t count = 0;
+
+    if(directory) {
+        while(true) {
+            File entry = directory.openNextFile();
+            if(!entry)
+                break;
+
+            files[count] = entry.name();
+            entry.close();
+            count++;
+        }
+    }
+
+    directory.close();
+    return count;
+}
+
+uint16_t JessyIO::listFilesRecursive(String path, String files[]) {
+    File directory = SD.open(path);
+    uint16_t count = 0;
+
+    if(directory) {
+        while(true) {
+            File entry = directory.openNextFile();
+            if(!entry)
+                break;
+
+            if(entry.isDirectory())
+                count += JessyIO::listFilesRecursive(entry.name(), files + count);
+            else {
+                files[count] = entry.name();
+                count++;
+            }
+
+            entry.close();
+        }
+
+        directory.close();
+    }
+
+    return count;
+}

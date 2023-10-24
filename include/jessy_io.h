@@ -27,6 +27,9 @@ public:
     static bool isDirectory(String path);
 
     static JessyRTC getLastWrite(String path);
+
+    static uint16_t listFiles(String path, String files[]);
+    static uint16_t listFilesRecursive(String path, String files[]);
 };
 
 #endif
