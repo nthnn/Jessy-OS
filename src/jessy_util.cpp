@@ -53,12 +53,17 @@ void JessyUtility::log(JessyLogType logType, String message) {
     JessyIO::println(message);
 }
 
-String JessyUtility::getRTCString(DateTime dateTime) {
-    JessyRTC rtc = JessyUtility::getRTC(dateTime);
-
+String JessyUtility::rtcStructString(JessyRTC rtc) {
     return String(rtc.month) + "/" + String(rtc.day) + "/" +
-        String(rtc.year) + " " + String(rtc.hour) + ":" +
-        String(rtc.minute) + ":" + String(rtc.second);
+        String(rtc.year >= 2020 ? rtc.year : rtc.year + 1970) + " " +
+        String(rtc.hour) + ":" + String(rtc.minute) + ":" +
+        String(rtc.second);
+}
+
+String JessyUtility::getRTCString(DateTime dateTime) {
+    return JessyUtility::rtcStructString(
+        JessyUtility::getRTC(dateTime)
+    );
 }
 
 void JessyUtility::shellTokenizer(String &input, String *output, uint8_t &count) {
