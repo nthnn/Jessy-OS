@@ -202,6 +202,29 @@ void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc
 }
 
 void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc < 2) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String act = arguments[1];
+    uint8_t pin = (uint8_t) arguments[2].toInt();
+
+    if(argc == 3) {
+        if(act == "on") {
+            pinMode(pin, OUTPUT);
+            digitalWrite(pin, HIGH);
+        }
+        else if(act == "off") {
+            pinMode(pin, OUTPUT);
+            digitalWrite(pin, LOW);
+        }
+        else if(act == "read")
+            JessyIO::println(pin + ": " + String(digitalRead(pin)));
+        else printCommandError(arguments[0], F("Invalid action for GPIO."));
+    }
+    else if(argc == 4 && act == "write")
+        digitalWrite(pin, (byte) arguments[2].toInt());
 }
 
 void JessyTerminal::clock(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -229,6 +252,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
+    else if(cmd == F("gpio"))       JSY_EXEC(gpio)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]
