@@ -12,7 +12,7 @@ String JessyAgent::getName() {
 
 bool JessyAgent::setWorkingDirectory(String wd) {
     String target = "", shared("shared");
-    
+
     if(wd.startsWith("/") && wd.length() != 1)
         target = "/root/" + (this->getName().equals("anonymous") ?
             shared : this->name) + wd;

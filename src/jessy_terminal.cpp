@@ -53,7 +53,11 @@ void JessyTerminal::ls(JessyAgent &agent, String arguments[], uint8_t argc) {
         if(!includeHiddenFiles && fileName.startsWith(F("."))) 
             continue;
 
-        JessyRTC lastWrite = JessyIO::getLastWrite(agent.getWorkingDirectory() + F("/") + fileName);
+        String actualFilePath = agent.getWorkingDirectory() + F("/") + fileName;
+        bool isFile = JessyIO::isFile(actualFilePath);
+        JessyRTC lastWrite = JessyIO::getLastWrite(actualFilePath);
+
+        JessyIO::print(isFile ? "F " : "D ");
         JessyIO::print("[" + JessyUtility::rtcStructString(lastWrite) + "]\t");
         JessyIO::println(fileName);
     }
@@ -73,6 +77,16 @@ void JessyTerminal::mkdir(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::touch(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc < 2) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    for(uint8_t i = 1; i < argc; i++) {
+        String file = arguments[i];
+        if(!JessyIO::writeFile(agent.getWorkingDirectory() + F("/") + file, "\r"))
+            printCommandError(arguments[0], "Cannot create file: " + file);
+    }
 }
 
 void JessyTerminal::rm(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -135,10 +149,13 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
 
     #define JSY_EXEC(cmd) JessyTerminal:: cmd (agent, arguments, argc);
 
-    if(cmd == F("cd"))          JSY_EXEC(cd)
+    if(argc == 0)
+        return;
+    else if(cmd == F("cd"))     JSY_EXEC(cd)
     else if(cmd == F("pwd"))    JSY_EXEC(pwd)
     else if(cmd == F("ls"))     JSY_EXEC(ls)
     else if(cmd == F("mkdir"))  JSY_EXEC(mkdir)
+    else if(cmd == F("touch"))  JSY_EXEC(touch)
     else if(cmd == F("echo"))   JSY_EXEC(echo)
     else JessyUtility::log(
         JSY_LOG_ERROR,
