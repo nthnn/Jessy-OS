@@ -173,6 +173,32 @@ void JessyTerminal::sd(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    JessyIO::println(String(F("Chip cores:\t\t")) + ESP.getChipCores());
+    JessyIO::println(String(F("Chip model:\t\t")) + ESP.getChipModel());
+    JessyIO::println(String(F("Chip revision:\t\t")) + ESP.getChipRevision());
+    JessyIO::println(String(F("CPU frequency:\t\t")) + ESP.getCpuFreqMHz());
+    JessyIO::println(String(F("Cycle count:\t\t")) + ESP.getCycleCount());
+    JessyIO::println(String(F("Chip ID:\t\t")) + ESP.getEfuseMac());
+    JessyIO::println(String(F("Flash chip mode:\t")) + ESP.getFlashChipMode());
+    JessyIO::println(String(F("Flash chip size:\t")) + ESP.getFlashChipSize());
+    JessyIO::println(String(F("Flash chip speed:\t")) + ESP.getFlashChipSpeed());
+    JessyIO::println(String(F("Free heap:\t\t")) + ESP.getFreeHeap());
+    JessyIO::println(String(F("Free PSRAM:\t\t")) + ESP.getFreePsram());
+    JessyIO::println(String(F("Flash sketch space:\t")) + ESP.getFreeSketchSpace());
+    JessyIO::println(String(F("Heap size:\t\t")) + ESP.getHeapSize());
+    JessyIO::println(String(F("Max alloc heap:\t\t")) + ESP.getMaxAllocHeap());
+    JessyIO::println(String(F("Max alloc PSRAM:\t")) + ESP.getMaxAllocPsram());
+    JessyIO::println(String(F("Min free heap:\t\t")) + ESP.getMinFreeHeap());
+    JessyIO::println(String(F("Min free PSRAM:\t\t")) + ESP.getMinFreePsram());
+    JessyIO::println(String(F("PSRAM Size:\t\t")) + ESP.getPsramSize());
+    JessyIO::println(String(F("SDK version:\t\t")) + ESP.getSdkVersion());
+    JessyIO::println(String(F("Sketch MD5:\t\t")) + ESP.getSketchMD5());
+    JessyIO::println(String(F("Sketch size:\t\t")) + ESP.getSketchSize());
 }
 
 void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -194,14 +220,15 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
 
     if(argc == 0)
         return;
-    else if(cmd == F("cd"))     JSY_EXEC(cd)
-    else if(cmd == F("pwd"))    JSY_EXEC(pwd)
-    else if(cmd == F("ls"))     JSY_EXEC(ls)
-    else if(cmd == F("mkdir"))  JSY_EXEC(mkdir)
-    else if(cmd == F("touch"))  JSY_EXEC(touch)
-    else if(cmd == F("rm"))     JSY_EXEC(rm)
-    else if(cmd == F("cat"))    JSY_EXEC(cat)
-    else if(cmd == F("echo"))   JSY_EXEC(echo)
+    else if(cmd == F("cd"))         JSY_EXEC(cd)
+    else if(cmd == F("pwd"))        JSY_EXEC(pwd)
+    else if(cmd == F("ls"))         JSY_EXEC(ls)
+    else if(cmd == F("mkdir"))      JSY_EXEC(mkdir)
+    else if(cmd == F("touch"))      JSY_EXEC(touch)
+    else if(cmd == F("rm"))         JSY_EXEC(rm)
+    else if(cmd == F("cat"))        JSY_EXEC(cat)
+    else if(cmd == F("echo"))       JSY_EXEC(echo)
+    else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]
