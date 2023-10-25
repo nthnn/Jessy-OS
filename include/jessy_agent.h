@@ -15,8 +15,7 @@ public:
     void anonymous();
 
 private:
-    String name;
-    String wd;
+    String name, wd;
 };
 
 static JessyAgent currentAgent;

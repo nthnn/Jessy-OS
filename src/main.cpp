@@ -29,7 +29,7 @@ void loop() {
         uint8_t count;
 
         JessyUtility::shellTokenizer(out, tokens, count);
-        JessyExecCommand(tokens, count);
+        JessyExecCommand(currentAgent, tokens, count);
 
         delay(100);
         JessyIO::print(currentAgent.shellString());

@@ -11,21 +11,23 @@ String JessyAgent::getName() {
 }
 
 bool JessyAgent::setWorkingDirectory(String wd) {
-    String target = "";
+    String target = "", shared("shared");
     
-    if(wd.startsWith("/"))
-        target = "/root/" + (this->name == "anonymous" ?
-            "shared" : this->name) + wd;
-    else if(wd.startsWith("./"))
-        target = this->wd + wd.substring(1);
-    else if(wd == "~")
-        target = "/root/" + (this->name == "anonymous" ?
-            "shared" : this->name);
+    if(wd.startsWith("/") && wd.length() != 1)
+        target = "/root" + (this->getName().equals("anonymous") ?
+            shared : this->name) + wd;
+    else if(wd.startsWith("./") && !wd.endsWith("./"))
+        target = this->getWorkingDirectory() + wd.substring(1);
+    else if(wd.equals("~"))
+        target = "/root/" + (this->getName().equals("anonymous") ?
+            shared : this->name);
     else return false;
 
+    if(!JessyIO::exists(target) || !JessyIO::isDirectory(target))
+        return false;
+
     this->wd = target;
-    return !JessyIO::exists(target) ||
-        (JessyIO::exists(target) && JessyIO::isFile(target));
+    return true;
 }
 
 String JessyAgent::getWorkingDirectory() {
