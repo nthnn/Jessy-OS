@@ -3,6 +3,7 @@
 #include <jessy_bios.h>
 #include <jessy_const.h>
 #include <jessy_io.h>
+#include <jessy_terminal.h>
 #include <jessy_util.h>
 #include <Wire.h>
 
@@ -28,9 +29,9 @@ void loop() {
         uint8_t count;
 
         JessyUtility::shellTokenizer(out, tokens, count);
-        for(uint8_t i = 0; i < count; i++)
-            Serial.println("-> " + tokens[i]);
+        JessyExecCommand(tokens, count);
 
+        delay(100);
         JessyIO::print(currentAgent.shellString());
     }
 }
