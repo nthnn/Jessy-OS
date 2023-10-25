@@ -50,18 +50,15 @@ void JessyBIOS::halt() {
 }
 
 void JessyBIOS::fileSystemCheck() {
-    bool shouldCreateUser = false;
-
     String sysFolder = F("/sys"),
         rootFolder = F("/root"),
-        userAccount = F("/sys/user.ini");
+        usersFolder = F("/sys/users"),
+        sharedFolder = F("/root/shared");
 
     JessyUtility::log(JSY_LOG_PLAIN, F("File system checking..."));
     if(!JessyIO::exists(sysFolder) ||
         (JessyIO::exists(sysFolder) &&
             !JessyIO::isDirectory(sysFolder))) {
-        shouldCreateUser = true;
-
         if(JessyIO::mkdir(sysFolder))
             JessyUtility::log(JSY_LOG_PLAIN, F("Created system folder."));
         else {
@@ -85,21 +82,39 @@ void JessyBIOS::fileSystemCheck() {
         }
     }
 
-    JessyUtility::log(JSY_LOG_SUCCESS, F("Checking user accounts..."));
-    if(!JessyIO::exists(userAccount) ||
-        (JessyIO::exists(userAccount) &&
-            !JessyIO::isFile(userAccount))) {
-        shouldCreateUser = true;
-
-        JessyUtility::log(JSY_LOG_WARNING, F("No user account found."));
-        if(!JessyIO::writeFile(userAccount, F(""))) {
-            JessyUtility::log(JSY_LOG_WARNING, F("Something went wrong while generating configuration."));
+    if(!JessyIO::exists(usersFolder) ||
+        (JessyIO::exists(usersFolder) &&
+            !JessyIO::isDirectory(usersFolder))) {
+        if(JessyIO::mkdir(usersFolder))
+            JessyUtility::log(JSY_LOG_PLAIN, F("Created users folder on /sys."));
+        else {
+            JessyUtility::log(JSY_LOG_WARNING, F("Something went wrong creating users folder on /sys..."));
             JessyUtility::log(JSY_LOG_ERROR, F("Halting..."));
+
             JessyBIOS::halt();
         }
+    }
 
-        JessyUtility::log(JSY_LOG_SUCCESS, F("Created configuration."));
+    if(!JessyIO::exists(sharedFolder) ||
+        (JessyIO::exists(sharedFolder) &&
+            !JessyIO::isDirectory(sharedFolder))) {
+        if(JessyIO::mkdir(sharedFolder))
+            JessyUtility::log(JSY_LOG_PLAIN, F("Created shared folder on /root."));
+        else {
+            JessyUtility::log(JSY_LOG_WARNING, F("Something went wrong creating shared folder on /root..."));
+            JessyUtility::log(JSY_LOG_ERROR, F("Halting..."));
+
+            JessyBIOS::halt();
+        }
     }
 
     JessyUtility::log(JSY_LOG_SUCCESS, F("File check done."));
+}
+
+bool JessyBIOS::hasAccounts() {
+    String accounts[10];
+    return JessyIO::listFiles("/sys/users", accounts) > 0;
+}
+
+void JessyBIOS::createAccount() {
 }

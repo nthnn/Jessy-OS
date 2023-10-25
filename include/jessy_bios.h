@@ -13,7 +13,11 @@ public:
 
     static void bootUp();
     static void halt();
+
     static void fileSystemCheck();
+    static bool hasAccounts();
+
+    static void createAccount();
 };
 
 #endif
