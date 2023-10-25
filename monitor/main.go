@@ -6,6 +6,8 @@ import (
 	"jessyos/monitor/serport"
 	"os"
 	"strings"
+
+	"github.com/inancgumus/screen"
 )
 
 func readLine() string {
@@ -30,6 +32,7 @@ func main() {
 		serport.ConnectToSMSFirmware(portList[0]),
 	)
 
+	screen.Clear()
 	for !strings.HasPrefix(serport.ReadFromFirmwareSerial(port), "---") {
 	}
 
