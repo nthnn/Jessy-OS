@@ -99,3 +99,10 @@ void JessyUtility::shellTokenizer(String &input, String *output, uint8_t &count)
             output[i] = out.substring(1, out.length() - 1);
     }
 }
+
+RTC_DS1307 JessyUtility::createClock() {
+    RTC_DS1307 rtc;
+    rtc.begin();
+
+    return rtc;
+}

@@ -15,6 +15,7 @@ public:
     static String rtcStructString(JessyRTC rtc);
 
     static void shellTokenizer(String &input, String *output, uint8_t &count);
+    static RTC_DS1307 createClock();
 };
 
 #endif
