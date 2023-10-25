@@ -23,9 +23,9 @@ public:
 
     static void sd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void gpio(JessyAgent &agent, String arguments[], uint8_t argc);
 
-    static void date(JessyAgent &agent, String arguments[], uint8_t argc);
-    static void time(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void clock(JessyAgent &agent, String arguments[], uint8_t argc);
     static void cal(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void js(JessyAgent &agent, String arguments[], uint8_t argc);

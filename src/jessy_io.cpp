@@ -4,6 +4,7 @@
 #include <jessy_util.h>
 #include <SD.h>
 #include <SPI.h>
+#include <vfs_api.h>
 
 void JessyIO::print(String text) {
     Serial.print(text);
@@ -129,7 +130,7 @@ uint16_t JessyIO::listFiles(String path, String files[]) {
             if(!entry)
                 break;
 
-            files[count] = entry.name();
+            files[count] = entry.path();
             entry.close();
             count++;
         }
@@ -149,13 +150,14 @@ uint16_t JessyIO::listFilesRecursive(String path, String files[]) {
             if(!entry)
                 break;
 
-            if(entry.isDirectory())
-                count += JessyIO::listFilesRecursive(entry.name(), files + count);
-            else {
-                files[count] = entry.name();
-                count++;
-            }
+            files[count] = entry.path();
+            count ++;
 
+            if(entry.isDirectory())
+                count += JessyIO::listFilesRecursive(
+                    entry.path(),
+                    files + count
+                );
             entry.close();
         }
 
