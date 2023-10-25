@@ -31,6 +31,15 @@ void JessyTerminal::pwd(JessyAgent agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::ls(JessyAgent agent, String arguments[], uint8_t argc) {
+    bool isRecursive = false, includeHiddenFiles = false;
+    for(uint8_t i = 1; i < argc; i++) {
+        String arg = arguments[i];
+
+        if(arg == "-r")
+            isRecursive = true;
+        else if(arg == "-a")
+            includeHiddenFiles = true;
+    }
 }
 
 void JessyTerminal::mkdir(JessyAgent agent, String arguments[], uint8_t argc) {

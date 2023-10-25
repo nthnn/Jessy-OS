@@ -14,7 +14,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install PlatformIO Core
-        run: pip install --upgrade platformio
+        run: python3 -m pip install --upgrade platformio
 
       - name: Build PlatformIO Project
-        run: pio run
+        run: python3 -m platformio run
