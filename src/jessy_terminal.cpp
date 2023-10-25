@@ -3,6 +3,7 @@
 #include <jessy_io.h>
 #include <jessy_terminal.h>
 #include <jessy_util.h>
+#include <SD.h>
 
 static void printCommandError(String cmd, String message) {
     JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
@@ -170,6 +171,37 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::sd(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    sdcard_type_t type = SD.cardType();
+    JessyIO::print("Card type:\t\t");
+
+    switch(type) {
+        case CARD_MMC:
+            JessyIO::println("Multimedia Card");
+            break;
+
+        case CARD_SD:
+            JessyIO::println("Secure Digital");
+            break;
+
+        case CARD_SDHC:
+            JessyIO::println("SDHC");
+            break;
+
+        default:
+            JessyIO::println("Unknown");
+            break;
+    }
+
+    JessyIO::println("Card size:\t\t" + String(SD.cardSize() / 1048576) + "MB");
+    JessyIO::println("Total bytes:\t\t" + String(SD.totalBytes() / 1048576) + "MB");
+    JessyIO::println("Used bytes:\t\t" + String(SD.usedBytes() / 1048576) + "MB");
+    JessyIO::println("Number of sectors:\t" + String(SD.numSectors()));
+    JessyIO::println("Sector size:\t\t" + String(SD.sectorSize()));
 }
 
 void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -202,7 +234,7 @@ void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc
 }
 
 void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
-    if(argc < 2) {
+    if(argc < 2 || argc > 4) {
         printIncorrectArity(arguments[0]);
         return;
     }
@@ -227,7 +259,32 @@ void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
         digitalWrite(pin, (byte) arguments[2].toInt());
 }
 
-void JessyTerminal::clock(JessyAgent &agent, String arguments[], uint8_t argc) {
+void JessyTerminal::date(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String dateTime = JessyUtility::getRTCString(
+        JessyUtility::createClock().now()
+    );
+    dateTime = dateTime.substring(0, dateTime.indexOf(' '));
+
+    JessyIO::println(dateTime);
+}
+
+void JessyTerminal::time(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String dateTime = JessyUtility::getRTCString(
+        JessyUtility::createClock().now()
+    );
+    dateTime = dateTime.substring(dateTime.indexOf(' ') + 1);
+
+    JessyIO::println(dateTime);
 }
 
 void JessyTerminal::cal(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -241,8 +298,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
 
     #define JSY_EXEC(cmd) JessyTerminal:: cmd (agent, arguments, argc);
 
-    if(argc == 0)
-        return;
+    if(argc == 0)                   return;
     else if(cmd == F("cd"))         JSY_EXEC(cd)
     else if(cmd == F("pwd"))        JSY_EXEC(pwd)
     else if(cmd == F("ls"))         JSY_EXEC(ls)
@@ -251,8 +307,11 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("rm"))         JSY_EXEC(rm)
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
+    else if(cmd == F("sd"))         JSY_EXEC(sd)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
     else if(cmd == F("gpio"))       JSY_EXEC(gpio)
+    else if(cmd == F("date"))       JSY_EXEC(date)
+    else if(cmd == F("time"))       JSY_EXEC(time)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]
