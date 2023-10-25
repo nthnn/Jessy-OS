@@ -14,7 +14,7 @@ bool JessyAgent::setWorkingDirectory(String wd) {
     String target = "", shared("shared");
     
     if(wd.startsWith("/") && wd.length() != 1)
-        target = "/root" + (this->getName().equals("anonymous") ?
+        target = "/root/" + (this->getName().equals("anonymous") ?
             shared : this->name) + wd;
     else if(wd.startsWith("./") && !wd.endsWith("./"))
         target = this->getWorkingDirectory() + wd.substring(1);
@@ -42,11 +42,11 @@ String JessyAgent::shellString() {
             this->getWorkingDirectory() == ("/root/shared")))
         path = F("root");
     else {
-        int idx = this->wd.lastIndexOf(F('/'));
+        int idx = this->getWorkingDirectory().lastIndexOf('/');
         if(idx == -1)
             idx = 0;
 
-        path = this->wd.substring(idx);
+        path = this->getWorkingDirectory().substring(idx + 1);
     }
 
     return this->name + "@" + path + " #~ ";
