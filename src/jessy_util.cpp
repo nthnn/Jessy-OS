@@ -106,3 +106,27 @@ RTC_DS1307 JessyUtility::createClock() {
 
     return rtc;
 }
+
+String JessyUtility::sanitizePath(JessyAgent &agent, String path) {
+    String agentName = agent.getName(),
+        wd = agent.getWorkingDirectory(),
+        strictPath = F("/root/");
+
+    strictPath += (agentName == F("anonymous")) ?
+        F("shared") : agentName;
+
+    if(path == F("~"))
+        wd = strictPath;
+    else if(path == F(".") || path == F("./"));
+    else if(path.startsWith(F(".."))) {
+        int idx = wd.lastIndexOf(F("/"));
+
+        if(wd.substring(0, idx).startsWith(strictPath))
+            wd = wd.substring(0, idx) + path.substring(2);
+    }
+    else if(path.startsWith(F("./")) && !path.endsWith(F("./")))
+        wd += path.substring(1);
+    else wd += (path.startsWith(F("/")) ? "" : "/") + path;
+
+    return wd;
+}

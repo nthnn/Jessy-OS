@@ -2,6 +2,7 @@
 #define JESSY__UTIL_H
 
 #include <Arduino.h>
+#include <jessy_agent.h>
 #include <jessy_defs.h>
 #include <RTCLib.h>
 
@@ -16,6 +17,8 @@ public:
 
     static void shellTokenizer(String &input, String *output, uint8_t &count);
     static RTC_DS1307 createClock();
+
+    static String sanitizePath(JessyAgent &agent, String path);
 };
 
 #endif

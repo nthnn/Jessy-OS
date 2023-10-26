@@ -7,6 +7,7 @@
 
 static void printCommandError(String cmd, String message) {
     JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
+    JessyIO::println("    Type: help " + cmd);
 }
 
 static void printIncorrectArity(String cmd) {
@@ -19,8 +20,8 @@ void JessyTerminal::cd(JessyAgent &agent, String arguments[], uint8_t argc) {
         return;
     }
 
-    if(!agent.setWorkingDirectory(arguments[1]))
-        printCommandError("cd", F("Cannot change working directory."));
+    if(!agent.setWorkingDirectory(JessyUtility::sanitizePath(agent, arguments[1])))
+        printCommandError(F("cd"), F("Cannot change working directory."));
 }
 
 void JessyTerminal::pwd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -62,7 +63,7 @@ void JessyTerminal::ls(JessyAgent &agent, String arguments[], uint8_t argc) {
         if(!includeHiddenFiles && actualFilename.startsWith(F("."))) 
             continue;
 
-        JessyIO::print(isFile ? "F " : "D ");
+        JessyIO::print(isFile ? F("F ") : F("D "));
         JessyIO::print("[" + JessyUtility::rtcStructString(lastWrite) + "]\t");
         JessyIO::println(actualFilename);
     }
@@ -75,9 +76,10 @@ void JessyTerminal::mkdir(JessyAgent &agent, String arguments[], uint8_t argc) {
     }
 
     for(uint8_t i = 1; i < argc; i++) {
-        String dir = arguments[i];
-        if(!JessyIO::mkdir(agent.getWorkingDirectory() + F("/") + dir))
-            printCommandError(arguments[0], "Cannot create directory: " + dir);
+        String path = arguments[i],
+            actualPath = JessyUtility::sanitizePath(agent, path);
+        if(!JessyIO::mkdir(actualPath))
+            printCommandError(arguments[0], "Cannot create directory: " + path);
     }
 }
 
@@ -88,9 +90,10 @@ void JessyTerminal::touch(JessyAgent &agent, String arguments[], uint8_t argc) {
     }
 
     for(uint8_t i = 1; i < argc; i++) {
-        String file = arguments[i];
-        if(!JessyIO::writeFile(agent.getWorkingDirectory() + F("/") + file, "\r"))
-            printCommandError(arguments[0], "Cannot create file: " + file);
+        String path = arguments[i],
+            actualPath = JessyUtility::sanitizePath(agent, path);
+        if(!JessyIO::writeFile(actualPath, "\r"))
+            printCommandError(arguments[0], "Cannot create file: " + path);
     }
 }
 
@@ -110,17 +113,40 @@ void JessyTerminal::rm(JessyAgent &agent, String arguments[], uint8_t argc) {
             continue;
         else {
             String file = arguments[i],
-                actualFile = agent.getWorkingDirectory() + "/" + file;
+                actualFile = JessyUtility::sanitizePath(agent, file);
 
             if(verbose)
                 JessyUtility::log(JSY_LOG_PLAIN, "Deleting " + file);
 
-            if(!JessyIO::deleteFile(actualFile))
-                JessyUtility::log(JSY_LOG_ERROR, "Cannot delete: " + file);
+            if(JessyIO::isFile(actualFile) && !JessyIO::deleteFile(actualFile))
+                JessyUtility::log(JSY_LOG_ERROR, "Cannot delete file: " + file);
+            else if(JessyIO::isDirectory(actualFile) &&
+                !JessyIO::rmdir(actualFile))
+                JessyUtility::log(JSY_LOG_ERROR, "Cannot delete directory: " + file);
         }
 }
 
 void JessyTerminal::cp(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 3) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String source = JessyUtility::sanitizePath(agent, arguments[1]),
+        dest = JessyUtility::sanitizePath(agent, arguments[2]);
+
+    if(!JessyIO::exists(source)) {
+        printCommandError(arguments[0], "Source file doesn't exist.");
+        return;
+    }
+    else if(JessyIO::exists(dest)) {
+        printCommandError(arguments[0], "Destination file already exists.");
+        return;
+    }
+
+    if(JessyIO::isFile(source)) {
+        return;
+    }
 }
 
 void JessyTerminal::mv(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -132,7 +158,7 @@ void JessyTerminal::cat(JessyAgent &agent, String arguments[], uint8_t argc) {
         return;
     }
 
-    String file = agent.getWorkingDirectory() + "/" + arguments[1];
+    String file = JessyUtility::sanitizePath(agent, arguments[1]);
     if(!JessyIO::exists(file)) {
         printCommandError(arguments[0], F("File doesn't exist."));
         return;
@@ -285,9 +311,6 @@ void JessyTerminal::time(JessyAgent &agent, String arguments[], uint8_t argc) {
     dateTime = dateTime.substring(dateTime.indexOf(' ') + 1);
 
     JessyIO::println(dateTime);
-}
-
-void JessyTerminal::cal(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
