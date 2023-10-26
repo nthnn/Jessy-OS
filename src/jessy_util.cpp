@@ -128,5 +128,7 @@ String JessyUtility::sanitizePath(JessyAgent &agent, String path) {
         wd += path.substring(1);
     else wd += (path.startsWith(F("/")) ? "" : "/") + path;
 
+    if(wd.endsWith("/"))
+        wd = wd.substring(0, wd.length() - 1);
     return wd;
 }

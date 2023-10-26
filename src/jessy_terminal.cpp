@@ -144,8 +144,23 @@ void JessyTerminal::cp(JessyAgent &agent, String arguments[], uint8_t argc) {
         return;
     }
 
-    if(JessyIO::isFile(source)) {
+    if(JessyIO::isFile(source) &&
+        !JessyIO::writeFile(dest, JessyIO::readFile(source))) {
+        printCommandError(arguments[0], F("Something went wrong while copying file."));
         return;
+    }
+    else {
+        String files[52];
+        for(uint16_t i = 0; i < JessyIO::listFiles(source, files); i++) {
+            String output = files[i];
+            output.replace(source, dest);
+
+            if(JessyIO::isFile(output))
+                JessyIO::writeFile(
+                    output,
+                    JessyIO::readFile(files[i])
+                );
+        }
     }
 }
 
@@ -328,6 +343,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("mkdir"))      JSY_EXEC(mkdir)
     else if(cmd == F("touch"))      JSY_EXEC(touch)
     else if(cmd == F("rm"))         JSY_EXEC(rm)
+    else if(cmd == F("cp"))         JSY_EXEC(cp)
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
