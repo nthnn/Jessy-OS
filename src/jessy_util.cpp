@@ -1,3 +1,4 @@
+#include <base64.h>
 #include <jessy_bios.h>
 #include <jessy_io.h>
 #include <jessy_util.h>
@@ -134,8 +135,16 @@ String JessyUtility::sanitizePath(JessyAgent &agent, String path) {
     return wd;
 }
 
-String JessyUtility::aesEncrypt(char key[16], String str) {
+String JessyUtility::aesEncrypt(String keyString, String string) {
+    char key[16];
     unsigned char output[16];
+
+    String keyStr(keyString.c_str());
+    keyStr = keyStr + keyStr + keyStr + keyStr;
+    strcpy(key, (char*) keyStr.substring(0, 16).c_str());
+
+    String str = string + string + string + string;
+    str = str.substring(0, 16);
 
     mbedtls_aes_context aes;
     mbedtls_aes_init(&aes);
@@ -156,4 +165,12 @@ String JessyUtility::aesEncrypt(char key[16], String str) {
         encrypted += s;
     }
     return encrypted;
+}
+
+String JessyUtility::toBase64(String str) {
+    uint8_t enclen = Base64.encodedLength(str.length());
+    char encstr[enclen + 1];
+
+    Base64.encode(encstr, (char*) str.c_str(), enclen);
+    return String(encstr);
 }

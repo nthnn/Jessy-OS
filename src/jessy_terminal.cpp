@@ -241,6 +241,42 @@ void JessyTerminal::echo(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::useradd(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 3) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String user = arguments[1],
+        user64 = JessyUtility::toBase64(user),
+        userFile = "/sys/users/" + user64,
+        password = arguments[2];
+
+    if(user.length() < 4 || password.length() < 4) {
+        printCommandError(
+            arguments[0],
+            F("Username and password must be at least 4 characters.")
+        );
+
+        return;
+    }
+
+    if(user == "anonymous" || user == "shared") {
+        printCommandError(arguments[0], F("Username is a special keyword."));
+        return;
+    }
+
+    if(JessyIO::exists(userFile) && JessyIO::isFile(userFile)) {
+        printCommandError(arguments[0], "Username already in use.");
+        return;
+    }
+
+    JessyIO::writeFile(
+        userFile,
+        JessyUtility::aesEncrypt(user64, password)
+    );
+
+    user.toLowerCase();
+    JessyIO::mkdir("/root/" + user);
 }
 
 void JessyTerminal::userdel(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -253,6 +289,38 @@ void JessyTerminal::sys(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
+    String su = arguments[0];
+
+    if(argc == 2 &&
+        (arguments[1] == "-o" ||
+            arguments[1] == "--out")) {
+        if(agent.getName() == "anonymous")
+            printCommandError(su, "Already a guess user.");
+        else agent.anonymous();
+
+        return;
+    }
+    else if(argc == 3) {
+        String user = arguments[1],
+            user64 = JessyUtility::toBase64(user),
+            password = arguments[2];
+        String userFile = "/sys/users/" + user64;
+
+        if(JessyIO::exists(userFile) && 
+            JessyIO::isFile(userFile) &&
+                JessyIO::readFile(userFile).equals(
+                    JessyUtility::aesEncrypt(user64, password)
+                )) {
+            user.toLowerCase();
+
+            agent.setName(user);
+            agent.setWorkingDirectory("/root/" + user);
+            return;
+        }
+
+        printCommandError(su, "Incorrect user credentials.");
+    }
+    else printIncorrectArity(su);
 }
 
 void JessyTerminal::sd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -391,6 +459,8 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("mv"))         JSY_EXEC(mv)
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
+    else if(cmd == F("useradd"))    JSY_EXEC(useradd)
+    else if(cmd == F("su"))         JSY_EXEC(su)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
     else if(cmd == F("gpio"))       JSY_EXEC(gpio)

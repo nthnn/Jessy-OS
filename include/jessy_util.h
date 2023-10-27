@@ -19,7 +19,8 @@ public:
     static RTC_DS1307 createClock();
 
     static String sanitizePath(JessyAgent &agent, String path);
-    static String aesEncrypt(char key[16], String str);
+    static String aesEncrypt(String keyString, String str);
+    static String toBase64(String str);
 };
 
 #endif
