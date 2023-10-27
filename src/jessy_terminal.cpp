@@ -7,11 +7,13 @@
 
 static void printCommandError(String cmd, String message) {
     JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
-    JessyIO::println("    Type: help " + cmd);
 }
 
 static void printIncorrectArity(String cmd) {
-    printCommandError(cmd, F("Incorrect parameter arity."));
+    printCommandError(cmd,
+        "Incorrect parameter arity."
+        "\n    Type: help " + cmd
+    );
 }
 
 void JessyTerminal::cd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -280,6 +282,71 @@ void JessyTerminal::useradd(JessyAgent &agent, String arguments[], uint8_t argc)
 }
 
 void JessyTerminal::userdel(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 3) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String su = arguments[0];
+    if(agent.getName() == F("anonymous")) {
+        printCommandError(su, F("Anonymous user cannot delete another user."));
+        return;
+    }
+
+    if(argc == 3) {
+        String user = arguments[1],
+            user64 = JessyUtility::toBase64(user),
+            password = arguments[2];
+        String userFile = "/sys/users/" + user64;
+
+        if(JessyIO::exists(userFile) && 
+            JessyIO::isFile(userFile) &&
+                JessyIO::readFile(userFile).equals(
+                    JessyUtility::aesEncrypt(user64, password)
+                )) {
+            user.toLowerCase();
+
+            String files[256];
+            uint16_t count = JessyIO::listFilesRecursive("/root/" + user, files);
+
+            for(uint16_t i = 0; i < count; i++)
+                if(JessyIO::isFile(files[i])) {
+                    if(!JessyIO::deleteFile(files[i]))
+                        printCommandError(
+                            arguments[0],
+                            "Cannot delete file: " + files[i]
+                        );
+                }
+
+            for(uint16_t i = count; i > 0; i--)
+                if(JessyIO::isDirectory(files[i])) {
+                    if(!JessyIO::rmdir(files[i]))
+                        printCommandError(
+                            arguments[0],
+                            "Cannot delete directory: " + files[i]
+                        );
+                }
+
+            if(!JessyIO::rmdir("/root/" + user)) {
+                printCommandError(arguments[0], F("Cannot remove user root folder."));
+                return;
+            }
+
+            if(!JessyIO::deleteFile("/sys/users/" + user64)) {
+                printCommandError(arguments[0], F("Cannot remove user account."));
+                return;
+            }
+
+            String args[] = {"su", "-o"};
+            JessyTerminal::su(agent, args, 2);
+            return;
+        }
+
+        printCommandError(su, F("Incorrect user credentials."));
+        return;
+    }
+
+    printIncorrectArity(su);
 }
 
 void JessyTerminal::passwd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -320,7 +387,7 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
             return;
         }
 
-        printCommandError(su, "Incorrect user credentials.");
+        printCommandError(su, F("Incorrect user credentials."));
     }
     else printIncorrectArity(su);
 }
@@ -462,6 +529,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
     else if(cmd == F("useradd"))    JSY_EXEC(useradd)
+    else if(cmd == F("userdel"))    JSY_EXEC(userdel)
     else if(cmd == F("su"))         JSY_EXEC(su)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
