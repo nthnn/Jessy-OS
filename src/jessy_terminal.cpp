@@ -291,69 +291,114 @@ void JessyTerminal::userdel(JessyAgent &agent, String arguments[], uint8_t argc)
         return;
     }
 
-    String su = arguments[0];
+    String userdel = arguments[0];
     if(agent.getName() == F("anonymous")) {
-        printCommandError(su, F("Anonymous user cannot delete another user."));
+        printCommandError(userdel, F("Anonymous user cannot delete another user."));
         return;
     }
 
-    if(argc == 3) {
-        String user = arguments[1],
-            user64 = JessyUtility::toBase64(user),
-            password = arguments[2];
-        String userFile = "/sys/users/" + user64;
+    String user = arguments[1],
+        user64 = JessyUtility::toBase64(user),
+        password = arguments[2];
+    String userFile = "/sys/users/" + user64;
 
-        if(JessyIO::exists(userFile) && 
-            JessyIO::isFile(userFile) &&
-                JessyIO::readFile(userFile).equals(
-                    JessyUtility::aesEncrypt(user64, password)
-                )) {
-            user.toLowerCase();
+    if(user.length() < 4 || password.length() < 4) {
+        printCommandError(
+            arguments[0],
+            F("Username and password must be at least 4 characters.")
+        );
 
-            String files[256];
-            uint16_t count = JessyIO::listFilesRecursive("/root/" + user, files);
+        return;
+    }
 
-            for(uint16_t i = 0; i < count; i++)
-                if(JessyIO::isFile(files[i])) {
-                    if(!JessyIO::deleteFile(files[i]))
-                        printCommandError(
-                            arguments[0],
-                            "Cannot delete file: " + files[i]
-                        );
-                }
+    if(JessyIO::exists(userFile) && 
+        JessyIO::isFile(userFile) &&
+            JessyIO::readFile(userFile).equals(
+                JessyUtility::aesEncrypt(user64, password)
+            )) {
+        user.toLowerCase();
 
-            for(uint16_t i = count; i > 0; i--)
-                if(JessyIO::isDirectory(files[i])) {
-                    if(!JessyIO::rmdir(files[i]))
-                        printCommandError(
-                            arguments[0],
-                            "Cannot delete directory: " + files[i]
-                        );
-                }
+        String files[256];
+        uint16_t count = JessyIO::listFilesRecursive("/root/" + user, files);
 
-            if(!JessyIO::rmdir("/root/" + user)) {
-                printCommandError(arguments[0], F("Cannot remove user root folder."));
-                return;
+        for(uint16_t i = 0; i < count; i++)
+            if(JessyIO::isFile(files[i])) {
+                if(!JessyIO::deleteFile(files[i]))
+                    printCommandError(
+                        arguments[0],
+                        "Cannot delete file: " + files[i]
+                    );
             }
 
-            if(!JessyIO::deleteFile("/sys/users/" + user64)) {
-                printCommandError(arguments[0], F("Cannot remove user account."));
-                return;
+        for(uint16_t i = count; i > 0; i--)
+            if(JessyIO::isDirectory(files[i])) {
+                if(!JessyIO::rmdir(files[i]))
+                    printCommandError(
+                        arguments[0],
+                        "Cannot delete directory: " + files[i]
+                    );
             }
 
-            String args[] = {"su", "-o"};
-            JessyTerminal::su(agent, args, 2);
+        if(!JessyIO::rmdir("/root/" + user)) {
+            printCommandError(arguments[0], F("Cannot remove user root folder."));
             return;
         }
 
-        printCommandError(su, F("Incorrect user credentials."));
+        if(!JessyIO::deleteFile("/sys/users/" + user64)) {
+            printCommandError(arguments[0], F("Cannot remove user account."));
+            return;
+        }
+
+        String args[] = {"su", "-o"};
+        JessyTerminal::su(agent, args, 2);
         return;
     }
 
-    printIncorrectArity(su);
+    printCommandError(userdel, F("Incorrect user credentials."));
 }
 
 void JessyTerminal::passwd(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 4) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String passwd = arguments[0];
+    if(agent.getName() == F("anonymous")) {
+        printCommandError(passwd, F("Anonymous user cannot edit another user."));
+        return;
+    }
+
+    String user = arguments[1],
+        user64 = JessyUtility::toBase64(user),
+        password = arguments[2],
+        newpass = arguments[3];
+    String userFile = "/sys/users/" + user64;
+
+    if(user.length() < 4 ||
+        password.length() < 4 ||
+        newpass.length() < 4) {
+        printCommandError(
+            arguments[0],
+            F("Username and passwords must be at least 4 characters.")
+        );
+
+        return;
+    }
+
+    if(JessyIO::exists(userFile) && 
+        JessyIO::isFile(userFile) &&
+            JessyIO::readFile(userFile).equals(
+                JessyUtility::aesEncrypt(user64, password)
+            )) {
+        JessyIO::writeFile(
+            userFile,
+            JessyUtility::aesEncrypt(user64, newpass)
+        );
+        return;
+    }
+
+    printCommandError(passwd, F("Incorrect user credentials."));
 }
 
 void JessyTerminal::sys(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -391,7 +436,9 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
             return;
         }
 
-        printCommandError(su, F("Incorrect user credentials."));
+        if(JessyIO::exists(userFile))
+            printCommandError(su, F("Incorrect user credentials."));
+        else printCommandError(su, F("User not found."));
     }
     else printIncorrectArity(su);
 }
@@ -535,6 +582,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("clear"))      JSY_EXEC(clear)
     else if(cmd == F("useradd"))    JSY_EXEC(useradd)
     else if(cmd == F("userdel"))    JSY_EXEC(userdel)
+    else if(cmd == F("passwd"))     JSY_EXEC(passwd)
     else if(cmd == F("su"))         JSY_EXEC(su)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
