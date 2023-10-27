@@ -120,9 +120,25 @@ void JessyTerminal::rm(JessyAgent &agent, String arguments[], uint8_t argc) {
 
             if(JessyIO::isFile(actualFile) && !JessyIO::deleteFile(actualFile))
                 JessyUtility::log(JSY_LOG_ERROR, "Cannot delete file: " + file);
-            else if(JessyIO::isDirectory(actualFile) &&
-                !JessyIO::rmdir(actualFile))
-                JessyUtility::log(JSY_LOG_ERROR, "Cannot delete directory: " + file);
+            else if(JessyIO::isDirectory(actualFile)) {
+                String files[100];
+                uint16_t count = JessyIO::listFilesRecursive(actualFile, files);
+
+                for(uint16_t i = 0; i < count; i++)
+                    if(JessyIO::isFile(files[i]) && !JessyIO::deleteFile(files[i])) {
+                        JessyUtility::log(JSY_LOG_ERROR, "Cannot delete file: " + files[i]);
+                        return;
+                    }
+
+                for(uint16_t i = 0; i < count; i++)
+                    if(JessyIO::isDirectory(files[i]) && !JessyIO::rmdir(files[i])) {
+                        JessyUtility::log(JSY_LOG_ERROR, "Cannot delete file: " + files[i]);
+                        return;
+                    }
+
+                if(!JessyIO::rmdir(actualFile))
+                    JessyUtility::log(JSY_LOG_ERROR, "Cannot delete directory: " + file);
+            }
         }
 }
 
@@ -134,12 +150,14 @@ void JessyTerminal::cp(JessyAgent &agent, String arguments[], uint8_t argc) {
 
     String source = JessyUtility::sanitizePath(agent, arguments[1]),
         dest = JessyUtility::sanitizePath(agent, arguments[2]);
+    if(source == dest)
+        return;
 
     if(!JessyIO::exists(source)) {
         printCommandError(arguments[0], "Source file doesn't exist.");
         return;
     }
-    else if(JessyIO::exists(dest)) {
+    else if(JessyIO::exists(dest) && JessyIO::isFile(dest)) {
         printCommandError(arguments[0], "Destination file already exists.");
         return;
     }
@@ -150,21 +168,47 @@ void JessyTerminal::cp(JessyAgent &agent, String arguments[], uint8_t argc) {
         return;
     }
     else {
-        String files[52];
+        String files[100];
         for(uint16_t i = 0; i < JessyIO::listFiles(source, files); i++) {
-            String output = files[i];
+            String output = files[i],
+                original = output;
             output.replace(source, dest);
 
-            if(JessyIO::isFile(output))
+            if(JessyIO::isFile(original))
                 JessyIO::writeFile(
                     output,
                     JessyIO::readFile(files[i])
                 );
+            else if(JessyIO::isDirectory(original)) {
+                JessyIO::mkdir(output);
+
+                String wd = agent.getWorkingDirectory();
+                original.replace(wd, F(""));
+                output.replace(wd, F(""));
+
+                String args[] = {"cp", original, output};
+                JessyTerminal::cp(agent, args, 3);
+            }
         }
     }
 }
 
 void JessyTerminal::mv(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 3) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String source = arguments[1], dest = arguments[2];
+    if(JessyUtility::sanitizePath(agent, source) ==
+        JessyUtility::sanitizePath(agent, dest))
+        return;
+
+    String cpArgs[] = {"cp", source, dest};
+    String rmArgs[] = {"rm", source};
+
+    JessyTerminal::cp(agent, cpArgs, 3);
+    JessyTerminal::rm(agent, rmArgs, 2);
 }
 
 void JessyTerminal::cat(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -344,6 +388,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("touch"))      JSY_EXEC(touch)
     else if(cmd == F("rm"))         JSY_EXEC(rm)
     else if(cmd == F("cp"))         JSY_EXEC(cp)
+    else if(cmd == F("mv"))         JSY_EXEC(mv)
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
