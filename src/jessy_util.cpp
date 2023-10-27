@@ -1,6 +1,7 @@
 #include <jessy_bios.h>
 #include <jessy_io.h>
 #include <jessy_util.h>
+#include <mbedtls/aes.h>
 #include <RTClib.h>
 #include <TimeLib.h>
 
@@ -131,4 +132,28 @@ String JessyUtility::sanitizePath(JessyAgent &agent, String path) {
     if(wd.endsWith("/"))
         wd = wd.substring(0, wd.length() - 1);
     return wd;
+}
+
+String JessyUtility::aesEncrypt(char key[16], String str) {
+    unsigned char output[16];
+
+    mbedtls_aes_context aes;
+    mbedtls_aes_init(&aes);
+    mbedtls_aes_setkey_enc(&aes, (const unsigned char*) key, strlen(key) * 8);
+    mbedtls_aes_crypt_ecb(
+        &aes,
+        MBEDTLS_AES_ENCRYPT,
+        (const unsigned char*) str.c_str(),
+        output
+    );
+    mbedtls_aes_free(&aes);
+
+    String encrypted = "";
+    for(uint8_t i = 0; i < 16; i++) {
+        char s[3];
+
+        sprintf(s, "%02x", output[i]);
+        encrypted += s;
+    }
+    return encrypted;
 }
