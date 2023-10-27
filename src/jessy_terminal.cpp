@@ -242,6 +242,10 @@ void JessyTerminal::echo(JessyAgent &agent, String arguments[], uint8_t argc) {
         JessyIO::println(arguments[i]);
 }
 
+void JessyTerminal::clear(JessyAgent &agent, String arguments[], uint8_t argc) {
+    JessyIO::clearScreen();
+}
+
 void JessyTerminal::useradd(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc != 3) {
         printIncorrectArity(arguments[0]);
@@ -528,6 +532,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("mv"))         JSY_EXEC(mv)
     else if(cmd == F("cat"))        JSY_EXEC(cat)
     else if(cmd == F("echo"))       JSY_EXEC(echo)
+    else if(cmd == F("clear"))      JSY_EXEC(clear)
     else if(cmd == F("useradd"))    JSY_EXEC(useradd)
     else if(cmd == F("userdel"))    JSY_EXEC(userdel)
     else if(cmd == F("su"))         JSY_EXEC(su)

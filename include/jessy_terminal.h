@@ -14,6 +14,7 @@ public:
 
     static void cat(JessyAgent &agent, String arguments[], uint8_t argc);
     static void echo(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void clear(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void useradd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void userdel(JessyAgent &agent, String arguments[], uint8_t argc);
