@@ -19,11 +19,11 @@ public:
     static void useradd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void userdel(JessyAgent &agent, String arguments[], uint8_t argc);
     static void passwd(JessyAgent &agent, String arguments[], uint8_t argc);
-    static void sys(JessyAgent &agent, String arguments[], uint8_t argc);
     static void su(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void sd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void reboot(JessyAgent &agent, String arguments[], uint8_t argc);
     static void gpio(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void date(JessyAgent &agent, String arguments[], uint8_t argc);

@@ -401,9 +401,6 @@ void JessyTerminal::passwd(JessyAgent &agent, String arguments[], uint8_t argc) 
     printCommandError(passwd, F("Incorrect user credentials."));
 }
 
-void JessyTerminal::sys(JessyAgent &agent, String arguments[], uint8_t argc) {
-}
-
 void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
     String su = arguments[0];
 
@@ -506,6 +503,15 @@ void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc
     JessyIO::println(String(F("Sketch size:\t\t")) + ESP.getSketchSize());
 }
 
+void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    ESP.restart();
+}
+
 void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc < 2 || argc > 4) {
         printIncorrectArity(arguments[0]);
@@ -586,6 +592,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("su"))         JSY_EXEC(su)
     else if(cmd == F("sd"))         JSY_EXEC(sd)
     else if(cmd == F("esp32cpu"))   JSY_EXEC(esp32cpu)
+    else if(cmd == F("reboot"))     JSY_EXEC(reboot)
     else if(cmd == F("gpio"))       JSY_EXEC(gpio)
     else if(cmd == F("date"))       JSY_EXEC(date)
     else if(cmd == F("time"))       JSY_EXEC(time)
