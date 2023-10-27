@@ -8,6 +8,7 @@ class JessyIO {
 public:
     static void print(String text);
     static void println(String text = "");
+    static void clearScreen();
     static String scan();
 
     static bool mkdir(String path);

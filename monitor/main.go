@@ -38,6 +38,10 @@ func main() {
 
 	for {
 		str := serport.ReadFromFirmwareSerial(port)
+		if str == "<clear>" {
+			screen.Clear()
+			continue
+		}
 
 		fmt.Print(str)
 		if strings.HasSuffix(str, "#~ ") ||

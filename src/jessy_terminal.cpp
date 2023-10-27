@@ -315,6 +315,8 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
 
             agent.setName(user);
             agent.setWorkingDirectory("/root/" + user);
+
+            JessyIO::clearScreen();
             return;
         }
 

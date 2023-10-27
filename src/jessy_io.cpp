@@ -14,8 +14,13 @@ void JessyIO::println(String text) {
     Serial.println(text);
 }
 
+void JessyIO::clearScreen() {
+    JessyIO::print(F("<clear>"));
+    delay(100);
+}
+
 String JessyIO::scan() {
-    Serial.print("<~>");
+    Serial.print(F("<~>"));
     return Serial.readStringUntil('\n');
 }
 
