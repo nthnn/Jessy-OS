@@ -172,6 +172,13 @@ If you want to contribute to Jessy OS, follow these steps:
 - [Nathanne Isip](https://github.com/nthnn) - Original Author, Developer
 - [Lady Selene](https://instagram.com/lady.selenee) - Logo designer (Jessy OS is named after her)
 
+## To-do
+
+1. Make a GNU's `wget`-like command.
+2. Port any other tiny programming/scripting language other than Duktape's JavaScript.
+3. Scheduling and auto-run tasks on boot-up.
+4. Design a customized PCB.
+
 ## License
 
 Copyright 2023 - Nathanne Isip
