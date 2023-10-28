@@ -1,4 +1,5 @@
 #include <ESP32Ping.h>
+#include <HTTPClient.h>
 #include <jessy_agent.h>
 #include <jessy_bios.h>
 #include <jessy_io.h>
@@ -799,6 +800,7 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(argc == 4 && arguments[1] == "connect") {
         String ssid = arguments[2], password = arguments[3];
 
+        WiFi.setHostname((agent.getName() + "@jsy").c_str());
         WiFi.begin(ssid, password);
         JessyUtility::log(JSY_LOG_PLAIN, "Connecting to SSID: " + ssid);
 
