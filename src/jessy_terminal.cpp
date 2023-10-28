@@ -3,6 +3,7 @@
 #include <jessy_agent.h>
 #include <jessy_bios.h>
 #include <jessy_io.h>
+#include <jessy_js.h>
 #include <jessy_terminal.h>
 #include <jessy_util.h>
 #include <SD.h>
@@ -822,6 +823,21 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 2) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    String inputFile = JessyUtility::sanitizePath(agent, arguments[1]);
+    if(!JessyIO::exists(inputFile) || !JessyIO::isFile(inputFile)) {
+        printCommandError(arguments[0], "Input script doesn't exist.");
+        return;
+    }
+
+    JessyDuktape::init();
+    JessyDuktape::eval(inputFile);
+    JessyDuktape::free();
+    JessyIO::println();
 }
 
 void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -853,6 +869,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("time"))       JSY_EXEC(time)
     else if(cmd == F("wlan"))       JSY_EXEC(wlan)
     else if(cmd == F("ping"))       JSY_EXEC(ping)
+    else if(cmd == F("js"))         JSY_EXEC(js)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]
