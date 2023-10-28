@@ -9,6 +9,7 @@ public:
     static void free();
 
     static void eval(String fileName);
+    static void evalString(String script);
 
 private:
     static void initIOObject();

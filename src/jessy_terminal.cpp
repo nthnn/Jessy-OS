@@ -823,21 +823,30 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
-    if(argc != 2) {
-        printIncorrectArity(arguments[0]);
+    if(argc == 3 && arguments[1] == "eval") {
+        JessyDuktape::init();
+        JessyDuktape::evalString(arguments[2]);
+        JessyDuktape::free();
+
+        JessyIO::println();
+        return;
+    }
+    else if(argc == 2) {
+        String inputFile = JessyUtility::sanitizePath(agent, arguments[1]);
+        if(!JessyIO::exists(inputFile) || !JessyIO::isFile(inputFile)) {
+            printCommandError(arguments[0], "Input script doesn't exist.");
+            return;
+        }
+
+        JessyDuktape::init();
+        JessyDuktape::eval(inputFile);
+        JessyDuktape::free();
+
+        JessyIO::println();
         return;
     }
 
-    String inputFile = JessyUtility::sanitizePath(agent, arguments[1]);
-    if(!JessyIO::exists(inputFile) || !JessyIO::isFile(inputFile)) {
-        printCommandError(arguments[0], "Input script doesn't exist.");
-        return;
-    }
-
-    JessyDuktape::init();
-    JessyDuktape::eval(inputFile);
-    JessyDuktape::free();
-    JessyIO::println();
+    printIncorrectArity(arguments[0]);
 }
 
 void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
