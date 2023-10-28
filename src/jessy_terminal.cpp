@@ -1,3 +1,4 @@
+#include <ESP32Ping.h>
 #include <jessy_agent.h>
 #include <jessy_bios.h>
 #include <jessy_io.h>
@@ -593,6 +594,39 @@ void JessyTerminal::time(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::ping(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(WiFi.status() != WL_CONNECTED) {
+        printCommandError(arguments[0], F("Not connect to any network."));
+        return;
+    }
+
+    #define sendPing(count) for(uint8_t i = 0; i < count ; i++) {   \
+        if(Ping.ping(host.c_str()))                                         \
+            JessyIO::println(                                       \
+                "[" + String(i + 1) +                               \
+                "] Packet sent to " + host                          \
+            );                                                      \
+        else JessyIO::println(                                      \
+            "[" + String(i + 1) +                                   \
+            "] Packet not sent to " + host                          \
+        );                                                          \
+    }
+
+    if(argc == 2) {
+        String host = arguments[1];
+
+        sendPing(3);
+        return;
+    }
+    else if(argc == 3) {
+        String host = arguments[1];
+        uint8_t count = (uint8_t) arguments[2].toInt();
+
+        sendPing(count);
+        return;
+    }
+
+    printIncorrectArity(arguments[0]);
+    #undef sendPing
 }
 
 void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -816,6 +850,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("date"))       JSY_EXEC(date)
     else if(cmd == F("time"))       JSY_EXEC(time)
     else if(cmd == F("wlan"))       JSY_EXEC(wlan)
+    else if(cmd == F("ping"))       JSY_EXEC(ping)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]
