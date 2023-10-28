@@ -600,7 +600,7 @@ void JessyTerminal::ping(JessyAgent &agent, String arguments[], uint8_t argc) {
     }
 
     #define sendPing(count) for(uint8_t i = 0; i < count ; i++) {   \
-        if(Ping.ping(host.c_str()))                                         \
+        if(Ping.ping(host.c_str()))                                 \
             JessyIO::println(                                       \
                 "[" + String(i + 1) +                               \
                 "] Packet sent to " + host                          \
