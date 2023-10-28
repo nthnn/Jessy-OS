@@ -377,9 +377,12 @@ void JessyTerminal::userdel(JessyAgent &agent, String arguments[], uint8_t argc)
             printCommandError(arguments[0], F("Cannot remove user account."));
             return;
         }
+        user.toLowerCase();
 
-        String args[] = {"su", "-o"};
-        JessyTerminal::su(agent, args, 2);
+        if(user == agent.getName()) {
+            String args[] = {"su", "-o"};
+            JessyTerminal::su(agent, args, 2);
+        }
         return;
     }
 

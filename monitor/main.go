@@ -39,7 +39,6 @@ func main() {
 	for {
 		str := serport.ReadFromFirmwareSerial(port)
 		if str == "<clear>" {
-			screen.Clear()
 			continue
 		}
 
