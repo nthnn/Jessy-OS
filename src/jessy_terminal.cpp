@@ -4,6 +4,7 @@
 #include <jessy_terminal.h>
 #include <jessy_util.h>
 #include <SD.h>
+#include <WiFi.h>
 
 static void printCommandError(String cmd, String message) {
     JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
@@ -14,6 +15,31 @@ static void printIncorrectArity(String cmd) {
         "Incorrect parameter arity."
         "\n    Type: help " + cmd
     );
+}
+
+static String encryptionString(wifi_auth_mode_t enctype) {
+    switch(enctype) {
+        case WIFI_AUTH_OPEN:
+            return F("Open            ");
+
+        case WIFI_AUTH_WEP:
+            return F("WEP             ");
+
+        case WIFI_AUTH_WPA_PSK:
+            return F("WPA-PSK         ");
+
+        case WIFI_AUTH_WPA2_PSK:
+            return F("WPA2-PSK        ");
+
+        case WIFI_AUTH_WPA_WPA2_PSK:
+            return F("WPA/WPA2-PSK    ");
+
+        case WIFI_AUTH_WPA2_ENTERPRISE:
+            return F("WPA2-ENTERPRISE ");
+
+        default:
+            return F("Unknown         ");
+    }
 }
 
 void JessyTerminal::cd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -566,6 +592,199 @@ void JessyTerminal::time(JessyAgent &agent, String arguments[], uint8_t argc) {
     JessyIO::println(dateTime);
 }
 
+void JessyTerminal::ping(JessyAgent &agent, String arguments[], uint8_t argc) {
+}
+
+void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc == 2) {
+        String command = arguments[1];
+        if(command == F("disconnect")) {
+            WiFi.disconnect();
+            JessyUtility::log(JSY_LOG_SUCCESS, F("Disconnected to WLAN!"));
+
+            return;
+        }
+        else if(command == F("status")) {
+            JessyIO::print(F("WLAN Status:\t"));
+            switch(WiFi.status()) {
+                case WL_CONNECT_FAILED:
+                    JessyIO::println(F("Connect failed."));
+                    break;
+                
+                case WL_CONNECTED:
+                    JessyIO::println(F("Connected."));
+                    break;
+
+                case WL_CONNECTION_LOST:
+                    JessyIO::println(F("Connection lost."));
+                    break;
+
+                case WL_DISCONNECTED:
+                    JessyIO::println(F("Disconnected."));
+                    break;
+
+                case WL_IDLE_STATUS:
+                    JessyIO::println(F("Idle status."));
+                    break;
+
+                case WL_NO_SHIELD:
+                    JessyIO::println(F("No shield."));
+                    break;
+
+                case WL_NO_SSID_AVAIL:
+                    JessyIO::println(F("SSID available"));
+                    break;
+
+                case WL_SCAN_COMPLETED:
+                    JessyIO::println(F("Scan completed."));
+                    break;
+
+                default:
+                    JessyIO::println(F("Unknown."));
+                    break;
+            }
+
+            JessyIO::println("RSSI:\t\t" + String(WiFi.RSSI()) + "dBm");
+            return;
+        }
+        else if(command == "info") {
+            if(WiFi.status() != WL_CONNECTED) {
+                printCommandError(arguments[0], F("Not connected to any network."));
+                return;
+            }
+
+            JessyIO::println("Broadcast IP:\t" + WiFi.broadcastIP().toString());
+            JessyIO::println("BSSID:\t\t" + WiFi.BSSIDstr());
+            JessyIO::println("DNS IP:\t\t" + WiFi.dnsIP().toString());
+            JessyIO::println("Gateway IP:\t" + WiFi.gatewayIP().toString());
+            JessyIO::println("Local IP:\t" + WiFi.localIP().toString());
+            JessyIO::println("Local IPv6:\t" + WiFi.localIPv6().toString());
+            JessyIO::println("Mac Address:\t" + WiFi.macAddress());
+            JessyIO::println("Subnet mask:\t" + WiFi.subnetMask().toString());
+
+            return;
+        }
+        else if(command == "scan") {
+            int16_t n = WiFi.scanNetworks();
+            if(n == 0) {
+                JessyUtility::log(JSY_LOG_WARNING, "No networks found.");
+                return;
+            }
+
+            for(int16_t i = 0; i < n; i++) {
+                JessyIO::print("[   " + String(i + 1) + "]: ");
+                JessyIO::print(encryptionString(WiFi.encryptionType(i)) + "\t");
+                JessyIO::print(String(WiFi.RSSI(i)) + "dBm\t");
+                JessyIO::println(WiFi.SSID(i));
+
+                delay(10);
+            }
+
+            return;
+        }
+    }
+    else if(argc == 3 && arguments[1] == "mode") {
+        String mode = arguments[2];
+
+        if(mode == "station") {
+            WiFi.mode(WIFI_STA);
+            return;
+        }
+        else if(mode == "ap") {
+            WiFi.mode(WIFI_AP);
+            return;
+        }
+        else if(mode == "ap-station") {
+            WiFi.mode(WIFI_AP_STA);
+            return;
+        }
+
+        printCommandError(arguments[0], F("Unknown WiFi mode."));
+        return;
+    }
+    else if(argc == 4 && arguments[1] == "config") {
+        String config = arguments[2];
+
+        IPAddress localIP = WiFi.localIP();
+        IPAddress gateway = WiFi.gatewayIP();
+        IPAddress subnet = WiFi.subnetMask();
+
+        if(config == "ip") {
+            if(!localIP.fromString(arguments[3])){
+                JessyUtility::log(JSY_LOG_ERROR, F("Invalid IP address string."));
+                return;
+            }
+
+            if(!WiFi.config(localIP, gateway, subnet))
+                printCommandError(arguments[0], F("Cannot configure local IP."));
+            return;
+        }
+        else if(config == "gateway") {
+            if(!gateway.fromString(arguments[3])){
+                JessyUtility::log(JSY_LOG_ERROR, F("Invalid gateway address string."));
+                return;
+            }
+
+            if(!WiFi.config(localIP, gateway, subnet))
+                printCommandError(arguments[0], F("Cannot configure gateway."));
+            return;
+        }
+        else if(config == "subnet") {
+            if(!subnet.fromString(arguments[3])){
+                JessyUtility::log(JSY_LOG_ERROR, F("Invalid subnet address string."));
+                return;
+            }
+
+            if(!WiFi.config(localIP, gateway, subnet))
+                printCommandError(arguments[0], F("Cannot configure subnet."));
+            return;
+        }
+
+        printCommandError(arguments[0], F("Invalid config command."));
+    }
+    else if(argc == 5 && arguments[1] == "config" && arguments[2] == "dns") {
+        IPAddress localIP = WiFi.localIP();
+        IPAddress gateway = WiFi.gatewayIP();
+        IPAddress subnet = WiFi.subnetMask();
+        IPAddress primary, secondary;
+
+        if(!primary.fromString(arguments[3])){
+            JessyUtility::log(JSY_LOG_ERROR, F("Invalid primary DNS address string."));
+            return;
+        }
+
+        if(!secondary.fromString(arguments[4])){
+            JessyUtility::log(JSY_LOG_ERROR, F("Invalid secondary DNS address string."));
+            return;
+        }
+
+        if(!WiFi.config(localIP, gateway, subnet, primary, secondary))
+            printCommandError(arguments[0], F("Cannot configure DNS addresses."));
+        return;
+    }
+    else if(argc == 4 && arguments[1] == "connect") {
+        String ssid = arguments[2], password = arguments[3];
+
+        WiFi.begin(ssid, password);
+        JessyUtility::log(JSY_LOG_PLAIN, "Connecting to SSID: " + ssid);
+
+        long marker = millis();
+        while(WiFi.status() != WL_CONNECTED) {
+            delay(100);
+
+            if(millis() - marker > 20000) {
+                JessyUtility::log(JSY_LOG_ERROR, F("Cannot connect to WLAN."));
+                return;
+            }
+        }
+
+        JessyUtility::log(JSY_LOG_SUCCESS, "Connected!");
+        return;
+    }
+
+    printIncorrectArity(arguments[0]);
+}
+
 void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
@@ -596,6 +815,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("gpio"))       JSY_EXEC(gpio)
     else if(cmd == F("date"))       JSY_EXEC(date)
     else if(cmd == F("time"))       JSY_EXEC(time)
+    else if(cmd == F("wlan"))       JSY_EXEC(wlan)
     else JessyUtility::log(
         JSY_LOG_ERROR,
         "Command not found: " + arguments[0]

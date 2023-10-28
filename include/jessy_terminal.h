@@ -29,6 +29,9 @@ public:
     static void date(JessyAgent &agent, String arguments[], uint8_t argc);
     static void time(JessyAgent &agent, String arguments[], uint8_t argc);
 
+    static void ping(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void wlan(JessyAgent &agent, String arguments[], uint8_t argc);
+
     static void js(JessyAgent &agent, String arguments[], uint8_t argc);
 };
 
