@@ -29,11 +29,14 @@ After gathering the aforementioned components, connect it as follows:
 <table align="center">
     <thead>
         <tr>
-            <td>SD Card Adapter</td>
+            <td>Component</td>
             <td>ESP32</td>
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td colspan="2" align="center">SD Card</td>
+        </tr>
         <tr>
             <td>VCC</td>
             <td>VCC</td>
@@ -58,17 +61,9 @@ After gathering the aforementioned components, connect it as follows:
             <td>SCK</td>
             <td>GPIO18</td>
         </tr>
-    </tbody>
-</table>
-
-<table align="center">
-    <thead>
         <tr>
-            <td>DS1307</td>
-            <td>ESP32</td>
+            <td colspan="2" align="center">DS1307 RTC</td>
         </tr>
-    </thead>
-    <tbody>
         <tr>
             <td>VCC</td>
             <td>VCC</td>
@@ -119,6 +114,49 @@ The documentation includes documentation on how Jessy OS works, the available te
 ## Contribution and Feedback
 
 Contributions and feedback are all welcome to enhance this library. If you encounter any issues, have suggestions for improvements, or would like to contribute code, please do so.
+
+### Issue Reporting
+
+If you encounter a bug, have a feature request, or want to suggest improvements, please open an issue on the [GitHub Issue Tracker](https://github.com/nthnn/Jessy-OS/issues). Be sure to provide as much detail as possible, including steps to reproduce the issue if applicable.
+
+### Pull Requests
+
+If you want to contribute to Jessy OS, follow these steps:
+
+1. Fork the Jessy OS repository to your GitHub account. And then clone it to your local machine.
+
+    ```bash
+    git clone https://github.com/<your username>/Jessy-OS.git
+    ```
+
+2. Create a new branch for your changes:
+
+    ```bash
+    git checkout -b feature/<your feature name>
+    ```
+
+3. You can now make changes to the repository.
+4. Commit your changes:
+
+    ```bash
+    git add -A
+    git commit -m "Add your meaningful commit message here"
+    ```
+
+5. Push your changes to your forked repository:
+
+    ```bash
+    git push origin feature/<your feature name>
+    ```
+
+6. Create a pull request (PR) from your branch to the main branch of the Jessy OS repository.
+7. Your PR will be reviewed, and any necessary changes will be discussed and implemented.
+8. Once your PR is approved, it will be merged into the main branch, and your contribution will be part of Jessy OS.
+
+## Contributors
+
+- [Nathanne Isip](https://github.com/nthnn) - Original Author, Developer
+- [Lady Selene](https://instagram.com/lady.selenee) - Logo designer (Jessy OS is named after her)
 
 ## License
 
