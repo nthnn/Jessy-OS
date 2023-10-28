@@ -2,9 +2,9 @@
   "name": "jessy-os-docs",
   "version": "1.0.0",
   "description": "Official Jessy OS documentations.",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel serve index.pug",
+    "build": "parcel build --public-url ./ index.pug"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/nthnn/Jessy-OS/issues"
   },
-  "homepage": "https://github.com/nthnn/Jessy-OS#readme"
+  "homepage": "https://github.com/nthnn/Jessy-OS#readme",
+  "devDependencies": {
+    "@parcel/transformer-pug": "^2.10.1",
+    "parcel": "^2.10.1"
+  }
 }

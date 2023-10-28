@@ -1,0 +1,242 @@
+doctype html
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    meta(name="author", content="nthnn")
+    meta(name="description", content="Jessy OS Official Website")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    title Jessy OS | Home Page
+    link(href="https://bootswatch.com/5/lux/bootstrap.min.css", rel="stylesheet")
+
+    style html, body {overflow-x: hidden}
+body(class="bg-primary text-white")
+    div(class="mt-4")
+
+    center 
+        img(src="assets/jessy_os_logo.png" width="250")
+        div(class="col-6")
+            a(class="btn btn-primary text-white" href="#") Home
+            a(class="btn btn-primary text-white" href="docs.pug") Documentation
+            a(class="btn btn-primary text-white" href="api-refs.pug") API Reference
+            a(class="btn btn-primary text-white" href="donate.pug") Donate 
+
+    div(class="row")
+        div(class="col-md-3")
+
+        div(class="col-md-6")
+            div(class="container")
+                br
+                hr
+
+                br
+                h3(class="text-white") What is Jessy OS?
+                br
+                p.
+                    Jessy OS is an embedded operating system designed for the ESP32
+                    microcontroller. It provides a versatile platform for various IoT
+                    and embedded systems projects, with features like a file system,
+                    real-time clock support, networking capabilities, user accounts,
+                    and JavaScript execution via the embedded Duktape VM.
+                br
+
+                hr
+                br
+                h3(class="text-white") Features 
+                br
+                ul 
+                    li
+                        h5(class="text-white") File System 
+                        p.
+                            Jessy OS includes its own file system, allowing you to
+                            manage and access files on the ESP32 device.
+                    li 
+                        h5(class="text-white") Real-time Clock (RTC)
+                        p.
+                            It supports the DS1307 real-time clock via I2C, enabling
+                            accurate timekeeping for your applications.
+                    li 
+                        h5(class="text-white") User Accounts 
+                        p.
+                            You can create and manage multiple user accounts, making
+                            it suitable for applications requiring user authentication.
+                    li
+                        h5(class="text-white") Networking 
+                        p.
+                            Jessy OS includes networking functionality with a WLAN
+                            command for managing Wi-Fi connections and network
+                            configurations.
+                    li 
+                        h5(class="text-white") JavaScript Support 
+                        p.
+                            The embedded Duktape VM allows you to execute JavaScript
+                            programs, expanding the range of applications you can build.
+                br
+
+                hr
+                br
+                h3(class="text-white") Getting Started
+                br
+
+                h5(class="text-white") Components 
+                p Before getting started with Jessy OS, you'll need the following:
+                ul 
+                    li An ESP32 microcontroller.
+                    li A compatible SD card adapter module for file system support.
+                    li A DS1307 real-time clock module connected via I2C.
+                p After gathering the aforementioned components, connect it as follows:
+
+                table(class="table table-hover w-50 border-none", align="center")
+                    thead(class="border-bottom")
+                        tr
+                            td(class="bg-primary text-white p-2", align="center") Component 
+                            td(class="bg-primary text-white p-2", align="center") ESP32 
+                    tbody 
+                        tr(class="border")
+                            td(class="bg-primary text-white p-2", align="center", colspan="2") SD Card Module 
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") VCC 
+                            td(class="bg-primary text-white p-2", align="center") VCC
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") GND
+                            td(class="bg-primary text-white p-2", align="center") GND
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") CS
+                            td(class="bg-primary text-white p-2", align="center") GPIO5
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") MOSI
+                            td(class="bg-primary text-white p-2", align="center") GPIO23
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") MISO
+                            td(class="bg-primary text-white p-2", align="center") GPIO19
+                        tr(class="border-bottom")
+                            td(class="bg-primary text-white p-2", align="center") SCK
+                            td(class="bg-primary text-white p-2", align="center") GPIO18
+                        tr(class="border")
+                            td(class="bg-primary text-white p-2", align="center", colspan="2") DS1307 RTC
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") VCC 
+                            td(class="bg-primary text-white p-2", align="center") VCC
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") GND
+                            td(class="bg-primary text-white p-2", align="center") GND
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") SDA
+                            td(class="bg-primary text-white p-2", align="center") SDA
+                        tr 
+                            td(class="bg-primary text-white p-2", align="center") SCL
+                            td(class="bg-primary text-white p-2", align="center") SCL
+
+                br
+                h5(class="text-white") Flashing the OS
+                ol 
+                    li Clone the Jessy OS repository.
+                        br
+                        br
+                        div(class="border p-2 pb-0")
+                            pre(class="pt-1 pb-0 px-2") git clone https://github.com/nthnn/Jessy-OS.git
+                        br
+                    li Open the clone repository via PlatformIO extension on VS Code.
+                    li Plug your board in, and then press the upload button on the status bar of VS Code.
+                br
+
+                h5(class="text-white") Running
+                p.
+                    Communication to Jessy OS can be done through UART serial communication,
+                    which means, it just needs to be connected to the USB port (e.g. via CH340,
+                    PL2302, etc).
+
+                ol 
+                    li Connect the ESP32 (e.g. ESP32 DevKit 1.0) board to USB port.
+                    li Open the <pre class="border pt-1 pb-1 px-2 d-inline">jsym</pre>. Program dedicated for communicating with Jessy OS via UART.
+                    li Press the reset button on ESP32 DevKit board.
+
+                hr
+                br
+                h3(class="text-white") Contributions 
+                br
+
+                p.
+                    Contributions and feedback are all welcome to enhance this library.
+                    If you encounter any issues, have suggestions for improvements, or
+                    would like to contribute code, please do so.
+
+                br
+                h5(class="text-white") Issue Reporting 
+                p.
+                    If you encounter a bug, have a feature request, or want to suggest
+                    improvements, please open an issue on the <a href="https://github.com/nthnn/Jessy-OS/issues"
+                    class="text-info text-decoration-none" target="_blank">GitHub Issue
+                    Tracker</a>. Be sure to provide as much detail as possible, including
+                    steps to reproduce the issue if applicable.
+
+                br
+                h5(class="text-white") Pull Requests
+                p If you want to contribute to Jessy OS, follow these steps:
+
+                ol 
+                    li
+                        p.
+                            Fork the Jessy OS repository to your GitHub account.
+                            And then clone it to your local machine.
+                        div(class="border p-2 pb-0")
+                            pre(class="pt-1 pb-0 px-2") git clone https://github.com/&lt;your username&gt;/Jessy-OS.git
+                        br
+                    li
+                        p Create a new branch for your changes:
+                        div(class="border p-2 pb-0")
+                            pre(class="pt-1 pb-0 px-2") git checkout -b feature/&lt;your feature name&gt;
+                        br
+                    li You can now make changes to the repository.
+                    li
+                        p Commit your changes:
+                        div(class="border p-2 pb-0")
+                            pre(class="pt-1 pb-0 px-2").
+                                git add -A
+                                git commit -m "Add your meaningful commit message here"
+                        br
+                    li 
+                        p Push your changes to your forked repository:
+                        div(class="border p-2 pb-0")
+                            pre(class="pt-1 pb-0 px-2") git push origin feature/&lt;your feature name&gt;
+                        br
+                    li Create a pull request (PR) from your branch to the main branch of the Jessy OS repository.
+                    li Your PR will be reviewed, and any necessary changes will be discussed and implemented.
+                    li Once your PR is approved, it will be merged into the main branch, and your contribution will be part of Jessy OS.
+                br
+
+                hr
+                br
+                h3(class="text-white") Contributors 
+                br
+
+                ul 
+                    li 
+                        a(href="https://github.com/nthnn", class="text-decoration-none text-info") Nathanne Isip 
+                        p Original Author, Developer 
+                    li 
+                        a(href="https://instagram.com/lady.selenee", class="text-decoration-none text-info") Lady Selen 
+                        p Logo designer (Jessy OS is named after her)
+                br
+
+                hr
+                br
+                h3(class="text-white") To-Do
+                br
+
+                ol
+                    li Make a GNU's <pre class="border pt-1 pb-1 px-2 d-inline">wget</pre>-like command.
+                    li Port any other tiny programming/scripting language other than Duktape's JavaScript.
+                    li Scheduling and auto-run tasks on boot-up.
+                    li Design a customized PCB.
+
+                footer(align="center") 
+                    br
+                    hr
+                    small Copyright &copy; 2023 - Nathanne Isip
+                    br
+
+        div(class="col-md-3")
+
+    br
+    br
