@@ -569,7 +569,7 @@ void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
         else printCommandError(arguments[0], F("Invalid action for GPIO."));
     }
     else if(argc == 4 && act == "write")
-        digitalWrite(pin, (byte) arguments[2].toInt());
+        digitalWrite(pin, (byte) arguments[3].toInt());
 }
 
 void JessyTerminal::date(JessyAgent &agent, String arguments[], uint8_t argc) {
