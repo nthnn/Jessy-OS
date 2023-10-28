@@ -8,6 +8,7 @@ head
 
     title Jessy OS | Home Page
     link(href="https://bootswatch.com/5/lux/bootstrap.min.css", rel="stylesheet")
+    link(href="https://vjs.zencdn.net/8.6.1/video-js.css", rel="stylesheet")
 
     style html, body {overflow-x: hidden}
 body(class="bg-primary text-white")
@@ -38,6 +39,10 @@ body(class="bg-primary text-white")
                     and embedded systems projects, with features like a file system,
                     real-time clock support, networking capabilities, user accounts,
                     and JavaScript execution via the embedded Duktape VM.
+                br
+
+                video(id="demo", class="video-js w-100", height="300", controls="true", preload="auto", autoplay="true", data-setup="{}")
+                    source(src="assets/demo.mp4", type="video/mp4")
                 br
 
                 hr
@@ -215,7 +220,7 @@ body(class="bg-primary text-white")
                         a(href="https://github.com/nthnn", class="text-decoration-none text-info") Nathanne Isip 
                         p Original Author, Developer 
                     li 
-                        a(href="https://instagram.com/lady.selenee", class="text-decoration-none text-info") Lady Selen 
+                        a(href="https://instagram.com/lady.selenee", class="text-decoration-none text-info") Lady Selene
                         p Logo designer (Jessy OS is named after her)
                 br
 
@@ -240,3 +245,5 @@ body(class="bg-primary text-white")
 
     br
     br
+
+    script(src="https://vjs.zencdn.net/8.6.1/video.min.js")
