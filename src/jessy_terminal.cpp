@@ -456,6 +456,8 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
                 JessyIO::readFile(userFile).equals(
                     JessyUtility::aesEncrypt(user64, password)
                 )) {
+            if(WiFi.status() == WL_CONNECTED)
+                WiFi.disconnect();
             user.toLowerCase();
 
             agent.setName(user);
