@@ -6,6 +6,20 @@
 
 Jessy OS is an embedded operating system designed for the ESP32 microcontroller. It provides a versatile platform for various IoT and embedded systems projects, with features like a file system, real-time clock support, networking capabilities, user accounts, and JavaScript execution via the embedded Duktape VM.
 
+## Table of Contents
+
+- [Features](#features)
+- [Getting Started](#getting-started)
+    * [Components](#components)
+    * [Flashing the OS](#flashing-the-os)
+    * [Running](#running)
+- [Documentations](#documentations)
+- [Contributions](#contributions)
+    * [Issue Reporting](#issue-reporting)
+    * [Pull Requests](#pull-requests)
+- [Contributors](#contributors)
+- [License](#license)
+
 ## Features
 
 - **File System**: Jessy OS includes its own file system, allowing you to manage and access files on the ESP32 device.
@@ -111,7 +125,7 @@ The documentation includes documentation on how Jessy OS works, the available te
 	<a href="https://brillo-8.vercel.app/"><img src="https://img.shields.io/badge/Jessy%20OS%20Docs-007ec6?style=for-the-badge&logoColor=white&logo=Vercel" /></a>
 </p>
 
-## Contribution and Feedback
+## Contributions
 
 Contributions and feedback are all welcome to enhance this library. If you encounter any issues, have suggestions for improvements, or would like to contribute code, please do so.
 
