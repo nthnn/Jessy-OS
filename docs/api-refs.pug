@@ -33,7 +33,37 @@ body(class="bg-primary text-white")
                 br
                 h3(class="text-white") API Reference
                 br
-                p No contents yet.
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title text-white m-0") IO
+
+                    div(class="card-body")
+                        pre(style="font-size: 1.3em") print(object)
+                        p Print a value to the standard output console.
+                        h5(class="text-white") Parameters:
+                        ul 
+                            li <b>object</b> &mdash; The value to be printed to the standard output console.
+                        h5(class="text-white") Return value:
+                        ul 
+                            li None
+                        h5(class="text-white") Example Usage: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            var name = "Jessy OS";
+                            IO.print("Hello, from " + name);
+
+                        hr
+                        pre(style="font-size: 1.3em") println(object)
+                        p Print a value to the standard output console ending with new line.
+                        h5(class="text-white") Parameters:
+                        ul 
+                            li <b>object</b> &mdash; The value to be printed to the standard output console ending with new line.
+                        h5(class="text-white") Return value:
+                        ul 
+                            li None
+                        h5(class="text-white") Example Usage: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            IO.println("Hello world!");
 
                 br
                 footer(align="center") 
