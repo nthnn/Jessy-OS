@@ -32,6 +32,18 @@
 #include <SD.h>
 #include <WiFi.h>
 
+#ifdef __cplusplus
+    extern "C" {
+#endif
+
+uint8_t temprature_sens_read();
+
+#ifdef __cplusplus
+    }
+#endif
+
+uint8_t temprature_sens_read();
+
 static void printCommandError(String cmd, String message) {
     JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
 }
@@ -558,6 +570,9 @@ void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc
     JessyIO::println(String(F("SDK version:\t\t")) + ESP.getSdkVersion());
     JessyIO::println(String(F("Sketch MD5:\t\t")) + ESP.getSketchMD5());
     JessyIO::println(String(F("Sketch size:\t\t")) + ESP.getSketchSize());
+    JessyIO::println(String(F("Internal temperature:\t")) +
+        String((temprature_sens_read() - 32) / 1.8) + " C"
+    );
 }
 
 void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) {
