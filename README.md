@@ -177,7 +177,8 @@ If you want to contribute to Jessy OS, follow these steps:
 1. Make a GNU's `wget`-like command.
 2. Port any other tiny programming/scripting language other than Duktape's JavaScript.
 3. Scheduling and auto-run tasks on boot-up.
-4. Design a customized PCB.
+4. Improve the available APIs on the JavaScript Duktape VM.
+5. Design a customized PCB.
 
 ## License
 
