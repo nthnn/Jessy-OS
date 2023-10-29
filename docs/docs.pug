@@ -33,11 +33,167 @@ body(class="bg-primary text-white")
                 br
                 h3(class="text-white") Documentations
                 br
-                p No contents yet.
 
+                p.
+                    Below is the Unix-like terminal/shell commands that
+                    are built-in and available in Jessy OS. It is designed
+                    to make it look like Linux/Unix-based so the users
+                    wouldn't have a hard time learning it.
                 br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") cd
+                    div(class="card-body mb-0 pb-0")
+                        p Changes the current working directory to the specified path.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            cd &lt;path&gt;
+                            cd ~
+                        ul 
+                            li <b>path</b> &mdash; Path of the new working directory.
+                        h5(class="text-white") Examples: 
+                        ul 
+                            li <pre class="border border-dark pt-1 pb-1 px-2 d-inline">cd ~</pre> &mdash; Changes the current working directory to the user's home directory.
+                            li <pre class="border border-dark pt-1 pb-1 px-2 d-inline">cd ./subdir</pre> - Changes the current working directory to the <pre class="border border-dark pt-1 pb-1 px-2 d-inline">./subdir</pre> directory, which is a subdirectory of the current working directory.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") pwd
+                    div(class="card-body mb-0 pb-0")
+                        p Prints the current working directory.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            pwd
+                        h5(class="text-white") Example:
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            anonymous@root #~ pwd 
+                            /root/shared
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") ls
+                    div(class="card-body mb-0 pb-0")
+                        p Lists the contents of the current directory.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            ls [-a | --all] [-r | --recursive]
+                        h5(class="text-white") Options: 
+                        ul 
+                            li <pre class="border border-dark pt-1 pb-1 px-2 d-inline">-a</pre> or <pre class="border border-dark pt-1 pb-1 px-2 d-inline">--all</pre> &mdash; Lists all files, including hidden files.
+                            li <pre class="border border-dark pt-1 pb-1 px-2 d-inline">-r</pre> or <pre class="border border-dark pt-1 pb-1 px-2 d-inline">--recursive</pre> &mdash; Lists the contents of all subdirectories recursively.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") mkdir
+                    div(class="card-body mb-0 pb-0")
+                        p Creates a new directory with the specified name.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            mkdir &lt;folder name&gt;
+                        ul 
+                            li <b>folder name</b> &mdash; Name of the folder to be created.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            mkdir new_folder
+                        p This will create a new directory called <code class="border border-dark pt-1 pb-1 px-2 d-inline text-white">new_dir</code> in the current working directory.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") touch
+                    div(class="card-body mb-0 pb-0")
+                        p Creates a new empty file with the specified name.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            touch &lt;file name&gt;
+                        ul 
+                            li <b>file name</b> &mdash; Name of the file to be created.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            touch example.txt
+                        p This will create a new empty file called <code class="border border-dark pt-1 pb-1 px-2 d-inline text-white">example.txt</code> in the current working directory.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-white")
+                        h3(class="card-title m-0") rm
+                    div(class="card-body mb-0 pb-0")
+                        p Deletes the specified file or folder.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            rm &lt;file name&gt;
+                            rm &lt;folder name&gt;
+                        ul 
+                            li <b>file or folder name</b> &mdash; Name of the file or folder to be removed/deleted.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            rm new_folder 
+                            rm example.txt
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-white")
+                        h3(class="card-title m-0") cp
+                    div(class="card-body mb-0 pb-0")
+                        p Copies the specified file or directory to the specified destination.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            cp &lt;source file name&gt; &lt;destination file name&gt;
+                            cp &lt;source folder name&gt; &lt;destination folder name&gt;
+                        ul 
+                            li <b>source file or folder name</b> &mdash; Name of the file or folder to be copied.
+                            li <b>destination file or folder name</b> &mdash; Name of the file or folder destination.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            cp test.txt test_copy.txt 
+                            cp example example_copy
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-white")
+                        h3(class="card-title m-0") mv
+                    div(class="card-body mb-0 pb-0")
+                        p Moves the specified file or directory to the specified destination.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            mv &lt;source file name&gt; &lt;destination file name&gt;
+                            mv &lt;source folder name&gt; &lt;destination folder name&gt;
+                        ul 
+                            li <b>source file or folder name</b> &mdash; Name of the file or folder to be moved.
+                            li <b>destination file or folder name</b> &mdash; Name of the file or folder destination.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            mv test.txt example/test.txt 
+                            mv example new_folder
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-white")
+                        h3(class="card-title m-0") cat
+                    div(class="card-body mb-0 pb-0")
+                        p Prints the content of specified file to the standard console output.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            cat &lt;file name&gt;
+                        ul 
+                            li <b>file name</b> &mdash; Name of the file to be printed on the standard console output.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            cat new_folder/test.txt 
+                        p This will print the contents of the file <pre class="border border-dark pt-1 pb-1 px-2 d-inline">new_file.txt</pre> to the console.
+
                 footer(align="center") 
                     br
                     hr
-                    small Copyright &copy; 2023 - Nathanne Isip
+                    small Copyright &copy; 2023 - 
+                        a(href="https://github.com/nthnn", target="_blank", class="text-decoration-none text-info") Nathanne Isip
                     br
+
+        div(class="col-md-3")
+
+    br
+    br

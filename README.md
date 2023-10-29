@@ -122,7 +122,7 @@ Communication to Jessy OS can be done through UART serial communication, which m
 The documentation includes documentation on how Jessy OS works, the available terminal commands, and the JavaScript APIs.
 
 <p align="center">
-	<a href="https://brillo-8.vercel.app/"><img src="https://img.shields.io/badge/Jessy%20OS%20Docs-007ec6?style=for-the-badge&logoColor=white&logo=Vercel" /></a>
+	<a href="https://jessy-os.vercel.app/"><img src="https://img.shields.io/badge/Jessy%20OS%20Docs-007ec6?style=for-the-badge&logoColor=white&logo=Vercel" /></a>
 </p>
 
 ## Contributions
