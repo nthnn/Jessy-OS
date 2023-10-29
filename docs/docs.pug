@@ -96,7 +96,7 @@ body(class="bg-primary text-white")
                             mkdir &lt;folder name&gt;
                         ul 
                             li <b>folder name</b> &mdash; Name of the folder to be created.
-                        h5(class="text-white") Examples: 
+                        h5(class="text-white") Example: 
                         pre(class="border border-dark pt-1 pb-2 px-2 d-block").
                             mkdir new_folder
                         p This will create a new directory called <code class="border border-dark pt-1 pb-1 px-2 d-inline text-white">new_dir</code> in the current working directory.
@@ -112,14 +112,14 @@ body(class="bg-primary text-white")
                             touch &lt;file name&gt;
                         ul 
                             li <b>file name</b> &mdash; Name of the file to be created.
-                        h5(class="text-white") Examples: 
+                        h5(class="text-white") Example: 
                         pre(class="border border-dark pt-1 pb-2 px-2 d-block").
                             touch example.txt
                         p This will create a new empty file called <code class="border border-dark pt-1 pb-1 px-2 d-inline text-white">example.txt</code> in the current working directory.
                 br
 
                 div(class="card bg-primary text-white border")
-                    div(class="card-header border-white")
+                    div(class="card-header border-dark")
                         h3(class="card-title m-0") rm
                     div(class="card-body mb-0 pb-0")
                         p Deletes the specified file or folder.
@@ -136,7 +136,7 @@ body(class="bg-primary text-white")
                 br
 
                 div(class="card bg-primary text-white border")
-                    div(class="card-header border-white")
+                    div(class="card-header border-dark")
                         h3(class="card-title m-0") cp
                     div(class="card-body mb-0 pb-0")
                         p Copies the specified file or directory to the specified destination.
@@ -154,7 +154,7 @@ body(class="bg-primary text-white")
                 br
 
                 div(class="card bg-primary text-white border")
-                    div(class="card-header border-white")
+                    div(class="card-header border-dark")
                         h3(class="card-title m-0") mv
                     div(class="card-body mb-0 pb-0")
                         p Moves the specified file or directory to the specified destination.
@@ -172,7 +172,7 @@ body(class="bg-primary text-white")
                 br
 
                 div(class="card bg-primary text-white border")
-                    div(class="card-header border-white")
+                    div(class="card-header border-dark")
                         h3(class="card-title m-0") cat
                     div(class="card-body mb-0 pb-0")
                         p Prints the content of specified file to the standard console output.
@@ -181,10 +181,251 @@ body(class="bg-primary text-white")
                             cat &lt;file name&gt;
                         ul 
                             li <b>file name</b> &mdash; Name of the file to be printed on the standard console output.
-                        h5(class="text-white") Examples: 
+                        h5(class="text-white") Example: 
                         pre(class="border border-dark pt-1 pb-2 px-2 d-block").
                             cat new_folder/test.txt 
                         p This will print the contents of the file <pre class="border border-dark pt-1 pb-1 px-2 d-inline">new_file.txt</pre> to the console.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") echo
+                    div(class="card-body mb-0 pb-0")
+                        p Prints the parameter string(s) to the standard output.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            echo &lt;string&gt;
+                            echo &lt;string&gt; ...
+                        ul 
+                            li <b>string</b> &mdash; String to be printed on standard output console.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            echo "Hello, world!"
+                            echo "Hello!" "From Jessy OS"
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") clear
+                    div(class="card-body mb-0 pb-0")
+                        p Clears the console screen of the standard output.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") useradd
+                    div(class="card-body mb-0 pb-0")
+                        p Creates a new user account with the specified username and password.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            useradd &lt;username&gt; &lt;password&gt;
+                        ul 
+                            li <b>username</b> &mdash; Username of the new account. (Must be at least 4 characters)
+                            li <b>password</b> &mdash; Password of the new account. (Must be at least 4 characters)
+                        h5(class="text-white") Example: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            useradd johndoe password123
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") userdel
+                    div(class="card-body mb-0 pb-0")
+                        p Deletes the specified user account.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            userdel &lt;username&gt; &lt;password&gt;
+                        ul 
+                            li <b>username</b> &mdash; Username of the account to be deleted. (Must be at least 4 characters)
+                            li <b>password</b> &mdash; Password of the account to be deleted. (Must be at least 4 characters)
+                        h5(class="text-white") Example: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            userdel johndoe password123
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") passwd
+                    div(class="card-body mb-0 pb-0")
+                        p Changes the password for the specified user account.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            passwd &lt;username&gt; &lt;password&gt; &lt;new password&gt;
+                        ul 
+                            li <b>username</b> &mdash; Username of the account. (Must be at least 4 characters)
+                            li <b>password</b> &mdash; Password of the account. (Must be at least 4 characters)
+                            li <b>new password</b> &mdash; New password for the account. (Must be at least 4 characters)
+                        h5(class="text-white") Example: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            passwd johndoe password123 newpassword
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") su
+                    div(class="card-body mb-0 pb-0")
+                        p Logins to user account or logs out from user account.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            su [-o | --out]
+                            su &lt;username&gt; &lt;password&gt;
+                        ul 
+                            li <b>username</b> &mdash; Username of the account. (Must be at least 4 characters)
+                            li <b>password</b> &mdash; Password of the account. (Must be at least 4 characters)
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            su -o
+                            su johndoe password123
+                        p.
+                            The first command will logout the user into
+                            anonymous/guess. The second will logon to the
+                            user account.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") sd
+                    div(class="card-body mb-0 pb-0")
+                        p.
+                            Lists the informations about the SD card
+                            including card type, size, total size,
+                            used size, numbers of sectors, sector size.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") esp32cpu
+                    div(class="card-body mb-0 pb-0")
+                        p.
+                            Displays information about the ESP32 CPU
+                            including the following: 
+                        table(class="table table-hover w-100 border-0 bg-primary m-0 p-0")
+                            tr
+                                td(class="bg-primary border-0 text-white")
+                                    ul 
+                                        li Chip cores 
+                                        li Chip model
+                                        li Chip revision
+                                        li CPU Frequency
+                                        li Cycle count
+                                        li Chip ID
+                                        li Flash chip mode
+                                        li Flash chip size
+                                        li Flash chip speed
+                                        li Free heap
+                                        li Free PSRAM
+                                td(class="bg-primary border-0 text-white")
+                                    ul 
+                                        li Flash sketch space
+                                        li Heap size
+                                        li Max alloc heap
+                                        li Max alloc PSRAM
+                                        li Min free heap
+                                        li Min free PSRAM
+                                        li PSRAM size
+                                        li SDK version
+                                        li Sketch MD5
+                                        li Sketch size
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") reboot
+                    div(class="card-body mb-0 pb-0")
+                        p Reboot the ESP32 via firmware.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") gpio
+                    div(class="card-body mb-0 pb-0")
+                        p Controls the GPIO pins, can be used write and read.
+                        h5(class="text-white") Syntax:
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            gpio on &lt;pin&gt;
+                            gpio off &lt;pin&gt;
+                            gpio read &lt;pin&gt;
+                            gpio write &lt;pin&gt; &lt;value&gt;
+                        ul 
+                            li <b>pin</b> &mdash; Target GPIO pin.
+                            li <b>value</b> &mdash; Value to be written (must be ranging between 0 to 1024).
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            gpio on 2
+                            gpio write 15 88
+                        p.
+                            The first command will digitally turn high the
+                            GPIO pin 2. And the second one will write 88 to 
+                            the GPIO pin 15.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") date
+                    div(class="card-body mb-0 pb-0")
+                        p Prints the current date to the standard output console with the format: mm/dd/YYYY.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") time
+                    div(class="card-body mb-0 pb-0")
+                        p Prints the current time to the standard output console with the format: hh:mm::ss.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") ping
+                    div(class="card-body mb-0 pb-0")
+                        p.
+                            Sends a ping request to the specified URL
+                            and prints the response to the standard output.
+                        h5(class="text-white") Syntax:
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            ping &lt;url&gt;
+                            ping &lt;url&gt; &lt;count&gt;
+                        ul 
+                            li <b>url</b> &mdash; Target URL of the ping requests.
+                            li <b>count</b> &mdash; Number of pings to be sent. (Default is 3)
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            ping www.google.com 
+                            ping www.google.com 5
+                        p.
+                            The first command will ping the www.google.com 
+                            thrice. While the second will ping the www.google.com 
+                            five (5) times.
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") wlan
+                    div(class="card-body mb-0 pb-0")
+                        p.
+                            Networking command for scaning available networks,
+                            connecting to a WiFi, configuring networks, retrieving 
+                            network informations and status, et cetera.
+                        h5(class="text-white") Syntax:
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            wlan connect &lt;SSID&gt; &lt;password&gt;
+                            wlan disconnect 
+                            wlan scan 
+                            wlan info 
+                            wlan status 
+                            wlan mode [station | ap | ap-station]
+                            wlan config [ip | gateway | subnet] &lt;address&gt;
+                            wlan config dns &lt;primary&gt; &lt;secondary&gt;
+                        ul 
+                            li <b>SSDID</b> &mdash; SSID of the WiFi to be connected to.
+                            li <b>password</b> &mdash; Password of the WiFi to be connect to.
+                            li <b>address</b> &mdash; New address for configuration.
+                            li <b>primary</b> and <b>secondary</b> &mdash; New address for DNS.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            wlan scan
+                            wlan connect mywifi password123
+                            wlan info 
+                            wlan config dns 8.8.8.8 8.8.4.4
 
                 footer(align="center") 
                     br
