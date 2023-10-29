@@ -237,6 +237,20 @@ body(class="bg-primary text-white")
                     li Improve the available APIs on the JavaScript Duktape VM.
                     li Design a customized PCB.
 
+                hr
+                br
+                h3(class="text-white") Known Bugs 
+                br
+
+                ol
+                    li.
+                        <pre class="border pt-1 pb-1 px-2 d-inline">IO.scan()</pre> function
+                        produces a bug that causes to desynchronize the Serial UART stream.
+                    li.
+                        Uninvoked callback for RTC timestamp on files via
+                        <pre class="border pt-1 pb-1 px-2 d-inline">SdFile::dateTimeCallback()</pre>
+                        for <pre class="border pt-1 pb-1 px-2 d-inline">SD.h</pre>.
+
                 footer(align="center") 
                     br
                     hr

@@ -180,6 +180,13 @@ If you want to contribute to Jessy OS, follow these steps:
 4. Improve the available APIs on the JavaScript Duktape VM.
 5. Design a customized PCB.
 
+## Known Bugs
+
+1. `IO.scan()` function produces a bug that causes to desynchronize the Serial UART stream.
+    (See line [#50](#) of [src/jessy_io.cpp](src/jessy_io.cpp))
+2. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
+    (See line [#65](#) of [src/jessy_io.cpp](src/jessy_bios.cpp))
+
 ## License
 
 Copyright 2023 - Nathanne Isip
