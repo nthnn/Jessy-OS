@@ -165,10 +165,11 @@ If you want to contribute to Jessy OS, follow these steps:
 ## To-do
 
 1. Make a GNU's `wget`-like command.
-2. Port any other tiny programming/scripting language other than Duktape's JavaScript.
-3. Scheduling and auto-run tasks on boot-up.
-4. Improve the available APIs on the JavaScript Duktape VM.
-5. Design a customized PCB.
+2. Bluetooth Low Energy (BLE) functionality and terminal command.
+3. Port any other tiny programming/scripting language other than Duktape's JavaScript.
+4. Scheduling and auto-run tasks on boot-up.
+5. Improve the available APIs on the JavaScript Duktape VM.
+6. Design a customized PCB.
 
 ## Known Bugs
 
