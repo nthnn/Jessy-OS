@@ -39,8 +39,6 @@ public:
 
     static void fileSystemCheck();
     static bool hasAccounts();
-
-    static void createAccount();
 };
 
 #endif

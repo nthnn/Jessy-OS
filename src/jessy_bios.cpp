@@ -28,8 +28,16 @@
 #include <jessy_util.h>
 #include <RTClib.h>
 #include <SD.h>
+#include <SdFat.h>
 #include <SPI.h>
 #include <Wire.h>
+
+void sdCallback(uint16_t* date, uint16_t* time) {
+    DateTime dt = JessyUtility::createClock().now();
+
+    *date = FAT_DATE(2023, dt.month(), dt.day());
+    *time = FAT_TIME(dt.hour(), dt.minute(), dt.second());
+}
 
 bool JessyBIOS::checkSdCard() {
     return SD.begin(JESSY_SD_CARD_CS);
@@ -46,14 +54,6 @@ void JessyBIOS::bootUp() {
     JessyUtility::log(JSY_LOG_PLAIN, "Jessy OS " + String(JESSY_OS_VERSION) +
         " [" + String(getCpuFrequencyMhz()) + "Mhz]");
     JessyUtility::log(JSY_LOG_PLAIN, F("Booting up..."));
-    JessyUtility::log(JSY_LOG_PLAIN, F("Checking up SD card..."));
-
-    if(!JessyBIOS::checkSdCard()) {
-        JessyUtility::log(JSY_LOG_ERROR, F("No SD card found."));
-        JessyBIOS::halt();
-    }
-
-    JessyUtility::log(JSY_LOG_PLAIN, F("SD card initialized!"));
     JessyUtility::log(JSY_LOG_PLAIN, F("Check up DS1307 RTC..."));
 
     if(!JessyBIOS::checkRTC()) {
@@ -62,9 +62,20 @@ void JessyBIOS::bootUp() {
     }
 
     JessyUtility::log(JSY_LOG_PLAIN, F("Real-time clock found!"));
+    SdFile::dateTimeCallback(sdCallback);
+
+    JessyUtility::log(JSY_LOG_PLAIN, F("Checking up SD card..."));
+    if(!JessyBIOS::checkSdCard()) {
+        JessyUtility::log(JSY_LOG_ERROR, F("No SD card found."));
+        JessyBIOS::halt();
+    }
+    JessyUtility::log(JSY_LOG_PLAIN, F("SD card initialized!"));
 
     DateTime now = JessyDS1307.now();
-    JessyUtility::log(JSY_LOG_SUCCESS, "Boot up done at " + JessyUtility::getRTCString(now) + ".");
+    JessyUtility::log(
+        JSY_LOG_SUCCESS,
+        "Boot up done at " + JessyUtility::getRTCString(now) + "."
+    );
 }
 
 void JessyBIOS::halt() {
@@ -137,7 +148,4 @@ void JessyBIOS::fileSystemCheck() {
 bool JessyBIOS::hasAccounts() {
     String accounts[10];
     return JessyIO::listFiles("/sys/users", accounts) > 0;
-}
-
-void JessyBIOS::createAccount() {
 }
