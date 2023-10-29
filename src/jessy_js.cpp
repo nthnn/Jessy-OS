@@ -39,6 +39,13 @@ static duk_ret_t io_println(duk_context *context) {
     return 0;
 }
 
+static duk_ret_t io_scan(duk_context *context) {
+    String str = JessyIO::scan();
+    duk_push_string(context, str.c_str());
+
+    return 1;
+}
+
 void JessyDuktape::init() {
     ctx = duk_create_heap_default();
     duk_push_object(ctx);
@@ -62,6 +69,7 @@ void JessyDuktape::eval(String fileName) {
     else duk_safe_to_string(ctx, -1);
 
     (void) duk_get_string(ctx, -1);
+    yield();
 }
 
 void JessyDuktape::evalString(String script) {
@@ -79,6 +87,9 @@ void JessyDuktape::initIOObject() {
 
     duk_push_c_function(ctx, io_println, 1);
     duk_put_prop_string(ctx, -2, "println");
+
+    duk_push_c_function(ctx, io_scan, 0);
+    duk_put_prop_string(ctx, -2, "scan");
 
     duk_put_global_string(ctx, "IO");
 }

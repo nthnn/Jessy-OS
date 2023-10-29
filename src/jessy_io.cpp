@@ -31,19 +31,25 @@
 
 void JessyIO::print(String text) {
     Serial.print(text);
+    delay(3);
 }
 
 void JessyIO::println(String text) {
     Serial.println(text);
+    delay(3);
 }
 
 void JessyIO::clearScreen() {
-    JessyIO::print(F("<clear>"));
+    JessyIO::println(F("<clear>"));
+    Serial.flush();
+
     delay(100);
 }
 
 String JessyIO::scan() {
     Serial.print(F("<~>"));
+    while(Serial.available() < 0);
+
     return Serial.readStringUntil('\n');
 }
 

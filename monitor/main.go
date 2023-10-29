@@ -33,18 +33,31 @@ func main() {
 	)
 
 	screen.Clear()
+	screen.MoveTopLeft()
 	for !strings.HasPrefix(serport.ReadFromFirmwareSerial(port), "---") {
 	}
 
 	for {
 		str := serport.ReadFromFirmwareSerial(port)
-		if str == "<clear>" {
+		if str == "<clear>\r\n" {
+			screen.Clear()
+			screen.MoveTopLeft()
+
 			continue
+		} else if strings.Contains(str, "<~>") {
+			input := readLine()
+			serport.WriteToFirmwareSerial(port, input+"\n")
+
+			str = strings.Trim(str, "\n")
+			if strings.HasPrefix(str, "<~>") &&
+				strings.HasSuffix(str, "<~>") &&
+				len(str) == 3 {
+				continue
+			}
 		}
 
 		fmt.Print(str)
-		if strings.HasSuffix(str, "#~ ") ||
-			str == "<~>" {
+		if strings.HasSuffix(str, "#~ ") {
 			input := readLine()
 			serport.WriteToFirmwareSerial(port, input)
 		}
