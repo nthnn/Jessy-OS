@@ -19,4 +19,4 @@ jobs:
         run: pio pkg install --global
 
       - name: Build PlatformIO Project
-        run: pio ci src/main.cpp --board=esp32dev --project-option="lib_deps = Wire, adafruit/RTClib@^2.1.1, paulstoffregen/Time@^1.6.1, joeqread/JavaScript@^0.0.1, armmbed/mbedtls@^2.23.0, agdl/Base64@^1.0.0, marian-craciunescu/ESP32Ping@^1.7, greiman/SdFat@^2.2.2"
+        run: pio ci --board=esp32dev --project-option="lib_deps = Wire, adafruit/RTClib@^2.1.1, paulstoffregen/Time@^1.6.1, joeqread/JavaScript@^0.0.1, armmbed/mbedtls@^2.23.0, agdl/Base64@^1.0.0, marian-craciunescu/ESP32Ping@^1.7, greiman/SdFat@^2.2.2" --project-option="build_flags = -DCORE_DEBUG_LEVEL=0 -I./include"
