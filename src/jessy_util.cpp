@@ -22,12 +22,13 @@
  */
 
 #include <base64.h>
-#include <jessy_bios.h>
-#include <jessy_io.h>
-#include <jessy_util.h>
 #include <mbedtls/aes.h>
 #include <RTClib.h>
 #include <TimeLib.h>
+
+#include "jessy_bios.h"
+#include "jessy_io.h"
+#include "jessy_util.h"
 
 JessyRTC JessyUtility::fromTime(long time) {
     tmElements_t tm;

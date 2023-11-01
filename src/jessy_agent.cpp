@@ -21,9 +21,9 @@
  * THE SOFTWARE.
  */
 
-#include <jessy_agent.h>
-#include <jessy_io.h>
-#include <jessy_util.h>
+#include "jessy_agent.h"
+#include "jessy_io.h"
+#include "jessy_util.h"
 
 void JessyAgent::setName(String name) {
     this->name = name;

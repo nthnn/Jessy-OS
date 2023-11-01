@@ -22,10 +22,11 @@
  */
 
 #include <duktape.h>
-#include <jessy_agent.h>
-#include <jessy_io.h>
-#include <jessy_js.h>
-#include <jessy_util.h>
+
+#include "jessy_agent.h"
+#include "jessy_io.h"
+#include "jessy_js.h"
+#include "jessy_util.h"
 
 static duk_context *ctx;
 

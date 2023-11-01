@@ -23,11 +23,12 @@
 
 #include <Arduino.h>
 #include <FS.h>
-#include <jessy_io.h>
-#include <jessy_util.h>
 #include <SD.h>
 #include <SPI.h>
 #include <vfs_api.h>
+
+#include "jessy_io.h"
+#include "jessy_util.h"
 
 void JessyIO::print(String text) {
     Serial.print(text);
