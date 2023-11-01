@@ -7,6 +7,8 @@
 ![Go Build](https://github.com/nthnn/Jessy-OS/actions/workflows/go-build.yml/badge.svg)
 ![Spell Check](https://github.com/nthnn/Jessy-OS/actions/workflows/spellcheck.yml/badge.svg)
 ![Latest Version](https://img.shields.io/badge/Latest%20Version-1.0.0-blue?logo=Espressif)
+![GitHub repo size](https://img.shields.io/github/repo-size/nthnn/Jessy-OS?logo=git&label=Repository%20Size)
+[![License: CERN-OHL SV2](https://img.shields.io/badge/License-CERN%20OHL%20SV2-yellow.svg)](https://ohwr.org/cern_ohl_s_v2.pdf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Jessy OS is an embedded operating system designed for the ESP32 microcontroller. It provides a versatile platform for various IoT and embedded systems projects, with features like a file system, real-time clock support, networking capabilities, user accounts, and JavaScript execution via the embedded Duktape VM.
