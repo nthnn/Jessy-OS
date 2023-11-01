@@ -22,7 +22,7 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Installing Project Dependencies
-        run: pio pgk install
+        run: pio pkg install
 
       - name: Build PlatformIO Project
         run: pio run
