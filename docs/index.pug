@@ -82,6 +82,7 @@ body(class="bg-primary text-white")
                 hr
                 br
                 h3(class="text-white") Getting Started
+                p This steps should be followed if intended just to be a prototype or experimental.
                 br
 
                 h5(class="text-white") Components 
@@ -156,6 +157,42 @@ body(class="bg-primary text-white")
                     li Connect the ESP32 (e.g. ESP32 DevKit 1.0) board to USB port.
                     li Open the <pre class="border pt-1 pb-1 px-2 d-inline">jsym</pre>. Program dedicated for communicating with Jessy OS via UART.
                     li Press the reset button on ESP32 DevKit board.
+                br
+
+                hr
+                br
+                h3(class="text-white") Hardware Setup
+                ol 
+                    li Download the Gerber file from folder <a href="https://github.com/nthnn/Jessy-OS/tree/main/pcb_files" target="_blank" class="text-decoration-none text-info">pcb_files</a>.
+                    li Go to <a href="https://jlcpcb.com/" target="_blank" class="text-decoration-none text-info">JLCPCB</a> or any of your favorite PCB manufacturer to fabricate the Jessy OS PCB. <i>PS: This is not sponsored.</i>
+                    li After soldering all the necessary components (ESP32 NodeMCU DevKit, DFRobot Data Logger, header pins, and the SMA Female 4-pin antenna port with pigtail), you can now proceed to flashing the OS to the PCB.
+                br
+
+                h5(class="text-white") Schamatic Diagram
+                img(src="assets/Jessy-OS_Schematic_Diagram.png", class="w-100")
+                br
+                small
+                    i.
+                        Note: The data logger module used in the schematic
+                        diagram is the same board produced by Deek-Robot,
+                        which consist of microSD adapter and DS1307 real-time
+                        clock (See <a href="https://www.twinschip.com/Data-Logging-Module-RTC-and-micro-SD-Card"
+                        target="_blank" class="text-decoration-none text-info">here</a>).
+                br
+                br
+
+                h5(class="text-white") PCB Preview
+                table(class="table table-hover border-white m-0 p-0 bg-primary text-white")
+                    thead(class="border")
+                        tr 
+                            td(class="bg-primary text-white") Jessy OS PCB Front
+                            td(class="bg-primary text-white") Jessy OS PCB Back
+                    tbody
+                        tr
+                            td <img src="assets/Jessy-OS_Front.png" class="w-100" />
+                            td <img src="assets/Jessy-OS_Back.png" class="w-100" />
+                br
+                br
 
                 hr
                 br
