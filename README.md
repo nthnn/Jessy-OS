@@ -20,6 +20,8 @@ Jessy OS is an embedded operating system designed for the ESP32 microcontroller.
 
 ## Getting Started
 
+This steps should be followed if intended just to be a prototype or experimental.
+
 ### Components
 
 Before getting started with Jessy OS, you'll need the following:
@@ -103,9 +105,27 @@ After gathering the aforementioned components, connect it as follows:
 
 Communication to Jessy OS can be done through UART serial communication, which means, it just needs to be connected to the USB port (e.g. via CH340, PL2302, etc).
 
-1. Connect the ESP32 (e.g. ESP32 DevKit 1.0) board to USB port.
+1. Connect the ESP32 (e.g. ESP32 DevKit 1.0 or the JessyOS PCB) board to USB port.
 2. Open the `jsym`. Program dedicated for communicating with Jessy OS via UART.
 3. Press the reset button on ESP32 DevKit board.
+
+## Hardware Setup
+
+1. Download the Gerber file from folder [pcb_files](pcb_files).
+2. Go to [JLCPCB](https://jlcpcb.com/) or any of your favorite PCB manufacturer to fabricate the Jessy-OS PCB. *PS: I am not sponsored, it just happened that JLCPCB is my favorite.*
+3. After soldering all the necessary components (ESP32 NodeMCU DevKit, DFRobot Data Logger, header pins, and the SMA Female 4-pin antenna port with pigtail), you can now proceed to [flashing the OS](#flashing-the-os) to Jessy OS.
+
+### Schematic Diagram
+
+![Jessy OS PCB schematic diagram](./docs/assets/Jessy-OS_Schematic_Diagram.png)
+
+> Note: The data logger module used in the schematic diagram is the same board produced by Deek-Robot, which consist of microSD adapter and DS1307 real-time clock (See [here](https://www.twinschip.com/Data-Logging-Module-RTC-and-micro-SD-Card)).
+
+### PCB Preview
+
+| Jessy OS PCB Front                             | Jessy OS PCB Back                            |
+|------------------------------------------------|----------------------------------------------|
+| ![PCB Front](./docs/assets/Jessy-OS_Front.png) | ![PCB Back](./docs/assets/Jessy-OS_Back.png) |
 
 ## Documentations
 
@@ -166,10 +186,8 @@ If you want to contribute to Jessy OS, follow these steps:
 
 1. Make a GNU's `wget`-like command.
 2. Bluetooth Low Energy (BLE) functionality and terminal command.
-3. Port any other tiny programming/scripting language other than Duktape's JavaScript.
 4. Scheduling and auto-run tasks on boot-up.
 5. Improve the available APIs on the JavaScript Duktape VM.
-6. Design a customized PCB.
 
 ## Known Bugs
 
