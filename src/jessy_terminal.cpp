@@ -21,6 +21,7 @@
  * THE SOFTWARE.
  */
 
+#include <BluetoothSerial.h>
 #include <ESP32Ping.h>
 #include <HTTPClient.h>
 #include <SD.h>
@@ -43,6 +44,7 @@ uint8_t temprature_sens_read();
     }
 #endif
 
+static BluetoothSerial btSerial;
 uint8_t temprature_sens_read();
 
 static void printCommandError(String cmd, String message) {
@@ -866,6 +868,71 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
     printIncorrectArity(arguments[0]);
 }
 
+void JessyTerminal::bt(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc == 3 && arguments[1] == F("open")) {
+        btSerial.begin(arguments[2]);
+        JessyUtility::log(JSY_LOG_SUCCESS, F("Bluetooth opened!"));
+        return;
+    }
+    else if(argc == 3 && arguments[1] == F("connect")) {
+        if(btSerial.connect(arguments[2]))
+            JessyUtility::log(JSY_LOG_SUCCESS, "Connected to \"" + arguments[2] + "\".");
+        else JessyUtility::log(JSY_LOG_SUCCESS, F("Cannot connect to specified device."));
+        return;
+    }
+    else if(argc == 3 && arguments[1] == F("pin")) {
+        if(btSerial.setPin(arguments[2].c_str()))
+            JessyUtility::log(JSY_LOG_SUCCESS, F("Bluetooth pin set!"));
+        else JessyUtility::log(JSY_LOG_ERROR, F("Cannot set bluetooth pin."));
+        return;
+    }
+    else if(argc == 2 && arguments[1] == F("info")) {
+        if(!btSerial.isReady()) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Bluetooth not initialized."));
+            return;
+        }
+
+        JessyIO::println("Mac Address: " + btSerial.getBtAddressString());
+    }
+    else if(argc == 2 && arguments[1] == F("disconnect")) {
+        if(btSerial.disconnect()) {
+            btSerial.end();
+            JessyUtility::log(JSY_LOG_SUCCESS, F("Bluetooth disconnected."));
+        }
+        else JessyUtility::log(JSY_LOG_ERROR, F("Cannot disconnect bluetooth."));
+
+        return;
+    }
+    else if(argc == 2 && arguments[1] == F("scan")) {
+        JessyUtility::log(JSY_LOG_PLAIN, F("Scanning bluetooth devices..."));
+
+        BTScanResults *results = btSerial.discover(10000);
+        if(results)
+            results->dump(&Serial);
+        else JessyUtility::log(JSY_LOG_ERROR, F("Error scanning bluetooth devices."));
+
+        return;
+    }
+    else if(argc == 2 && arguments[1] == F("read")) {
+        if(btSerial.available())
+            Serial.println(btSerial.readStringUntil('\n'));
+        else JessyUtility::log(JSY_LOG_WARNING, F("No message received."));
+
+        return;
+    }
+    else if(argc == 3 && arguments[1] == F("write")) {
+        const char *msg = arguments[2].c_str();
+        for(uint8_t i = 0; i < strlen(msg); i++)
+            btSerial.write((uint8_t) msg[i]);
+
+        btSerial.flush();
+        JessyUtility::log(JSY_LOG_SUCCESS, F("Sent!"));
+        return;
+    }
+
+    printIncorrectArity(arguments[0]);
+}
+
 void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc == 3 && arguments[1] == "eval") {
         JessyDuktape::init();
@@ -921,6 +988,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("date"))       JSY_EXEC(date)
     else if(cmd == F("time"))       JSY_EXEC(time)
     else if(cmd == F("wlan"))       JSY_EXEC(wlan)
+    else if(cmd == F("bt"))         JSY_EXEC(bt)
     else if(cmd == F("ping"))       JSY_EXEC(ping)
     else if(cmd == F("js"))         JSY_EXEC(js)
     else JessyUtility::log(

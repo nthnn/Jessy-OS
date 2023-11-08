@@ -54,6 +54,7 @@ public:
 
     static void ping(JessyAgent &agent, String arguments[], uint8_t argc);
     static void wlan(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void bt(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void js(JessyAgent &agent, String arguments[], uint8_t argc);
 };
