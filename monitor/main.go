@@ -39,6 +39,7 @@ func main() {
 
 	for {
 		str := serport.ReadFromFirmwareSerial(port)
+
 		if str == "<clear>\r\n" {
 			screen.Clear()
 			screen.MoveTopLeft()
@@ -46,19 +47,18 @@ func main() {
 			continue
 		} else if strings.Contains(str, "<~>") {
 			input := readLine()
-			serport.WriteToFirmwareSerial(port, input+"\n")
+			serport.WriteToFirmwareSerial(port, input)
 
-			str = strings.Trim(str, "\n")
-			if strings.HasPrefix(str, "<~>") &&
-				strings.HasSuffix(str, "<~>") &&
-				len(str) == 3 {
-				continue
-			}
+			continue
 		}
 
 		fmt.Print(str)
 		if strings.HasSuffix(str, "#~ ") {
 			input := readLine()
+			if input == "exit\n" {
+				os.Exit(0)
+			}
+
 			serport.WriteToFirmwareSerial(port, input)
 		}
 	}
