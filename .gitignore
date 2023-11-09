@@ -4,6 +4,7 @@
 .vscode/launch.json
 .vscode/ipch
 .DS_Store
+.vscode/
 bin/
 docs/.parcel-cache/
 docs/node_modules/
