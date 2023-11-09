@@ -197,10 +197,15 @@ If you want to contribute to Jessy OS, follow these steps:
 ## Known Bugs
 
 1. `IO.scan()` function produces a bug that causes to desynchronize the Serial UART stream.
+
     (See line [#50](#) of [src/jessy_io.cpp](src/jessy_io.cpp))
+
 2. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
+
     (See line [#65](#) of [src/jessy_io.cpp](src/jessy_bios.cpp))
+
 3. The `wget` command only works on HTTP non-secure hosts/targets.
+
     (See line [#957](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
 
 ## License
