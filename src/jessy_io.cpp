@@ -49,9 +49,9 @@ void JessyIO::clearScreen() {
 
 String JessyIO::scan() {
     Serial.print(F("<~>"));
-    while(Serial.available() < 0);
 
-    return Serial.readStringUntil('\n');
+    while(Serial.available() < 0);
+    return Serial.readString();
 }
 
 bool JessyIO::mkdir(String path) {
