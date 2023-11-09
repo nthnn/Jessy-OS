@@ -991,10 +991,28 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("bt"))         JSY_EXEC(bt)
     else if(cmd == F("ping"))       JSY_EXEC(ping)
     else if(cmd == F("js"))         JSY_EXEC(js)
-    else JessyUtility::log(
-        JSY_LOG_ERROR,
-        "Command not found: " + arguments[0]
-    );
+    else {
+        cmd.trim();
+
+        String possibleScript = JessyUtility::sanitizePath(agent, cmd);
+        if(possibleScript.endsWith(".js") &&
+            JessyIO::exists(possibleScript) &&
+            JessyIO::isFile(possibleScript)) {
+            argc++;
+
+            String args[argc] = {"js"};
+            for(uint8_t i = 1; i < argc; i++)
+                args[i] = arguments[i - 1];
+
+            JessyTerminal::js(agent, args, argc);
+            return;
+        }
+
+        JessyUtility::log(
+            JSY_LOG_ERROR,
+            "Command not found: " + arguments[0]
+        );
+    }
 
     #undef JSY_EXEC
 }
