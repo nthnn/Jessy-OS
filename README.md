@@ -192,9 +192,8 @@ If you want to contribute to Jessy OS, follow these steps:
 ## To-do
 
 1. Make a GNU's `wget`-like command.
-2. Bluetooth Low Energy (BLE) functionality and terminal command.
-4. Scheduling and auto-run tasks on boot-up.
-5. Improve the available APIs on the JavaScript Duktape VM.
+2. Scheduling and auto-run tasks on boot-up.
+3. Improve the available APIs on the JavaScript Duktape VM.
 
 ## Known Bugs
 
