@@ -74,6 +74,9 @@ String JessyIO::readFile(String fileName) {
 }
 
 bool JessyIO::writeFile(String fileName, String content) {
+    if(content.length() == 0)
+        return false;
+
     File file = SD.open(fileName, FILE_WRITE, true);
     if(!file)
         return false;

@@ -893,6 +893,7 @@ void JessyTerminal::bt(JessyAgent &agent, String arguments[], uint8_t argc) {
         }
 
         JessyIO::println("Mac Address: " + btSerial.getBtAddressString());
+        return;
     }
     else if(argc == 2 && arguments[1] == F("disconnect")) {
         if(btSerial.disconnect()) {
@@ -927,6 +928,55 @@ void JessyTerminal::bt(JessyAgent &agent, String arguments[], uint8_t argc) {
 
         btSerial.flush();
         JessyUtility::log(JSY_LOG_SUCCESS, F("Sent!"));
+        return;
+    }
+
+    printIncorrectArity(arguments[0]);
+}
+
+void JessyTerminal::wget(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc == 3) {
+        String output = JessyUtility::sanitizePath(agent, arguments[1]);
+        if(JessyIO::exists(output) && JessyIO::isFile(output)) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Output file already exists."));
+            return;
+        }
+
+        String url = arguments[2];
+        HTTPClient client;
+
+        if(url.startsWith("http://"))
+            client.begin(url);
+        else if(url.startsWith("https://")) {
+            WiFiClientSecure *wifiClient = new WiFiClientSecure;
+            if(!wifiClient) {
+                JessyUtility::log(JSY_LOG_ERROR, F("WiFi client error."));
+                return;
+            }
+
+            wifiClient->setInsecure();
+            if(!wifiClient->connect(url.c_str(), 443))
+                JessyUtility::log(JSY_LOG_WARNING, F("Cannot connect securely."));
+            client.begin(*wifiClient, url);
+        }
+        else {
+            JessyUtility::log(JSY_LOG_ERROR, F("Bad URL format."));
+            return;
+        }
+
+        int response = client.GET();
+        if(response == HTTP_CODE_OK || response == HTTP_CODE_MOVED_PERMANENTLY) {
+            if(JessyIO::writeFile(output, client.getString()))
+                JessyUtility::log(JSY_LOG_SUCCESS, F("File downloaded succesfully!"));
+            else JessyUtility::log(JSY_LOG_ERROR, F("Cannot write to file."));
+        }
+        else JessyUtility::log(
+            JSY_LOG_ERROR,
+            "Cannot connect to URL.\n    Cause: " +
+            client.errorToString(response)
+        );
+
+        client.end();
         return;
     }
 
@@ -989,6 +1039,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("time"))       JSY_EXEC(time)
     else if(cmd == F("wlan"))       JSY_EXEC(wlan)
     else if(cmd == F("bt"))         JSY_EXEC(bt)
+    else if(cmd == F("wget"))       JSY_EXEC(wget)
     else if(cmd == F("ping"))       JSY_EXEC(ping)
     else if(cmd == F("js"))         JSY_EXEC(js)
     else {
