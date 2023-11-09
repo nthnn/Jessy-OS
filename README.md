@@ -191,9 +191,8 @@ If you want to contribute to Jessy OS, follow these steps:
 
 ## To-do
 
-1. Make a GNU's `wget`-like command.
-2. Scheduling and auto-run tasks on boot-up.
-3. Improve the available APIs on the JavaScript Duktape VM.
+1. Scheduling and auto-run tasks on boot-up.
+2. Improve the available APIs on the JavaScript Duktape VM.
 
 ## Known Bugs
 
@@ -201,6 +200,8 @@ If you want to contribute to Jessy OS, follow these steps:
     (See line [#50](#) of [src/jessy_io.cpp](src/jessy_io.cpp))
 2. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
     (See line [#65](#) of [src/jessy_io.cpp](src/jessy_bios.cpp))
+3. The `wget` command only works on HTTP non-secure hosts/targets.
+    (See line [#957](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
 
 ## License
 
