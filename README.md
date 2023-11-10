@@ -191,20 +191,18 @@ If you want to contribute to Jessy OS, follow these steps:
 
 ## To-do
 
-1. Scheduling and auto-run tasks on boot-up.
+1. Help and manuals on terminal.
 2. Improve the available APIs on the JavaScript Duktape VM.
+3. Terminal command for editing files.
+4. Improved `cat` command.
 
 ## Known Bugs
 
-1. `IO.scan()` function produces a bug that causes to desynchronize the Serial UART stream.
-
-    (See line [#50](#) of [src/jessy_io.cpp](src/jessy_io.cpp))
-
-2. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
+1. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
 
     (See line [#65](#) of [src/jessy_io.cpp](src/jessy_bios.cpp))
 
-3. The `wget` command only works on HTTP non-secure hosts/targets.
+2. The `wget` command only works on HTTP non-secure hosts/targets.
 
     (See line [#957](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
 

@@ -40,7 +40,7 @@ func main() {
 	for {
 		str := serport.ReadFromFirmwareSerial(port)
 
-		if str == "<clear>\r\n" {
+		if strings.HasSuffix(str, "<clear>\r\n") {
 			screen.Clear()
 			screen.MoveTopLeft()
 

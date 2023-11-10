@@ -27,6 +27,8 @@
 #include <Arduino.h>
 #include <RTClib.h>
 
+#include "jessy_agent.h"
+
 static RTC_DS1307 JessyDS1307;
 
 class JessyBIOS {
@@ -35,6 +37,7 @@ public:
     static bool checkRTC();
 
     static void bootUp();
+    static void autorun(JessyAgent &agent);
     static void halt();
 
     static void fileSystemCheck();

@@ -47,13 +47,6 @@ void JessyIO::clearScreen() {
     delay(100);
 }
 
-String JessyIO::scan() {
-    Serial.print(F("<~>"));
-
-    while(Serial.available() < 0);
-    return Serial.readString();
-}
-
 bool JessyIO::mkdir(String path) {
     return SD.mkdir(path);
 }

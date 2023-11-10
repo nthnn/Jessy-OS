@@ -33,6 +33,7 @@
 #include "jessy_bios.h"
 #include "jessy_const.h"
 #include "jessy_io.h"
+#include "jessy_terminal.h"
 #include "jessy_util.h"
 
 void sdCallback(uint16_t* date, uint16_t* time) {
@@ -81,6 +82,15 @@ void JessyBIOS::bootUp() {
         JSY_LOG_SUCCESS,
         "Boot up done at " + JessyUtility::getRTCString(now) + "."
     );
+}
+
+void JessyBIOS::autorun(JessyAgent &agent) {
+    String autorun = JessyUtility::sanitizePath(agent, F("autorun.js"));
+    if(!JessyIO::exists(autorun) || !JessyIO::isFile(autorun))
+        return;
+
+    String args[] = {F("js"), F("autorun.js")};
+    JessyTerminal::js(agent, args, 2);
 }
 
 void JessyBIOS::halt() {

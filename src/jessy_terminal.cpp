@@ -496,12 +496,15 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
                 )) {
             if(WiFi.status() == WL_CONNECTED)
                 WiFi.disconnect();
-            user.toLowerCase();
 
+            user.toLowerCase();
             agent.setName(user);
             agent.setWorkingDirectory("/root/" + user);
 
             JessyIO::clearScreen();
+            delay(200);
+
+            JessyBIOS::autorun(agent);
             return;
         }
 
