@@ -9,7 +9,7 @@ import (
 	"github.com/jacobsa/go-serial/serial"
 )
 
-func OpenSMSFirmwareConnection(options serial.OpenOptions) io.ReadWriteCloser {
+func OpenFirmwareConnection(options serial.OpenOptions) io.ReadWriteCloser {
 	port, err := serial.Open(options)
 	if err != nil {
 		fmt.Println("Error: " + err.Error())
@@ -40,4 +40,8 @@ func ReadFromFirmwareSerial(portStream io.ReadWriteCloser) string {
 	}
 
 	return string(buf[:n])
+}
+
+func CloseFirmwareSerial(portStream io.ReadWriteCloser) {
+	portStream.Close()
 }

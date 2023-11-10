@@ -28,8 +28,8 @@ func main() {
 		os.Exit(0)
 	}
 
-	port := serport.OpenSMSFirmwareConnection(
-		serport.ConnectToSMSFirmware(portList[0]),
+	port := serport.OpenFirmwareConnection(
+		serport.ConnectToFirmware(portList[0]),
 	)
 
 	screen.Clear()
@@ -56,6 +56,7 @@ func main() {
 		if strings.HasSuffix(str, "#~ ") {
 			input := readLine()
 			if input == "exit\n" {
+				serport.CloseFirmwareSerial(port)
 				os.Exit(0)
 			}
 
