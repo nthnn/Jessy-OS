@@ -21,6 +21,8 @@
  * THE SOFTWARE.
  */
 
+#define FS_NO_GLOBALS
+
 #include <FS.h>
 #include <RTClib.h>
 #include <SD.h>
@@ -52,9 +54,11 @@ void JessyBIOS::bootUp() {
     JessyIO::println(F("---\n"));
     delay(500);
 
-    JessyUtility::log(JSY_LOG_PLAIN, "Jessy OS " + String(JESSY_OS_VERSION) +
-        " [" + String(getCpuFrequencyMhz()) + "Mhz]");
-    JessyUtility::log(JSY_LOG_PLAIN, F("Booting up..."));
+    JessyIO::println("\033[44m\033[97m        Jessy OS " +
+        String(JESSY_OS_VERSION) + F(" [") +
+        String(getCpuFrequencyMhz()) + F("Mhz]       \033[0m\n"));
+
+    JessyUtility::log(JSY_LOG_WARNING, F("Booting up..."));
     JessyUtility::log(JSY_LOG_PLAIN, F("Check up DS1307 RTC..."));
 
     if(!JessyBIOS::checkRTC()) {
@@ -62,7 +66,7 @@ void JessyBIOS::bootUp() {
         JessyBIOS::halt();
     }
 
-    JessyUtility::log(JSY_LOG_PLAIN, F("Real-time clock found!"));
+    JessyUtility::log(JSY_LOG_SUCCESS, F("Real-time clock found!"));
     SdFile::dateTimeCallback(sdCallback);
 
     JessyUtility::log(JSY_LOG_PLAIN, F("Checking up SD card..."));
@@ -70,7 +74,7 @@ void JessyBIOS::bootUp() {
         JessyUtility::log(JSY_LOG_ERROR, F("No SD card found."));
         JessyBIOS::halt();
     }
-    JessyUtility::log(JSY_LOG_PLAIN, F("SD card initialized!"));
+    JessyUtility::log(JSY_LOG_SUCCESS, F("SD card initialized!"));
 
     DateTime now = JessyDS1307.now();
     JessyUtility::log(

@@ -60,7 +60,7 @@ String JessyAgent::shellString() {
         path = this->getWorkingDirectory().substring(idx + 1);
     }
 
-    return this->name + F("@") + path + F(" #~ ");
+    return "\033[45m " + this->name + F("@") + path + F(" \033[0m #~ ");
 }
 
 void JessyAgent::anonymous() {

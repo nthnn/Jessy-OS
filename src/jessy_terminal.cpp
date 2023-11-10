@@ -1065,5 +1065,8 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
         );
     }
 
+    if(cmd != "clear")
+        JessyIO::println();
+
     #undef JSY_EXEC
 }
