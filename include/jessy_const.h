@@ -28,6 +28,6 @@
 #define JESSY_SD_CARD_CS    5
 
 #define JESSY_OS_TIMEZONE   8
-#define JESSY_OS_DST        1
+#define JESSY_OS_DST        0
 
 #endif

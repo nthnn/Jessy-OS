@@ -35,8 +35,10 @@ class JessyBIOS {
 public:
     static bool checkSdCard();
     static bool checkRTC();
+    static void updateRTC();
 
     static void bootUp();
+    static void updateSystemDateTime(DateTime &now);
     static void autorun(JessyAgent &agent);
     static void halt();
 

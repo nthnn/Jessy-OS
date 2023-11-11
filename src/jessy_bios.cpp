@@ -22,10 +22,12 @@
  */
 
 #include <ArduinoNvs.h>
+#include <Esp.h>
 #include <FS.h>
 #include <RTClib.h>
 #include <SD.h>
 #include <SPI.h>
+#include <time.h>
 #include <Wire.h>
 
 #include "jessy_bios.h"
@@ -75,10 +77,44 @@ void JessyBIOS::bootUp() {
     }
 
     DateTime now = JessyDS1307.now();
+    JessyBIOS::updateSystemDateTime(now);
+
     JessyUtility::log(
         JSY_LOG_SUCCESS,
         "Boot up done at " + JessyUtility::getRTCString(now) + "."
     );
+}
+
+void JessyBIOS::updateSystemDateTime(DateTime &now) {
+    struct tm timeinfo;
+    timeinfo.tm_year = now.year() - 1900;
+    timeinfo.tm_mon = now.month() - 1;
+    timeinfo.tm_mday = now.day();
+    timeinfo.tm_hour = now.hour();
+    timeinfo.tm_min = now.minute();
+    timeinfo.tm_sec = now.second();
+    timeinfo.tm_isdst = 0;
+
+    struct timeval timenow;
+    timenow.tv_sec = mktime(&timeinfo) - 1072;
+    settimeofday(&timenow, NULL);
+}
+
+void JessyBIOS::updateRTC() {
+    struct tm timeinfo;
+    if(!getLocalTime(&timeinfo))
+        return;
+
+    DateTime now(
+        timeinfo.tm_year + 1900,
+        timeinfo.tm_mon + 1,
+        timeinfo.tm_mday,
+        timeinfo.tm_hour,
+        timeinfo.tm_min,
+        timeinfo.tm_sec
+    );
+
+    JessyDS1307.adjust(now);
 }
 
 void JessyBIOS::autorun(JessyAgent &agent) {
