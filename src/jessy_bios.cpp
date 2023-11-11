@@ -21,6 +21,7 @@
  * THE SOFTWARE.
  */
 
+#include <ArduinoNvs.h>
 #include <FS.h>
 #include <RTClib.h>
 #include <SD.h>
@@ -64,7 +65,14 @@ void JessyBIOS::bootUp() {
         JessyUtility::log(JSY_LOG_ERROR, F("No SD card found."));
         JessyBIOS::halt();
     }
+
     JessyUtility::log(JSY_LOG_SUCCESS, F("SD card initialized!"));
+    JessyUtility::log(JSY_LOG_PLAIN, F("Initializing non-volatile storage..."));
+
+    if(!NVS.begin()) {
+        JessyUtility::log(JSY_LOG_ERROR, F("Cannot initialize non-volatile storage."));
+        JessyBIOS::halt();
+    }
 
     DateTime now = JessyDS1307.now();
     JessyUtility::log(

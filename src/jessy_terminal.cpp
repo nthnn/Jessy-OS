@@ -21,6 +21,7 @@
  * THE SOFTWARE.
  */
 
+#include <ArduinoNvs.h>
 #include <BluetoothSerial.h>
 #include <ESP32Ping.h>
 #include <HTTPClient.h>
@@ -903,6 +904,21 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
 
             return;
         }
+        else if(arguments[1] == "connect") {
+            String wifiCredentials = NVS.getString(agent.getName() + ":wifi");
+            if(wifiCredentials == "") {
+                JessyUtility::log(JSY_LOG_ERROR, F("No saved WiFi credentials."));
+                return;
+            }
+
+            String ssid = wifiCredentials.substring(0, wifiCredentials.indexOf(F(":"))),
+                password = wifiCredentials.substring(wifiCredentials.indexOf(F(":")) + 1);
+
+            String args[] = {"wlan", "connect", ssid, password};
+            JessyTerminal::wlan(agent, args, 4);
+
+            return;
+        }
     }
     else if(argc == 3 && arguments[1] == "mode") {
         String mode = arguments[2];
@@ -1000,7 +1016,7 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
             }
         }
 
-        JessyUtility::log(JSY_LOG_SUCCESS, "Connected!");
+        JessyUtility::log(JSY_LOG_SUCCESS, F("Connected!"));
         configTime(
             3600 * JESSY_OS_TIMEZONE,
             JESSY_OS_DST * 3600,
@@ -1009,6 +1025,14 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
             "1.pool.ntp.org"
         );
 
+        if(!NVS.setString(agent.getName() + ":wifi", ssid + ":" + password))
+            JessyUtility::log(JSY_LOG_ERROR, F("Cannot save password credentials."));
+
+        return;
+    }
+    else if(argc == 2 && arguments[1] == "forgot") {
+        if(!NVS.erase(agent.getName() + ":wifi", true))
+            JessyUtility::log(JSY_LOG_ERROR, F("Error deleting WiFi credentials."));
         return;
     }
 
