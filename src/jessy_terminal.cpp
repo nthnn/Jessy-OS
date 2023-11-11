@@ -29,6 +29,7 @@
 
 #include "jessy_agent.h"
 #include "jessy_bios.h"
+#include "jessy_const.h"
 #include "jessy_io.h"
 #include "jessy_js.h"
 #include "jessy_terminal.h"
@@ -161,6 +162,12 @@ void JessyTerminal::touch(JessyAgent &agent, String arguments[], uint8_t argc) {
     for(uint8_t i = 1; i < argc; i++) {
         String path = arguments[i],
             actualPath = JessyUtility::sanitizePath(agent, path);
+
+        if(JessyIO::exists(actualPath) && JessyIO::isFile(actualPath)) {
+            printCommandError(arguments[0], "File already exists: " + path);
+            continue;
+        }
+
         if(!JessyIO::writeFile(actualPath, "\r"))
             printCommandError(arguments[0], "Cannot create file: " + path);
     }
@@ -501,8 +508,8 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
             agent.setName(user);
             agent.setWorkingDirectory("/root/" + user);
 
-            JessyIO::clearScreen();
             delay(200);
+            JessyIO::clearScreen();
 
             JessyBIOS::autorun(agent);
             return;
@@ -865,6 +872,14 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
         }
 
         JessyUtility::log(JSY_LOG_SUCCESS, "Connected!");
+        configTime(
+            3600 * JESSY_OS_TIMEZONE,
+            JESSY_OS_DST * 3600,
+            "time.nist.gov",
+            "0.pool.ntp.org",
+            "1.pool.ntp.org"
+        );
+
         return;
     }
 

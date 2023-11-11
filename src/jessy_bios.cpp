@@ -21,12 +21,9 @@
  * THE SOFTWARE.
  */
 
-#define FS_NO_GLOBALS
-
 #include <FS.h>
 #include <RTClib.h>
 #include <SD.h>
-#include <SdFat.h>
 #include <SPI.h>
 #include <Wire.h>
 
@@ -35,13 +32,6 @@
 #include "jessy_io.h"
 #include "jessy_terminal.h"
 #include "jessy_util.h"
-
-void sdCallback(uint16_t* date, uint16_t* time) {
-    DateTime dt = JessyUtility::createClock().now();
-
-    *date = FAT_DATE(2023, dt.month(), dt.day());
-    *time = FAT_TIME(dt.hour(), dt.minute(), dt.second());
-}
 
 bool JessyBIOS::checkSdCard() {
     return SD.begin(JESSY_SD_CARD_CS);
@@ -68,9 +58,8 @@ void JessyBIOS::bootUp() {
     }
 
     JessyUtility::log(JSY_LOG_SUCCESS, F("Real-time clock found!"));
-    SdFile::dateTimeCallback(sdCallback);
-
     JessyUtility::log(JSY_LOG_PLAIN, F("Checking up SD card..."));
+
     if(!JessyBIOS::checkSdCard()) {
         JessyUtility::log(JSY_LOG_ERROR, F("No SD card found."));
         JessyBIOS::halt();

@@ -24,7 +24,10 @@
 #ifndef JESSY_CONST_H
 #define JESSY_CONST_H
 
-#define JESSY_OS_VERSION "v1.0.0"
-#define JESSY_SD_CARD_CS 5
+#define JESSY_OS_VERSION    "v1.0.0"
+#define JESSY_SD_CARD_CS    5
+
+#define JESSY_OS_TIMEZONE   8
+#define JESSY_OS_DST        1
 
 #endif

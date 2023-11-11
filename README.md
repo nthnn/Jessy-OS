@@ -198,9 +198,9 @@ If you want to contribute to Jessy OS, follow these steps:
 
 ## Known Bugs
 
-1. Uninvoked callback for RTC timestamp on files via `SdFile::dateTimeCallback()` for `SD.h`.
+1. Timestamp on files would only work if connected to any network.
 
-    (See line [#65](#) of [src/jessy_io.cpp](src/jessy_bios.cpp))
+    (See line [#875](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
 
 2. The `wget` command only works on HTTP non-secure hosts/targets.
 
