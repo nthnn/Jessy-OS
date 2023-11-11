@@ -319,8 +319,13 @@ void JessyTerminal::cat(JessyAgent &agent, String arguments[], uint8_t argc) {
         }
 
         if(argc == 4) {
-            String range = arguments[2],
-                startMarker = range.substring(0, range.lastIndexOf(F(":"))),
+            String range = arguments[2];
+            if(range.indexOf(F(":")) == -1) {
+                printCommandError(arguments[0], F("Malformed line range."));
+                return;
+            }
+
+            String startMarker = range.substring(0, range.lastIndexOf(F(":"))),
                 endMarker = range.substring(range.lastIndexOf(F(":")) + 1);
 
             if(startMarker != F(""))
@@ -366,7 +371,63 @@ void JessyTerminal::cat(JessyAgent &agent, String arguments[], uint8_t argc) {
             delay(10);
         }
 
-        if(argc == 4 && end != -1 && end <= line)
+        if(argc == 4 && end != -1 && end < line)
+            JessyIO::println(marker);
+        return;
+    }
+    else if(argc == 3) {
+        int start = 0, end = -1;
+
+        String file = JessyUtility::sanitizePath(agent, arguments[2]);
+        String marker = F("...");
+
+        if(!JessyIO::exists(file)) {
+            printCommandError(arguments[0], F("File doesn't exist."));
+            return;
+        }
+        else if(!JessyIO::isFile(file)) {
+            printCommandError(arguments[0], F("Input path is directory."));
+            return;
+        }
+
+        String range = arguments[1];
+        if(range.indexOf(F(":")) == -1) {
+            printCommandError(arguments[0], F("Malformed line range."));
+            return;
+        }
+
+        String startMarker = range.substring(0, range.lastIndexOf(F(":"))),
+            endMarker = range.substring(range.lastIndexOf(F(":")) + 1);
+
+        if(startMarker != F(""))
+            start = startMarker.toInt();
+        if(endMarker != F(""))
+            end = endMarker.toInt();
+
+        if(start > 1)
+            JessyIO::println(marker);
+
+        String contents = JessyIO::readFile(file);
+        int line = 1, len = contents.length();
+
+        for(int i = 0; i < len; i++) {
+            String strline = F("");
+
+            while(contents[i] != '\n')
+                if(i + 1 == len) {
+                    strline += contents[i];
+                    break;
+                }
+                else strline += contents[i++];
+
+            if(line >= start && (end == -1 || line <= end))
+                JessyIO::println(strline);
+
+            line++;
+            delay(10);
+        }
+
+        if(end != -1 && end < line)
             JessyIO::println(marker);
         return;
     }
