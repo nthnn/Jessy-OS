@@ -179,12 +179,19 @@ body(class="bg-primary text-white")
                         h5(class="text-white") Syntax: 
                         pre(class="border border-dark pt-1 pb-2 px-2 d-block").
                             cat &lt;file name&gt;
+                            cat &lt;from&gt;:&lt;to&gt; &lt;file name&gt;
+                            cat line &lt;file name&gt;
+                            cat line &lt;from&gt;:&lt;to&gt; &lt;file name&gt;
                         ul 
                             li <b>file name</b> &mdash; Name of the file to be printed on the standard console output.
+                            li <b>from</b> &mdash; Line number of the starting point to be printed.
+                            li <b>to</b> &mdash; Line number of the ending point to be printed.
                         h5(class="text-white") Example: 
                         pre(class="border border-dark pt-1 pb-2 px-2 d-block").
                             cat new_folder/test.txt 
-                        p This will print the contents of the file <pre class="border border-dark pt-1 pb-1 px-2 d-inline">new_file.txt</pre> to the console.
+                            cat line 2:5 new_folder/test.txt
+                        p This first example will print the contents of the file <span class="border border-dark pt-1 pb-1 px-2 d-inline">new_file.txt</span> to the console.
+                        p While the second one will print the contents of the file with line numbers starting from line 2 to line 5.
                 br
 
                 div(class="card bg-primary text-white border")
@@ -427,6 +434,36 @@ body(class="bg-primary text-white")
                             wlan connect mywifi password123
                             wlan info 
                             wlan config dns 8.8.8.8 8.8.4.4
+                br
+
+                div(class="card bg-primary text-white border")
+                    div(class="card-header border-dark")
+                        h3(class="card-title m-0") bt
+                    div(class="card-body mb-0 pb-0")
+                        p Command for opening, closing, connecting, and scanning with Bluetooth.
+                        h5(class="text-white") Syntax: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            bt open &lt;name&gt;
+                            bt connect &lt;device name&gt;
+                            bt pin &lt;pin number&gt;
+                            bt write &lt;message&gt;
+                            bt read
+                            bt scan
+                            bt info
+                            bt disconnect 
+                        ul 
+                            li <b>name</b> &mdash; Name to be used as Bluetooth device.
+                            li <b>device name</b> &mdash; Name of the device name to be connected with.
+                            li <b>pin number</b> &mdash; Pin number for Bluetooth pairing.
+                            li <b>message</b> &mdash; Message string to be sent to conneted devices.
+                        h5(class="text-white") Examples: 
+                        pre(class="border border-dark pt-1 pb-2 px-2 d-block").
+                            bt open jessy_os 
+                            bt write "Hello, world!"
+                        p.
+                            The first command will start the Bluetooth as device with
+                            the specified name. While the later one will send the
+                            &quot;Hello, world!&quot; message to any connected device.
 
                 footer(align="center") 
                     br

@@ -194,15 +194,11 @@ If you want to contribute to Jessy OS, follow these steps:
 1. Help and manuals on terminal.
 2. Improve the available APIs on the JavaScript Duktape VM.
 3. Terminal command for editing files.
-4. Improved `cat` command.
+4. Log-in to default user with `userdef` command.
 
 ## Known Bugs
 
-1. Timestamp on files would only work if connected to any network.
-
-    (See line [#875](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
-
-2. The `wget` command only works on HTTP non-secure hosts/targets.
+1. The `wget` command only works on HTTP non-secure hosts/targets.
 
     (See line [#957](#) of [src/jessy_terminal.cpp](src/jessy_terminal.cpp))
 
