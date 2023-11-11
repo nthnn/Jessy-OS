@@ -56,7 +56,7 @@ static void printCommandError(String cmd, String message) {
 static void printIncorrectArity(String cmd) {
     printCommandError(cmd,
         "Incorrect parameter arity."
-        "\n    Type: help " + cmd
+        "\n    Type: man " + cmd
     );
 }
 
@@ -1172,6 +1172,48 @@ void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
     printIncorrectArity(arguments[0]);
 }
 
+void JessyTerminal::man(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc == 2) {
+        if(arguments[1] == "update") {
+            return;
+        }
+
+        String cmd = arguments[1];
+        if(cmd == F("cd") || cmd == F("pwd") || cmd == F("ls") || cmd == F("mkdir") ||
+            cmd == F("touch") || cmd == F("rm") || cmd == F("cp") || cmd == F("mv") ||
+            cmd == F("cat") || cmd == F("echo") || cmd == F("clear") || cmd == F("useradd") ||
+            cmd == F("userdel") || cmd == F("passwd") || cmd == F("su") || cmd == F("sd") ||
+            cmd == F("esp32cpu") || cmd == F("reboot") || cmd == F("gpio") || cmd == F("date") ||
+            cmd == F("time") || cmd == F("wlan") || cmd == F("bt") || cmd == F("ping") ||
+            cmd == F("wget") || cmd == F("js")) {
+
+            String manualPath = "/sys/man/" + cmd;
+            if(!JessyIO::exists(manualPath) || !JessyIO::isFile(manualPath)) {
+                printCommandError(arguments[0], F("Manual not found. Please update your /sys/man."));
+                return;
+            }
+
+            JessyIO::println(JessyIO::readFile(manualPath));
+            return;
+        }
+
+        printCommandError(arguments[0], F("Unknown terminal command."));
+        return;
+    }
+    else if(argc == 1) {
+        String manualPath = "/sys/man/index";
+        if(!JessyIO::exists(manualPath) || !JessyIO::isFile(manualPath)) {
+            printCommandError(arguments[0], F("Manual not found. Please update your /sys/man."));
+            return;
+        }
+
+        JessyIO::println(JessyIO::readFile(manualPath));
+        return;
+    }
+
+    printIncorrectArity(arguments[0]);
+}
+
 void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     String cmd = arguments[0];
 
@@ -1204,6 +1246,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("wget"))       JSY_EXEC(wget)
     else if(cmd == F("ping"))       JSY_EXEC(ping)
     else if(cmd == F("js"))         JSY_EXEC(js)
+    else if(cmd == F("man"))        JSY_EXEC(man)
     else {
         cmd.trim();
 

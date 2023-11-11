@@ -58,6 +58,7 @@ public:
     static void wget(JessyAgent &agent, String arguments[], uint8_t argc);
 
     static void js(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void man(JessyAgent &agent, String arguments[], uint8_t argc);
 };
 
 void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc);
