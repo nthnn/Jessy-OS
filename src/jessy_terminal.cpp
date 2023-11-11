@@ -288,22 +288,90 @@ void JessyTerminal::mv(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::cat(JessyAgent &agent, String arguments[], uint8_t argc) {
-    if(argc != 2) {
-        printIncorrectArity(arguments[0]);
+    if(argc == 2) {
+        String file = JessyUtility::sanitizePath(agent, arguments[1]);
+        if(!JessyIO::exists(file)) {
+            printCommandError(arguments[0], F("File doesn't exist."));
+            return;
+        }
+        else if(!JessyIO::isFile(file)) {
+            printCommandError(arguments[0], F("Input path is directory."));
+            return;
+        }
+
+        JessyIO::println(JessyIO::readFile(file));
+        return;
+    }
+    else if((argc == 3 && arguments[1] == "line") ||
+        (argc == 4 && arguments[1] == "line")) {
+        int start = 0, end = -1;
+
+        String file = JessyUtility::sanitizePath(agent, argc == 3 ? arguments[2] : arguments[3]);
+        String marker = F("\033[30m\033[107m  ...  \033[0m\033[0m");
+
+        if(!JessyIO::exists(file)) {
+            printCommandError(arguments[0], F("File doesn't exist."));
+            return;
+        }
+        else if(!JessyIO::isFile(file)) {
+            printCommandError(arguments[0], F("Input path is directory."));
+            return;
+        }
+
+        if(argc == 4) {
+            String range = arguments[2],
+                startMarker = range.substring(0, range.lastIndexOf(F(":"))),
+                endMarker = range.substring(range.lastIndexOf(F(":")) + 1);
+
+            if(startMarker != F(""))
+                start = startMarker.toInt();
+            if(endMarker != F(""))
+                end = endMarker.toInt();
+
+            if(start > 1)
+                JessyIO::println(marker);
+        }
+
+        String contents = JessyIO::readFile(file);
+        int line = 1, len = contents.length();
+
+        for(int i = 0; i < len; i++) {
+            String strline = F("");
+
+            while(contents[i] != '\n')
+                if(i + 1 == len) {
+                    strline += contents[i];
+                    break;
+                }
+                else strline += contents[i++];
+
+            String tabs = F("");
+            if(line < 10)
+                tabs = F("     ");
+            else if(line < 100)
+                tabs = F("    ");
+            else if(line < 1000)
+                tabs = F("   ");
+            else if(line < 10000)
+                tabs = F("  ");
+            else tabs = F(" ");
+
+            if(argc == 3 || (line >= start && (end == -1 || line <= end)))
+                JessyIO::println(
+                    "\033[30m\033[107m " + String(line) +
+                    tabs + F("\033[0m\033[0m  ") + strline
+                );
+
+            line++;
+            delay(10);
+        }
+
+        if(argc == 4 && end != -1 && end <= line)
+            JessyIO::println(marker);
         return;
     }
 
-    String file = JessyUtility::sanitizePath(agent, arguments[1]);
-    if(!JessyIO::exists(file)) {
-        printCommandError(arguments[0], F("File doesn't exist."));
-        return;
-    }
-    else if(!JessyIO::isFile(file)) {
-        printCommandError(arguments[0], F("Input path is directory."));
-        return;
-    }
-
-    JessyIO::println(JessyIO::readFile(file));
+    printIncorrectArity(arguments[0]);
 }
 
 void JessyTerminal::echo(JessyAgent &agent, String arguments[], uint8_t argc) {
