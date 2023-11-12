@@ -1187,41 +1187,22 @@ void JessyTerminal::js(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::man(JessyAgent &agent, String arguments[], uint8_t argc) {
-    if(argc == 2) {
-        if(arguments[1] == "update") {
-            return;
-        }
+    if(argc == 1 || argc == 2) {
+        String manualPath = F("/sys/man/");
 
-        String cmd = arguments[1];
-        if(cmd == F("cd") || cmd == F("pwd") || cmd == F("ls") || cmd == F("mkdir") ||
-            cmd == F("touch") || cmd == F("rm") || cmd == F("cp") || cmd == F("mv") ||
-            cmd == F("cat") || cmd == F("echo") || cmd == F("clear") || cmd == F("useradd") ||
-            cmd == F("userdel") || cmd == F("passwd") || cmd == F("su") || cmd == F("sd") ||
-            cmd == F("esp32cpu") || cmd == F("reboot") || cmd == F("gpio") || cmd == F("date") ||
-            cmd == F("time") || cmd == F("wlan") || cmd == F("bt") || cmd == F("ping") ||
-            cmd == F("wget") || cmd == F("js")) {
+        if(argc == 1)
+            manualPath += F("man");
+        else manualPath += arguments[1];
 
-            String manualPath = "/sys/man/" + cmd;
-            if(!JessyIO::exists(manualPath) || !JessyIO::isFile(manualPath)) {
-                printCommandError(arguments[0], F("Manual not found. Please update your /sys/man."));
-                return;
-            }
-
-            JessyIO::println(JessyIO::readFile(manualPath));
-            return;
-        }
-
-        printCommandError(arguments[0], F("Unknown terminal command."));
-        return;
-    }
-    else if(argc == 1) {
-        String manualPath = "/sys/man/index";
         if(!JessyIO::exists(manualPath) || !JessyIO::isFile(manualPath)) {
             printCommandError(arguments[0], F("Manual not found. Please update your /sys/man."));
             return;
         }
 
-        JessyIO::println(JessyIO::readFile(manualPath));
+        String manualContent = JessyIO::readFile(manualPath);
+        manualContent.replace("\\033", "\033");
+
+        JessyIO::println(manualContent);
         return;
     }
 
