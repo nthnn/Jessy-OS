@@ -37,10 +37,17 @@ public:
     static bool checkRTC();
     static void updateRTC();
 
-    static void bootUp();
+    static void bootUp(JessyAgent &agent);
     static void updateSystemDateTime(DateTime &now);
     static void autorun(JessyAgent &agent);
     static void halt();
+
+    static void login(
+        JessyAgent &agent,
+        String user,
+        String password,
+        void (*printCommandError)(String, String)
+    );
 
     static void fileSystemCheck();
     static bool hasAccounts();

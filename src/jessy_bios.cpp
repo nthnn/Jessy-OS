@@ -28,6 +28,7 @@
 #include <SD.h>
 #include <SPI.h>
 #include <time.h>
+#include <WiFi.h>
 #include <Wire.h>
 
 #include "jessy_bios.h"
@@ -44,7 +45,7 @@ bool JessyBIOS::checkRTC() {
     return JessyDS1307.begin() && JessyDS1307.isrunning();
 }
 
-void JessyBIOS::bootUp() {
+void JessyBIOS::bootUp(JessyAgent &agent) {
     JessyIO::println(F("---\n"));
     delay(500);
 
@@ -83,6 +84,18 @@ void JessyBIOS::bootUp() {
         JSY_LOG_SUCCESS,
         "Boot up done at " + JessyUtility::getRTCString(now) + "."
     );
+
+    String defsu = NVS.getString("defsu");
+    if(defsu != "") {
+        int idx = defsu.indexOf(F(":"));
+        String username = defsu.substring(0, idx),
+            password = defsu.substring(idx + 1);
+
+        JessyBIOS::login(agent, username, password, [](String cmd, String message) {
+            JessyUtility::log(JSY_LOG_ERROR, cmd + F(": ") + message);
+        });
+    }
+    else agent.anonymous();
 }
 
 void JessyBIOS::updateSystemDateTime(DateTime &now) {
@@ -115,6 +128,33 @@ void JessyBIOS::updateRTC() {
     );
 
     JessyDS1307.adjust(now);
+}
+
+void JessyBIOS::login(JessyAgent &agent, String user, String password, void (*printCommandError)(String, String)) {
+    String user64 = JessyUtility::toBase64(user),
+        userFile = "/sys/users/" + user64,
+        su = F("su");
+
+    if(JessyIO::exists(userFile) && 
+        JessyIO::isFile(userFile) &&
+            JessyIO::readFile(userFile).equals(
+                JessyUtility::aesEncrypt(user64, password)
+            )) {
+        if(WiFi.status() == WL_CONNECTED)
+            WiFi.disconnect();
+
+        agent.setName(user);
+        agent.setWorkingDirectory("/root/" + user);
+
+        delay(200);
+        JessyBIOS::autorun(agent);
+
+        return;
+    }
+
+    if(JessyIO::exists(userFile))
+        printCommandError(su, F("Incorrect user credentials."));
+    else printCommandError(su, F("User not found."));
 }
 
 void JessyBIOS::autorun(JessyAgent &agent) {

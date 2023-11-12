@@ -565,6 +565,39 @@ void JessyTerminal::userdel(JessyAgent &agent, String arguments[], uint8_t argc)
     printCommandError(userdel, F("Incorrect user credentials."));
 }
 
+void JessyTerminal::userdef(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 2) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
+    if(agent.getName() == F("anonymous")) {
+        printCommandError(
+            arguments[0],
+            F("Anonymous user cannot be set as default user.")
+        );
+
+        return;
+    }
+
+    if(arguments[1] == F("delete")) {
+        if(!NVS.setString(F("defsu"), "")) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Cannot delete default user."));
+            return;
+        }
+
+        JessyUtility::log(JSY_LOG_PLAIN, F("Default user reset!"));
+        return;
+    }
+
+    if(!NVS.setString(F("defsu"), agent.getName() + ":" + arguments[1])) {
+        JessyUtility::log(JSY_LOG_ERROR, F("Default user cannot be saved!"));
+        return;
+    }
+
+    JessyUtility::log(JSY_LOG_SUCCESS, F("Default user saved!"));
+}
+
 void JessyTerminal::passwd(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc != 4) {
         printIncorrectArity(arguments[0]);
@@ -622,35 +655,11 @@ void JessyTerminal::su(JessyAgent &agent, String arguments[], uint8_t argc) {
         return;
     }
     else if(argc == 3) {
-        String user = arguments[1],
-            user64 = JessyUtility::toBase64(user),
-            password = arguments[2];
-        String userFile = "/sys/users/" + user64;
-
-        if(JessyIO::exists(userFile) && 
-            JessyIO::isFile(userFile) &&
-                JessyIO::readFile(userFile).equals(
-                    JessyUtility::aesEncrypt(user64, password)
-                )) {
-            if(WiFi.status() == WL_CONNECTED)
-                WiFi.disconnect();
-
-            user.toLowerCase();
-            agent.setName(user);
-            agent.setWorkingDirectory("/root/" + user);
-
-            delay(200);
-            JessyIO::clearScreen();
-
-            JessyBIOS::autorun(agent);
-            return;
-        }
-
-        if(JessyIO::exists(userFile))
-            printCommandError(su, F("Incorrect user credentials."));
-        else printCommandError(su, F("User not found."));
+        JessyBIOS::login(agent, arguments[1], arguments[2], printCommandError);
+        return;
     }
-    else printIncorrectArity(su);
+
+    printIncorrectArity(su);
 }
 
 void JessyTerminal::sd(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -1228,6 +1237,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("clear"))      JSY_EXEC(clear)
     else if(cmd == F("useradd"))    JSY_EXEC(useradd)
     else if(cmd == F("userdel"))    JSY_EXEC(userdel)
+    else if(cmd == F("userdef"))    JSY_EXEC(userdef)
     else if(cmd == F("passwd"))     JSY_EXEC(passwd)
     else if(cmd == F("su"))         JSY_EXEC(su)
     else if(cmd == F("sd"))         JSY_EXEC(sd)

@@ -36,13 +36,11 @@ void setup() {
     while(!Serial)
         yield();
 
-    JessyBIOS::bootUp();
+    JessyBIOS::bootUp(currentAgent);
     JessyBIOS::fileSystemCheck();
     JessyIO::println(F("\n\033[91m██\033[92m██\033[93m██\033[94m██\033[95m██\033[96m██\033[97m██\033[0m\n"));
 
-    currentAgent.anonymous();
     JessyBIOS::autorun(currentAgent);
-
     delay(100);
     JessyIO::print(currentAgent.shellString());
 }

@@ -41,6 +41,7 @@ public:
 
     static void useradd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void userdel(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void userdef(JessyAgent &agent, String arguments[], uint8_t argc);
     static void passwd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void su(JessyAgent &agent, String arguments[], uint8_t argc);
 
