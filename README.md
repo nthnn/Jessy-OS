@@ -17,6 +17,25 @@ Jessy OS is an embedded operating system designed for the ESP32 microcontroller.
     <img src="assets/demo.gif" width="100%" />
 </p>
 
+## Table of Contents
+
+* [Features](#features)
+* [Getting Started](#getting-started)
+    - [Components](#components)
+    - [Flashing the OS](#flashing-the-os)
+    - [Running](#running)
+* [Hardware Setup](#hardware-setup)
+    - [Schematic Diagram](#schematic-diagram)
+    - [PCB Preview](#pcb-preview)
+* [Documentations](#documentations)
+* [Contributions](#contributions)
+    - [Issue Reporting](#issue-reporting)
+    - [Pull Requests](#pull-requests)
+* [Contributors](#contributors)
+* [To-do](#to-do)
+* [Known Bugs](#known-bugs)
+* [License](#license)
+
 ## Features
 
 - **File System**: Jessy OS includes its own file system, allowing you to manage and access files on the ESP32 device.
