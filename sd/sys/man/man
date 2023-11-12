@@ -3,17 +3,26 @@
 \033[4mSyntax\033[0m:
 
     \033[107m\033[30m man                \033[0m\033[0m
-    \033[107m\033[30m man <command name> \033[0m\033[0m
+    \033[107m\033[30m man <command>      \033[0m\033[0m
+
+    Parameters:
+    * command: Name of the command's manual to be printed.
 
 \033[4mUsage\033[0m:
 
 Command for printing manuals for a specified command name.
 Available command names are listed below:
 
-    bt         esp32cpu      passwd      time
-    cat        gpio          ping        touch
-    cd         js            pwd         useradd
-    clear      ls            reboot      userdef
-    cp         man           rm          userdel
-    date       mkdir         sd          wget
-    echo       mv            su          wlan
+    bt          gpio        ping       useradd
+    cat         js          pwd        userdef
+    cd          ls          reboot     userdel
+    clear       man         rm         wget
+    cp          mkdir       sd         wlan
+    date        mv          su         wr
+    echo        passwd      time
+    esp32cpu    ping        touch
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m man echo           \033[0m\033[0m
+    Prints the manual for the command echo.

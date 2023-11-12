@@ -1,0 +1,18 @@
+\033[1m`echo` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m echo <string>      \033[0m\033[0m
+    \033[107m\033[30m echo <string> ...  \033[0m\033[0m
+
+    Parameters:
+    * string: The string to be printed on the console.
+
+\033[4mUsage\033[0m:
+
+Prints the parameter string(s) to the standard output.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m echo Hello!        \033[0m\033[0m
+    Prints the string "Hello!" to the console.
