@@ -24,9 +24,10 @@
 #ifndef JESSY_CONST_H
 #define JESSY_CONST_H
 
-#define JESSY_OS_VERSION    "v1.0.0"
-#define JESSY_SD_CARD_CS    5
+#define JESSY_OS_VERSION    "v1.1.0"
+#define JESSY_OS_USER_AGENT F("Jessy-OS/1.1 (ESP32; Embedded; IoT)")
 
+#define JESSY_SD_CARD_CS    5
 #define JESSY_OS_TIMEZONE   8
 #define JESSY_OS_DST        0
 

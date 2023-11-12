@@ -26,6 +26,7 @@
 #include <ESP32Ping.h>
 #include <HTTPClient.h>
 #include <SD.h>
+#include <Uri.h>
 #include <WiFi.h>
 
 #include "jessy_agent.h"
@@ -1111,20 +1112,33 @@ void JessyTerminal::wget(JessyAgent &agent, String arguments[], uint8_t argc) {
             client.begin(url);
         else if(url.startsWith("https://")) {
             WiFiClientSecure *wifiClient = new WiFiClientSecure;
+
             if(!wifiClient) {
                 JessyUtility::log(JSY_LOG_ERROR, F("WiFi client error."));
+                client.end();
+
                 return;
             }
 
-            wifiClient->setInsecure();
             if(!wifiClient->connect(url.c_str(), 443))
                 JessyUtility::log(JSY_LOG_WARNING, F("Cannot connect securely."));
+
+            wifiClient->setInsecure();
             client.begin(*wifiClient, url);
         }
         else {
             JessyUtility::log(JSY_LOG_ERROR, F("Bad URL format."));
+            client.end();
+
             return;
         }
+
+        client.setUserAgent(JESSY_OS_USER_AGENT);
+        client.setFollowRedirects(HTTPC_FORCE_FOLLOW_REDIRECTS);
+        client.setRedirectLimit(255);
+
+        client.addHeader("Connection", "close");
+        client.useHTTP10();
 
         int response = client.GET();
         if(response == HTTP_CODE_OK || response == HTTP_CODE_MOVED_PERMANENTLY) {
