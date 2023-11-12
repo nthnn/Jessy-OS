@@ -56,6 +56,9 @@ func main() {
 		if strings.HasSuffix(str, "#~ ") {
 			input := readLine()
 			if input == "exit\n" {
+				screen.Clear()
+				screen.MoveTopLeft()
+
 				serport.CloseFirmwareSerial(port)
 				os.Exit(0)
 			}
