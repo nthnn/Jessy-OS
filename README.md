@@ -121,6 +121,7 @@ Communication to Jessy OS can be done through UART serial communication, which m
 1. Download the Gerber file from folder [pcb_files](pcb_files).
 2. Go to [JLCPCB](https://jlcpcb.com/) or any of your favorite PCB manufacturer to fabricate the Jessy-OS PCB. *PS: I am not sponsored, it just happened that JLCPCB is my favorite.*
 3. After soldering all the necessary components (ESP32 NodeMCU DevKit, DFRobot Data Logger, header pins, and the SMA Female 4-pin antenna port with pigtail), you can now proceed to [flashing the OS](#flashing-the-os) to Jessy OS.
+4. Copy the folder [sd](/sd) to your SD card that will be using on Jessy OS. Do not forget to delete the `removethisfile` files inside each folder.
 
 ### Schematic Diagram
 
