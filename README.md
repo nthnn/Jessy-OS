@@ -191,10 +191,9 @@ If you want to contribute to Jessy OS, follow these steps:
 
 ## To-do
 
-1. Help and manuals on terminal.
-2. Improve the available APIs on the JavaScript Duktape VM.
-3. Terminal command for editing files.
-4. Log-in to default user with `userdef` command.
+1. Improve the available APIs on the JavaScript Duktape VM.
+2. Terminal command for editing files.
+4. Updatable date and time.
 
 ## Known Bugs
 
