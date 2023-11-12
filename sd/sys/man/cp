@@ -1,0 +1,21 @@
+\033[1m`cp` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m cp <src> <dest>          \033[0m\033[0m
+
+    Parameters:
+    * src: Source file or folder.
+    * dest: Destination file or folder.
+
+\033[4mUsage\033[0m:
+
+Copies the specified file or directory to the specified destination.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m cp test_1.txt test_2.txt \033[0m\033[0m
+    Copies the file test_1.txt as file test_2.txt
+
+    \033[107m\033[30m cd hi.js myfiles/hey.js  \033[0m\033[0m
+    Copies the file hi.js inside the "myfiles" folder as hey.js

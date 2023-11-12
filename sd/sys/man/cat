@@ -1,0 +1,27 @@
+\033[1m`cat` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m cat <filename>                   \033[0m\033[0m
+    \033[107m\033[30m cat <from>:<to> <filename>       \033[0m\033[0m
+    \033[107m\033[30m cat line <filename>              \033[0m\033[0m
+
+    Parameters:
+    * filename: Name of the file to be printed on the console.
+    * from: Line number of the starting point to be printed.
+    * to: Line number of the ending point to be printed.
+
+\033[4mUsage\033[0m:
+
+Prints the content of specified file to the standard console output.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m cat hello.js                     \033[0m\033[0m
+    Prints the content of the file "hello.js"
+
+    \033[107m\033[30m cat line world.txt               \033[0m\033[0m
+    Prints the content of the file "world.txt" with line numbering.
+
+    \033[107m\033[30m cat 2:7 script.js                \033[0m\033[0m
+    Prints the file "script.js" from line number 2 to 7.

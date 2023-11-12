@@ -1,0 +1,9 @@
+\033[1m`clear` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m clear              \033[0m\033[0m
+
+\033[4mUsage\033[0m:
+
+Clears the console screen of the standard output.

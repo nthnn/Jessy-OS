@@ -1,0 +1,21 @@
+\033[1m`cd` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m cd <workingdir>          \033[0m\033[0m
+    \033[107m\033[30m cd ~                     \033[0m\033[0m
+
+    Parameters:
+    * workingdir: Path of the new working directory.
+
+\033[4mUsage\033[0m:
+
+Changes the current working directory to the specified path.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m cd ~                     \033[0m\033[0m
+    Changes the current working directory to the user's root directory.
+
+    \033[107m\033[30m cd myfiles               \033[0m\033[0m
+    Changes the working directory to the folder named "myfiles."
