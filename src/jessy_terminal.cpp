@@ -764,22 +764,50 @@ void JessyTerminal::gpio(JessyAgent &agent, String arguments[], uint8_t argc) {
 }
 
 void JessyTerminal::date(JessyAgent &agent, String arguments[], uint8_t argc) {
-    if(argc != 1) {
-        printIncorrectArity(arguments[0]);
+    if(argc == 1) {
+        String dateTime = JessyUtility::getRTCString(
+            JessyUtility::createClock().now()
+        );
+        dateTime = dateTime.substring(0, dateTime.indexOf(' '));
+
+        JessyIO::println(dateTime);
+        return;
+    }
+    else if(argc == 2 && arguments[1] == "update") {
+        if(!WiFi.isConnected()) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Not connected to any network."));
+            return;
+        }
+
+        configTime(0, 3600 * JESSY_OS_TIMEZONE, "pool.ntp.org");
+        JessyBIOS::updateRTC();
+
+        JessyTerminal::date(agent, {}, 1);
+        JessyUtility::log(JSY_LOG_WARNING, F("Reboot to take effects."));
+
         return;
     }
 
-    String dateTime = JessyUtility::getRTCString(
-        JessyUtility::createClock().now()
-    );
-    dateTime = dateTime.substring(0, dateTime.indexOf(' '));
-
-    JessyIO::println(dateTime);
+    printIncorrectArity(arguments[0]);
 }
 
 void JessyTerminal::time(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc != 1) {
         printIncorrectArity(arguments[0]);
+        return;
+    }
+    else if(argc == 2 && arguments[1] == "update") {
+        if(!WiFi.isConnected()) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Not connected to any network."));
+            return;
+        }
+
+        configTime(0, 3600 * JESSY_OS_TIMEZONE, "pool.ntp.org");
+        JessyBIOS::updateRTC();
+
+        JessyTerminal::time(agent, {}, 1);
+        JessyUtility::log(JSY_LOG_WARNING, F("Reboot to take effects."));
+
         return;
     }
 
@@ -1108,6 +1136,11 @@ void JessyTerminal::bt(JessyAgent &agent, String arguments[], uint8_t argc) {
 
 void JessyTerminal::wget(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc == 3) {
+        if(!WiFi.isConnected()) {
+            JessyUtility::log(JSY_LOG_ERROR, F("Not connected to any network."));
+            return;
+        }
+
         String output = JessyUtility::sanitizePath(agent, arguments[1]);
         if(JessyIO::exists(output) && JessyIO::isFile(output)) {
             JessyUtility::log(JSY_LOG_ERROR, F("Output file already exists."));
