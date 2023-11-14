@@ -213,7 +213,6 @@ If you want to contribute to Jessy OS, follow these steps:
 
 1. Improve the available APIs on the JavaScript Duktape VM.
 2. Terminal command for editing files.
-4. Updatable date and time.
 
 ## Known Bugs
 
