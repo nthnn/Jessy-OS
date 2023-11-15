@@ -1,0 +1,23 @@
+\033[1m`ping` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m ping <url>                       \033[0m\033[0m
+    \033[107m\033[30m ping <url> <count>               \033[0m\033[0m
+
+    Parameters:
+    * url: Target URL of the ping requests.
+    * count: Number of pings to be sent. (Default is 3)
+
+\033[4mUsage\033[0m:
+
+Sends a ping request to the specified URL and prints the
+response to the standard output.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m ping www.google.com              \033[0m\033[0m
+    Sends 3 pings to www.google.com.
+
+    \033[107m\033[30m ping www.google.com 5            \033[0m\033[0m
+    Sends 5 pings to www.google.com.

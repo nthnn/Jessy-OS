@@ -1,0 +1,10 @@
+\033[1m`sd` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m sd                               \033[0m\033[0m
+
+\033[4mUsage\033[0m:
+
+Lists the informations about the SD card including card type,
+size, total size, used size, numbers of sectors, sector size.

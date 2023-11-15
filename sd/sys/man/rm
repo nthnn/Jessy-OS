@@ -1,0 +1,21 @@
+\033[1m`rm` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m rm <filename> ...                \033[0m\033[0m
+    \033[107m\033[30m rm <foldername> ...              \033[0m\033[0m
+
+    Parameters:
+    * file or foldername — List of folder or filenames to be deleted.
+
+\033[4mUsage\033[0m:
+
+Deletes the specified file or folder.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m rm hello.js                      \033[0m\033[0m
+    Deletes the file named "hello.js"
+
+    \033[107m\033[30m rm new_folder                    \033[0m\033[0m
+    Removes the folder named "new_folder."
