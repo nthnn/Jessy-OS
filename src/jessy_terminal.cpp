@@ -942,7 +942,7 @@ void JessyTerminal::wlan(JessyAgent &agent, String arguments[], uint8_t argc) {
 
             return;
         }
-        else if(arguments[1] == "connect") {
+        else if(arguments[1] == F("connect")) {
             String wifiCredentials = NVS.getString(agent.getName() + ":wifi");
             if(wifiCredentials == "") {
                 JessyUtility::log(JSY_LOG_ERROR, F("No saved WiFi credentials."));
