@@ -1,0 +1,22 @@
+\033[1m`su` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m su [-o|--out]                    \033[0m\033[0m
+    \033[107m\033[30m su <username> <password>         \033[0m\033[0m
+
+    Parameters:
+    * username: Username of the account. (At least 4 characters)
+    * password: Password of the account. (At least 4 characters)
+
+\033[4mUsage\033[0m:
+
+Logins to user account or logs out from user account.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m su -o                            \033[0m\033[0m
+    Logs out the current user if non-anonymous.
+
+    \033[107m\033[30m su johndoe password123           \033[0m\033[0m
+    Logs in as user "johndoe" if the password is correct.

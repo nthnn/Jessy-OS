@@ -1,0 +1,18 @@
+\033[1m`useradd` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m useradd <username> <password>    \033[0m\033[0m
+
+    Parameters:
+    * username: Username of the new account. (At least 4 characters)
+    * password: Password of the new account. (At least 4 characters)
+
+\033[4mUsage\033[0m:
+
+Creates a new user account with the specified username and password.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m useradd johndoe password123      \033[0m\033[0m
+    Creates user "johndoe" with the specified password.

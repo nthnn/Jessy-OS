@@ -1,0 +1,17 @@
+\033[1m`touch` Command\033[1m
+
+\033[4mSyntax\033[0m:
+
+    \033[107m\033[30m touch <filename>                 \033[0m\033[0m
+
+    Parameters:
+    * filename: Name of the file to be created.
+
+\033[4mUsage\033[0m:
+
+Creates a new empty file with the specified name.
+
+\033[4mExample Usage\033[0m:
+
+    \033[107m\033[30m touch example.txt                \033[0m\033[0m
+    Creates file named "example.txt" in the current working directory.
