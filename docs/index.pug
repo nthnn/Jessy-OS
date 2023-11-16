@@ -7,7 +7,8 @@ head
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
     title Jessy OS | Home Page
-    link(href="https://bootswatch.com/5/lux/bootstrap.min.css", rel="stylesheet")
+    link(href="./styles/global.css", rel="stylesheet")
+    link(href="https://bootswatch.com/5/flatly/bootstrap.min.css", rel="stylesheet")
     link(href="https://vjs.zencdn.net/8.6.1/video-js.css", rel="stylesheet")
 
     style html, body {overflow-x: hidden}
@@ -182,16 +183,14 @@ body(class="bg-primary text-white")
                 br
 
                 h5(class="text-white") PCB Preview
-                table(class="table table-hover border-white m-0 p-0 bg-primary text-white")
-                    thead(class="border")
-                        tr 
-                            td(class="bg-primary text-white") Jessy OS PCB Front
-                            td(class="bg-primary text-white") Jessy OS PCB Back
-                    tbody
-                        tr
-                            td <img src="assets/Jessy-OS_Front.png" class="w-100" />
-                            td <img src="assets/Jessy-OS_Back.png" class="w-100" />
-                br
+                table(class="table table-borderless m-0 p-0 border-none")
+                    tr
+                        td(class="bg-primary text-white")
+                            img(src="assets/Jessy-OS_Front.png", class="w-100")
+                            p(align="center") Jessy OS PCB Front
+                        td(class="bg-primary text-white")
+                            img(src="assets/Jessy-OS_Back.png", class="w-100")
+                            p(align="center") Jessy OS PCB Front
                 br
 
                 hr
