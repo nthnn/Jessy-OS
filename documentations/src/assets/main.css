@@ -169,6 +169,10 @@ a {
     border-radius: 0px !important;
 }
 
+@media only screen and (max-width: 771px) {
+    .desktop-only { display: none; }
+}
+
 @-webkit-keyframes blink {
     50% { opacity: 0; }
 }

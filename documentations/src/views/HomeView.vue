@@ -38,7 +38,7 @@ setTimeout(()=> {
         </div>
 
         <div class="col-lg-6">
-            <AstroCard>
+            <AstroCard class="desktop-only">
                 <div class="frame-btn"></div>
 
                 <div id="termynal" data-termynal data-ty-typeDelay="90" data-ty-lineDelay="300">
@@ -47,10 +47,10 @@ setTimeout(()=> {
             </AstroCard>
         </div>
     </div>
-    <br/>
+    <br class="desktop-only" />
 
     <AstroCard>
-        <center>
+        <center class="pt-4">
             <h1>Features</h1>
             <p>Jessy OS provides a number of features that make it well-suited for IoT and embedded systems projects.</p>
             <hr/>
