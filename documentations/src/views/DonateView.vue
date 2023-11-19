@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AstroCard from '@/components/AstroCard.vue';
+import AstroCard from "@/components/AstroCard.vue";
+import Footer from "@/components/Footer.vue";
 </script>
 
 <template>
@@ -25,6 +26,9 @@ import AstroCard from '@/components/AstroCard.vue';
                 <p>Jessy OS developers are profoundly grateful for your support! Your generosity allows us to continue developing and maintaining Jessy OS, making it better with each update. Your contribution is not just a donation; it's a vote of confidence in the project and a testament to the strength of the open-source community. Your contribution will help cover fund new features and support the community and developers (?) behind Jessy OS.</p>
                 <p>Thank you for being a part of our journey and helping us build a brighter future for Jessy OS!</p>
             </AstroCard>
+            <br/>
+
+            <Footer />
         </div>
 
         <div class="col-lg-3"></div>

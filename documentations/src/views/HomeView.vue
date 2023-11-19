@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AstroCard from "@/components/AstroCard.vue";
 import Footer from "@/components/Footer.vue";
+import TerminalContent from "@/components/TerminalContent.vue";
 
 declare class Termynal {
     constructor(id: string);
@@ -40,15 +41,8 @@ setTimeout(()=> {
             <AstroCard>
                 <div class="frame-btn"></div>
 
-                <div id="termynal" data-termynal data-ty-typeDelay="100" data-ty-lineDelay="800">
-                    <span data-ty="input" data-ty-prompt=" anonymous@root "> echo "Hello, world!"</span>
-                    <span data-ty>Hello, world!</span>
-
-                    <span data-ty="input" data-ty-prompt=" anonymous@root "> mkdir new_folder</span>
-                    <span data-ty="input" data-ty-prompt=" anonymous@root "> touch test.txt</span>
-
-                    <span data-ty="input" data-ty-prompt=" anonymous@root "> ls</span>
-                    <span data-ty>new_folder<br/>test.txt</span>
+                <div id="termynal" data-termynal data-ty-typeDelay="90" data-ty-lineDelay="300">
+                    <TerminalContent />
                 </div>
             </AstroCard>
         </div>

@@ -13,9 +13,9 @@ html, body, #app {
 }
 
 .navbar, .astrocard {
-    opacity: 0.7;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    opacity: 0.8;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 .gradient-bg-container {
