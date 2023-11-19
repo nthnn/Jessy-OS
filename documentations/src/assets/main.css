@@ -14,8 +14,9 @@ html, body, #app {
 
 .navbar, .astrocard {
     opacity: 0.8;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(52, 58, 64, 0.6) !important;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .gradient-bg-container {
@@ -162,6 +163,10 @@ a {
     margin-left: 0.5em;
     -webkit-animation: blink 1s infinite;
     animation: blink 1s infinite;
+}
+
+.card-body {
+    border-radius: 0px !important;
 }
 
 @-webkit-keyframes blink {
