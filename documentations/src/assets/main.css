@@ -12,6 +12,42 @@ html, body, #app {
     color: #e6e6e6 !important;
 }
 
+.navbar, .astrocard {
+    opacity: 0.7;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.gradient-bg-container {
+    position: fixed;
+    display: flex;
+    width: 100% !important;
+    height: 100% !important;
+    align-items: center !important;
+    align-self: center !important;
+    align-content: center !important;
+    justify-items: center !important;
+    justify-self: center !important;
+    justify-content: center !important;
+}
+
+.gradient-bg {
+    align-self: center;
+    justify-self: center;
+    width: 400px;
+    height: 400px;
+    filter: blur(50px);
+    background-image: linear-gradient(hsl(158, 82, 57, 85%), hsl(252, 82, 57));
+    background-image: -webkit-gradient(linear, left top, right top, from(hsla(158, 82%, 57%, 0.85)), to(hsl(252, 82%, 57%)));
+    animation: rotate 50s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+}
+
+.main-content {
+    position: absolute;
+    inset: 0;
+}
+
 h1, h2, h3, h4, h5, h6, a {
     background-image: linear-gradient(45deg, #2890f1, #00d2ff) !important;
     -webkit-background-clip: text !important;
@@ -134,4 +170,20 @@ a {
 
 @keyframes blink {
     50% { opacity: 0; }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (min-width: 720px) {
+    .gradient {
+        width: 500px;
+        height: 500px;
+    }
 }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AstroCard from '@/components/AstroCard.vue';
+import AstroCard from "@/components/AstroCard.vue";
+import Footer from "@/components/Footer.vue";
 
 declare class Termynal {
     constructor(id: string);
@@ -52,4 +53,7 @@ setTimeout(()=> {
             </AstroCard>
         </div>
     </div>
+    <br/>
+
+    <Footer />
 </template>

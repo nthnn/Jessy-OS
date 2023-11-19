@@ -14,6 +14,10 @@ watch(
 </script>
 
 <template>
+    <div class="gradient-bg-container" align="center">
+        <div class="gradient-bg"></div>
+    </div>
+
     <nav class="navbar navbar-expand-lg bg-primary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Jessy OS</a>
@@ -34,9 +38,9 @@ watch(
             </div>
         </div>
     </nav>
-    <br/><br/><br/>
 
-    <div class="container p-4">
+    <div class="container p-4 main-content">
+        <br/><br/><br/>
         <RouterView />
     </div>
 </template>
