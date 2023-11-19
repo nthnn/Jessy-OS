@@ -144,15 +144,16 @@ Communication to Jessy OS can be done through UART serial communication, which m
 
 ### Schematic Diagram
 
-![Jessy OS PCB schematic diagram](./docs/assets/Jessy-OS_Schematic_Diagram.png)
+![Jessy OS PCB schematic diagram](./assets/Jessy-OS_Schematic_Diagram.png)
 
-> Note: The data logger module used in the schematic diagram is the same board produced by Deek-Robot, which consist of microSD adapter and DS1307 real-time clock (See [here](https://www.twinschip.com/Data-Logging-Module-RTC-and-micro-SD-Card)).
+> [!NOTE]
+> The data logger module used in the schematic diagram is the same board produced by Deek-Robot, which consist of microSD adapter and DS1307 real-time clock (See [here](https://www.twinschip.com/Data-Logging-Module-RTC-and-micro-SD-Card)).
 
 ### PCB Preview
 
 | Jessy OS PCB Front                             | Jessy OS PCB Back                            |
 |------------------------------------------------|----------------------------------------------|
-| ![PCB Front](./docs/assets/Jessy-OS_Front.png) | ![PCB Back](./docs/assets/Jessy-OS_Back.png) |
+| ![PCB Front](./documentations/src/assets/Jessy-OS_Front.png) | ![PCB Back](./documentations/src/assets/Jessy-OS_Back.png) |
 
 ## Documentations
 
