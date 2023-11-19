@@ -49,5 +49,68 @@ setTimeout(()=> {
     </div>
     <br/>
 
+    <AstroCard>
+        <center>
+            <h1>Features</h1>
+            <p>Jessy OS provides a number of features that make it well-suited for IoT and embedded systems projects.</p>
+            <hr/>
+        </center>
+        <br/>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div align="center">
+                    <h1><i class="bi bi-folder2-open"></i></h1><br/>
+                    <h2>File System</h2>
+                    <p>Jessy OS includes its own file system, allowing you to manage and access files on the ESP32 device.</p>
+                </div>
+                <br/>
+            </div>
+
+            <div class="col-lg-4">
+                <div align="center">
+                    <h1><i class="bi bi-watch"></i></h1><br/>
+                    <h2>Real-time Clock</h2>
+                    <p>It supports the DS1307 real-time clock via I2C, enabling accurate timekeeping for your applications.</p>
+                </div>
+                <br/>
+            </div>
+
+            <div class="col-lg-4">
+                <div align="center">
+                    <h1><i class="bi bi-people-fill"></i></h1><br/>
+                    <h2>User Accounts</h2>
+                    <p>You can create and manage multiple user accounts, making it suitable for applications requiring user authentication.</p>
+                </div>
+                <br/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-2"></div>
+
+            <div class="col-lg-4">
+                <div align="center">
+                    <h1><i class="bi bi-wifi"></i></h1><br/>
+                    <h2>IoT / Networking</h2>
+                    <p>Jessy OS includes networking functionality with a WLAN command for managing Wi-Fi connections and network configurations.</p>
+                </div>
+                <br/>
+            </div>
+
+            <div class="col-lg-4">
+                <div align="center">
+                    <h1><i class="bi bi-filetype-js"></i></h1><br/>
+                    <h2>JavaScript Support</h2>
+                    <p>The embedded Duktape VM allows you to execute JavaScript programs, expanding the range of applications you can build.</p>
+                </div>
+                <br/>
+            </div>
+
+            <div class="col-lg-2"></div>
+        </div>
+    </AstroCard>
+    <br/>
+
     <Footer />
 </template>

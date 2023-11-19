@@ -39,7 +39,7 @@ html, body, #app {
     filter: blur(50px);
     background-image: linear-gradient(hsl(158, 82, 57, 85%), hsl(252, 82, 57));
     background-image: -webkit-gradient(linear, left top, right top, from(hsla(158, 82%, 57%, 0.85)), to(hsl(252, 82%, 57%)));
-    animation: rotate 50s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+    animation: rotate 40s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
 }
 
