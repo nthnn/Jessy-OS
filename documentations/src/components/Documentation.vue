@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TabPage from "./TabPage.vue";
 import GettingStarted from "../docpages/GettingStarted.vue";
+import HardwareSetup from "@/docpages/HardwareSetup.vue";
 </script>
 
 <template>
@@ -10,6 +11,7 @@ import GettingStarted from "../docpages/GettingStarted.vue";
         </TabPage>
 
         <TabPage title="Hardware Setup" id="hardware-setup" :is-active="false">
+            <HardwareSetup />
         </TabPage>
 
         <TabPage title="Contributing" id="contributing" :is-active="false">

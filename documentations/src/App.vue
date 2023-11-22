@@ -30,6 +30,7 @@ watch(
                     <NavbarItem route="/" text="Home" is-active></NavbarItem>
                     <NavbarItem route="/documentations" text="Documentations" :is-active="false"></NavbarItem>
                     <NavbarItem route="/api-refs" text="API Reference" :is-active="false"></NavbarItem>
+                    <NavbarItem route="/store" text="Store" :is-active="false"></NavbarItem>
                     <li class="nav-item">
                         <a href="https://github.com/nthnn/Jessy-OS" class="nav-link" target="_blank">GitHub</a>
                     </li>
