@@ -19,6 +19,7 @@ import TableOfContents from "@/components/TableOfContents.vue";
             <AstroCard>
                 <Documentation />
             </AstroCard>
+            <br/>
         </div>
     </div>
 </template>
