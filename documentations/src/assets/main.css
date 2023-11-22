@@ -63,7 +63,7 @@ a {
 
 .border-gradient, .navbar {
     border-width: 1px;
-    border-style: solid;
+    border-style: solid !important;
     border-image: linear-gradient(45deg, #2890f1, #00d2ff) !important;
     border-image-slice: 1 !important;
 }
