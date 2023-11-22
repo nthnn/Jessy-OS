@@ -15,5 +15,5 @@ let navItemClass = "nav-link text-white" + (props.isActive ? " active" : ""),
     <button :class="navItemClass" :id="label"
         data-bs-toggle="pill" :data-bs-target="hpillId"
         type="button" role="tab" :aria-controls="pillId"
-        aria-selected="true">&mdash; {{ title }}</button>
+        aria-selected="true">{{ title }}</button>
 </template>

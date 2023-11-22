@@ -13,7 +13,7 @@ let navItemClass = "tab-pane fade show" + (props.isActive ? " active" : ""),
 <template>
     <div :class="navItemClass" :id="pillId"
         role="tabpanel" :aria-labelledby="label">
-        <h3>{{ title }}</h3>
+        <h2>{{ title }}</h2>
         <hr/>
 
         <slot></slot>
