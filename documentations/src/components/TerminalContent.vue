@@ -6,7 +6,8 @@
     <span data-ty="input" data-ty-prompt=" anonymous@root "> touch test.txt</span>
 
     <span data-ty="input" data-ty-prompt=" anonymous@root "> ls</span>
-    <span data-ty>new_folder<br/>test.txt</span>
+    <span data-ty class="row"><div class="col-6">D [11/24/2023 1:42:00]</div><div class="col-6">new_folder</div></span>
+    <span data-ty class="row"><div class="col-6">F [11/24/2023 1:42:03]</div><div class="col-6">test.txt</div></span>
 
     <span data-ty="input" data-ty-prompt=" anonymous@root "> sd</span>
     <span data-ty class="row"><div class="col-6">Card type:</div><div class="col-6">Secure Digital</div></span>
