@@ -1,0 +1,6 @@
+<template>
+    <p>Jessy OS has two (2) license. The hardware itself (including the PCB Gerber files and the schematic diagram) is under the <a href="https://github.com/nthnn/Jessy-OS/blob/main/LICENSE/CERN_OHL_S_V2.txt" target="_blank" class="text-decoration-none">CERN Open Hardware Licence Version 2 - Strongly Reciprocal</a>, while the Jessy OS repository as a whole is under <a href="https://github.com/nthnn/Jessy-OS/blob/main/LICENSE/MIT-Public-License.txt" target="_blank" class="text-decoration-none">MIT Public License</a>.</p>
+    <p>Both licenses have distinct characteristics and implications.</p>
+    <p>The CERN Open Hardware License (CERN OHL) is designed to facilitate the sharing and collaboration of open hardware designs. The CERN v2 Strong license places an emphasis on ensuring modifications to the original hardware design remain open and under the same license. It promotes the sharing of derivative works and requires contributors to provide proper attribution.</p>
+    <p>The MIT License is one of the most permissive open-source licenses. It allows others to use, modify, distribute, and even incorporate your code into proprietary projects. Users of MIT-licensed software typically have fewer restrictions, making it a widely adopted license for software libraries and components.</p>
+</template>
