@@ -13,14 +13,14 @@
 Command for printing manuals for a specified command name.
 Available command names are listed below:
 
-    bt          gpio        pwd          userdef
-    cat         js          reboot       userdel
-    cd          ls          rm           wget
-    clear       man         sd           wlan
-    cp          mkdir       su           wr
-    date        mv          time
-    echo        passwd      touch
-    esp32cpu    ping        useradd
+    bt          gpio        ping        uart
+    cat         js          pwd         useradd
+    cd          ls          reboot      userdef
+    clear       man         rm          userdel
+    cp          mkdir       sd          wget
+    date        mv          su          wlan
+    echo        neofetch    time        wr
+    esp32cpu    passwd      touch
 
 \033[4mExample Usage\033[0m:
 
