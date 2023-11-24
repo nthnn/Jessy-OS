@@ -2,6 +2,7 @@
 import TabPage from "./TabPage.vue";
 import GettingStarted from "../docpages/GettingStarted.vue";
 import HardwareSetup from "@/docpages/HardwareSetup.vue";
+import Contributing from "@/docpages/Contributing.vue";
 </script>
 
 <template>
@@ -15,6 +16,7 @@ import HardwareSetup from "@/docpages/HardwareSetup.vue";
         </TabPage>
 
         <TabPage title="Contributing" id="contributing" :is-active="false">
+            <Contributing />
         </TabPage>
 
         <TabPage title="License" id="license" :is-active="false">
