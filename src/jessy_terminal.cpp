@@ -734,6 +734,14 @@ void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) 
         return;
     }
 
+}
+
+void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) {
+    if(argc != 1) {
+        printIncorrectArity(arguments[0]);
+        return;
+    }
+
     ESP.restart();
 }
 
