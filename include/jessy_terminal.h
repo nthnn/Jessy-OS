@@ -47,6 +47,7 @@ public:
 
     static void sd(JessyAgent &agent, String arguments[], uint8_t argc);
     static void esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc);
+    static void neofetch(JessyAgent &agent, String arguments[], uint8_t argc);
     static void reboot(JessyAgent &agent, String arguments[], uint8_t argc);
     static void gpio(JessyAgent &agent, String arguments[], uint8_t argc);
 

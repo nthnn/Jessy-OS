@@ -728,12 +728,67 @@ void JessyTerminal::esp32cpu(JessyAgent &agent, String arguments[], uint8_t argc
     );
 }
 
-void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) {
+void JessyTerminal::neofetch(JessyAgent &agent, String arguments[], uint8_t argc) {
     if(argc != 1) {
         printIncorrectArity(arguments[0]);
         return;
     }
 
+    JessyIO::println(
+        "\n\033[1;97m     ┃   ┃   ┃   ┃   ┃   ┃  \033[0m      " +
+            agent.plainShellString());
+    JessyIO::println(F("    ┏┻━━━┻━━━┻━━━┻━━━┻━━━┻┓      -------------------------------"));
+    JessyIO::println(
+        "  ━━┫\033[96m█████████████████████\033[1;97m┣━━\033[0m      Chip model: " +
+            String(ESP.getChipModel()));
+    JessyIO::println(
+        "    ┃\033[96m██  █      ██████████\033[1;97m┃  \033[0m      CPU Frequency: " +
+            String(ESP.getCpuFreqMHz()) + "Mhz");
+    JessyIO::println(
+        "  ━━┫\033[96m███████  ████████████\033[1;97m┣━━\033[0m      Card size: " +
+            String(SD.cardSize() / 1048576) + "MB");
+
+    JessyIO::print(F("    ┃\033[96m███████  ████████████\033[1;97m┃  \033[0m      Card type: "));
+    switch(SD.cardType()) {
+        case CARD_MMC:
+            JessyIO::println("Multimedia Card");
+            break;
+
+        case CARD_SD:
+            JessyIO::println("Secure Digital");
+            break;
+
+        case CARD_SDHC:
+            JessyIO::println("SDHC");
+            break;
+
+        default:
+            JessyIO::println("Unknown");
+            break;
+    }
+
+    JessyIO::println(
+        "  ━━┫\033[96m███████  █████    ███\033[1;97m┣━━\033[0m      Heap size: " +
+            String(ESP.getHeapSize()));
+    JessyIO::println(
+        "    ┃\033[96m███████  ████  ██  ██\033[1;97m┃  \033[0m      PSRAM size: " +
+            String(ESP.getPsramSize()));
+    JessyIO::println(
+        "  ━━┫\033[96m███████  ██████  ████\033[1;97m┣━━\033[0m      SDK version: " +
+            String(ESP.getSdkVersion()));
+    JessyIO::println(
+        "    ┃\033[96m█  ████  ███████  ███\033[1;97m┃  \033[0m      Internal temperature: " +
+            String((temprature_sens_read() - 32) / 1.8) + " C");
+    JessyIO::println(
+        "  ━━┫\033[96m██  ██  █████  ██  ██\033[1;97m┣━━\033[0m      Chip ID: " +
+            String(ESP.getEfuseMac()));
+
+    JessyIO::println(F("    ┃\033[96m███    ███████    ███\033[1;97m┃  \033[0m      "));
+    JessyIO::println(F(
+        "  ━━┫\033[96m█████████████████████\033[1;97m┣━━\033[0m      "
+        "\033[91m██\033[92m██\033[93m██\033[94m██\033[95m██\033[96m██\033[97m██\033[0m\n"
+    ));
+    JessyIO::println(F("    ┗┳━━━┳━━━┳━━━┳━━━┳━━━┳┛\033[0m\n     ┃   ┃   ┃   ┃   ┃   ┃ \033[0m\033[0m"));
 }
 
 void JessyTerminal::reboot(JessyAgent &agent, String arguments[], uint8_t argc) {
@@ -1293,6 +1348,7 @@ void JessyExecCommand(JessyAgent &agent, String arguments[], uint8_t argc) {
     else if(cmd == F("ping"))       JSY_EXEC(ping)
     else if(cmd == F("js"))         JSY_EXEC(js)
     else if(cmd == F("man"))        JSY_EXEC(man)
+    else if(cmd == F("neofetch"))   JSY_EXEC(neofetch)
     else {
         cmd.trim();
 

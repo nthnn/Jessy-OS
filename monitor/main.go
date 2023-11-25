@@ -18,6 +18,7 @@ func readLine() string {
 		fmt.Println("Error: " + err.Error())
 	}
 
+	reader.Reset(reader)
 	return line
 }
 
@@ -53,7 +54,7 @@ func main() {
 		}
 
 		fmt.Print(str)
-		if strings.HasSuffix(str, "#~ ") {
+		if strings.HasSuffix(str, " #~ ") {
 			input := readLine()
 			if input == "exit\n" {
 				screen.Clear()

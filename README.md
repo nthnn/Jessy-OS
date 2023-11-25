@@ -97,8 +97,7 @@ If you want to contribute to Jessy OS, follow these steps:
 1. Improve the available APIs on the JavaScript Duktape VM.
 2. Terminal command for editing files.
 3. Update documentations for version 1.1.0.
-4. Add `neofetch` in addition to `sd` and `cpu` command.
-5. Create a `uart` command for software serial.
+4. Create a `uart` command for software serial.
 
 ## Known Bugs
 
