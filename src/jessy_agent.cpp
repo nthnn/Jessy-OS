@@ -45,7 +45,7 @@ String JessyAgent::getWorkingDirectory() {
     return this->wd;
 }
 
-String JessyAgent::shellString() {
+String JessyAgent::plainShellString() {
     String path = "";
 
     if(this->getWorkingDirectory() == ("/root/" + this->name) ||
@@ -60,7 +60,11 @@ String JessyAgent::shellString() {
         path = this->getWorkingDirectory().substring(idx + 1);
     }
 
-    return "\033[45m " + this->name + F("@") + path + F(" \033[0m #~ ");
+    return this->name + F("@") + path;
+}
+
+String JessyAgent::shellString() {
+    return "\033[45m " + this->plainShellString() + F(" \033[0m #~ ");
 }
 
 void JessyAgent::anonymous() {

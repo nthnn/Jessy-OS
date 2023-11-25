@@ -35,6 +35,7 @@ public:
     String getWorkingDirectory();
 
     String shellString();
+    String plainShellString();
     void anonymous();
 
 private:
