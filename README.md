@@ -13,6 +13,9 @@
 
 Jessy OS is an embedded operating system designed for the ESP32 microcontroller. It provides a versatile platform for various IoT and embedded systems projects, with features like a file system, real-time clock support, networking capabilities, user accounts, and JavaScript execution via the embedded Duktape VM.
 
+> [!WARNING]  
+> Jessy OS undergoes big changes as of the moment.
+
 <p align="center">
     <img src="assets/demo.gif" width="100%" />
 </p>
