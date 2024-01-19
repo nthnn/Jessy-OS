@@ -1,15 +1,15 @@
-\033[1m`bt` Command\033[1m
+\e[1m`bt` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m bt open <name>         \033[0m\033[0m
-    \033[107m\033[30m bt connect <devname>   \033[0m\033[0m
-    \033[107m\033[30m bt pin <number>        \033[0m\033[0m
-    \033[107m\033[30m bt write <message>     \033[0m\033[0m
-    \033[107m\033[30m bt read                \033[0m\033[0m
-    \033[107m\033[30m bt scan                \033[0m\033[0m
-    \033[107m\033[30m bt info                \033[0m\033[0m
-    \033[107m\033[30m bt disconnect          \033[0m\033[0m
+    \e[107m\e[30m bt open <name>         \e[0m\e[0m
+    \e[107m\e[30m bt connect <devname>   \e[0m\e[0m
+    \e[107m\e[30m bt pin <number>        \e[0m\e[0m
+    \e[107m\e[30m bt write <message>     \e[0m\e[0m
+    \e[107m\e[30m bt read                \e[0m\e[0m
+    \e[107m\e[30m bt scan                \e[0m\e[0m
+    \e[107m\e[30m bt info                \e[0m\e[0m
+    \e[107m\e[30m bt disconnect          \e[0m\e[0m
 
     Parameters:
     * name: Name to be used as Bluetooth device.
@@ -17,23 +17,23 @@
     * number: Pin number for Bluetooth pairing.
     * message: Message string to be sent to conneted devices.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Command for opening, closing, connecting, and scanning with Bluetooth.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m bt open jessy_os       \033[0m\033[0m
+    \e[107m\e[30m bt open jessy_os       \e[0m\e[0m
     Opens the Bluetooth as visible device with the name "jessy_os."
 
-    \033[107m\033[30m bt connect friend      \033[0m\033[0m
+    \e[107m\e[30m bt connect friend      \e[0m\e[0m
     Connects to a Bluetooth device with the name "friend."
 
-    \033[107m\033[30m bt pin 0000            \033[0m\033[0m
+    \e[107m\e[30m bt pin 0000            \e[0m\e[0m
     Uses the pin "0000" when pairing with another device.
 
-    \033[107m\033[30m bt write "Hi!"         \033[0m\033[0m
+    \e[107m\e[30m bt write "Hi!"         \e[0m\e[0m
     Sends the string "Hi!" to the connected device.
 
-    \033[107m\033[30m bt read                \033[0m\033[0m
+    \e[107m\e[30m bt read                \e[0m\e[0m
     Prints the received message from the device connected.

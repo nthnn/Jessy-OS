@@ -1,21 +1,21 @@
-\033[1m`echo` Command\033[1m
+\e[1m`echo` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m echo <string>            \033[0m\033[0m
-    \033[107m\033[30m echo <string> ...        \033[0m\033[0m
+    \e[107m\e[30m echo <string>            \e[0m\e[0m
+    \e[107m\e[30m echo <string> ...        \e[0m\e[0m
 
     Parameters:
     * string: The string to be printed on the console.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Prints the parameter string(s) to the standard output.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m echo Hello!              \033[0m\033[0m
+    \e[107m\e[30m echo Hello!              \e[0m\e[0m
     Prints the string "Hello!" to the console.
 
-    \033[107m\033[30m echo Hi! "From JessyOS!" \033[0m\033[0m
+    \e[107m\e[30m echo Hi! "From JessyOS!" \e[0m\e[0m
     Prints the string "Hi!" and "From JessyOS!" to the console.

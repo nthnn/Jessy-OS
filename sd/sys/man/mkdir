@@ -1,17 +1,17 @@
-\033[1m`mkdir` Command\033[1m
+\e[1m`mkdir` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m mkdir <foldername>               \033[0m\033[0m
+    \e[107m\e[30m mkdir <foldername>               \e[0m\e[0m
 
     Parameters:
     * foldername: Name of the folder to be created.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Creates a new directory with the specified name.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m mkdir new_folder                 \033[0m\033[0m
+    \e[107m\e[30m mkdir new_folder                 \e[0m\e[0m
     Creates new folder named "new_folder" in the current directory.

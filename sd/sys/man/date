@@ -1,20 +1,20 @@
-\033[1m`date` Command\033[1m
+\e[1m`date` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m date                             \033[0m\033[0m
-    \033[107m\033[30m date update                      \033[0m\033[0m
+    \e[107m\e[30m date                             \e[0m\e[0m
+    \e[107m\e[30m date update                      \e[0m\e[0m
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Prints the current date to the standard output console with the
 format: mm/dd/YYYY. It can also be used to update the system date
 and time
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m date                             \033[0m\033[0m
+    \e[107m\e[30m date                             \e[0m\e[0m
     Prints the date in mm/dd/YYYY format.
 
-    \033[107m\033[30m date update                      \033[0m\033[0m
+    \e[107m\e[30m date update                      \e[0m\e[0m
     Updates the date and time in RTC. This needs rebootings the system.

@@ -1,21 +1,21 @@
-\033[1m`ls` Command\033[1m
+\e[1m`ls` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m ls                               \033[0m\033[0m
-    \033[107m\033[30m ls [-a|--all] [-r|-recursive]    \033[0m\033[0m
+    \e[107m\e[30m ls                               \e[0m\e[0m
+    \e[107m\e[30m ls [-a|--all] [-r|-recursive]    \e[0m\e[0m
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Lists the contents of the current directory.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m ls                               \033[0m\033[0m
+    \e[107m\e[30m ls                               \e[0m\e[0m
     List all files and folders on the current directory.
 
-    \033[107m\033[30m ls -a                            \033[0m\033[0m
+    \e[107m\e[30m ls -a                            \e[0m\e[0m
     List all files, including hidden ones.
 
-    \033[107m\033[30m ls -r                            \033[0m\033[0m
+    \e[107m\e[30m ls -r                            \e[0m\e[0m
     List all files recursively, including files on subfolders.

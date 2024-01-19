@@ -1,32 +1,32 @@
-\033[1m`wlan` Command\033[1m
+\e[1m`wlan` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m wlan connect                      \033[0m\033[0m
+    \e[107m\e[30m wlan connect                      \e[0m\e[0m
     Connects to a saved network.
 
-    \033[107m\033[30m wlan connect <SSID> <password>    \033[0m\033[0m
+    \e[107m\e[30m wlan connect <SSID> <password>    \e[0m\e[0m
     Connects to a new network.
 
-    \033[107m\033[30m wlan disconnect                   \033[0m\033[0m
+    \e[107m\e[30m wlan disconnect                   \e[0m\e[0m
     Disconnects from current network.
 
-    \033[107m\033[30m wlan scan                         \033[0m\033[0m
+    \e[107m\e[30m wlan scan                         \e[0m\e[0m
     Scans available WiFi networks.
 
-    \033[107m\033[30m wlan info                         \033[0m\033[0m
+    \e[107m\e[30m wlan info                         \e[0m\e[0m
     Displays WiFi informations.
 
-    \033[107m\033[30m wlan status                       \033[0m\033[0m
+    \e[107m\e[30m wlan status                       \e[0m\e[0m
     Displays current WiFi informations.
 
-    \033[107m\033[30m wlan mode [station|ap|ap-station] \033[0m\033[0m
+    \e[107m\e[30m wlan mode [station|ap|ap-station] \e[0m\e[0m
     Sets the WiFi mode; station, access point, or AP/station.
 
-    \033[107m\033[30m wlan config [ip|gateway|subnet]   \033[0m\033[0m
+    \e[107m\e[30m wlan config [ip|gateway|subnet]   \e[0m\e[0m
     Configures address for IP, gateway, or subnet.
 
-    \033[107m\033[30m wlan config dns [prime|second]    \033[0m\033[0m
+    \e[107m\e[30m wlan config dns [prime|second]    \e[0m\e[0m
     Configures both primary and secondary DNS address.
 
     Parameters:
@@ -35,7 +35,7 @@
     * address: New address for configuration.
     * primary and secondary: New address for DNS.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Networking command for scaning available networks, connecting to
 a WiFi, configuring networks, retrieving network informations and

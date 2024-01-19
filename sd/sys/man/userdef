@@ -1,22 +1,22 @@
-\033[1m`userdef` Command\033[1m
+\e[1m`userdef` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m userdef <password>               \033[0m\033[0m
-    \033[107m\033[30m userdef delete                   \033[0m\033[0m
+    \e[107m\e[30m userdef <password>               \e[0m\e[0m
+    \e[107m\e[30m userdef delete                   \e[0m\e[0m
 
     Parameters:
     * password: Password of the current user to be default user.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Sets the current user as default user on every boot-up. This command
 can only be used if logged in to any non-anonymous user.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m userdef password123              \033[0m\033[0m
+    \e[107m\e[30m userdef password123              \e[0m\e[0m
     Sets the current user as default user.
 
-    \033[107m\033[30m userdef delete                   \033[0m\033[0m
+    \e[107m\e[30m userdef delete                   \e[0m\e[0m
     Deletes the current default user.

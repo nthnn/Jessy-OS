@@ -1,22 +1,22 @@
-\033[1m`js` Command\033[1m
+\e[1m`js` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m js <scriptfile>             \033[0m\033[0m
-    \033[107m\033[30m js eval <string>            \033[0m\033[0m
+    \e[107m\e[30m js <scriptfile>             \e[0m\e[0m
+    \e[107m\e[30m js eval <string>            \e[0m\e[0m
 
     Parameters:
     * scriptfile: JavaScript file to be executed.
     * string: JavaScript string to be evaluated.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Executes JavaScript script file or string via DukTape VM.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m js hello.js                 \033[0m\033[0m
+    \e[107m\e[30m js hello.js                 \e[0m\e[0m
     Executes the specified JavaScript file.
 
-    \033[107m\033[30m js eval IO.print('Hello!'); \033[0m\033[0m
+    \e[107m\e[30m js eval IO.print('Hello!'); \e[0m\e[0m
     Evaluates a JavaScript string.

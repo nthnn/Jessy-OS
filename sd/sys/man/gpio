@@ -1,27 +1,27 @@
-\033[1m`gpio` Command\033[1m
+\e[1m`gpio` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m gpio on <pin>                    \033[0m\033[0m
-    \033[107m\033[30m gpio off <pin>                   \033[0m\033[0m
-    \033[107m\033[30m gpio read <pin>                  \033[0m\033[0m
-    \033[107m\033[30m gpio write <pin> <value>         \033[0m\033[0m
+    \e[107m\e[30m gpio on <pin>                    \e[0m\e[0m
+    \e[107m\e[30m gpio off <pin>                   \e[0m\e[0m
+    \e[107m\e[30m gpio read <pin>                  \e[0m\e[0m
+    \e[107m\e[30m gpio write <pin> <value>         \e[0m\e[0m
 
     Parameters:
     * pin: Target GPIO pin of the specified operation.
     * value: Value to be written (must be ranging between 0 to 1024).
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Controls the GPIO pins, can be used write and read.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m gpio on 2                        \033[0m\033[0m
+    \e[107m\e[30m gpio on 2                        \e[0m\e[0m
     Turns on the GPIO pin 2.
 
-    \033[107m\033[30m gpio read 8                      \033[0m\033[0m
+    \e[107m\e[30m gpio read 8                      \e[0m\e[0m
     Reads and prints value from GPIO pin 8.
 
-    \033[107m\033[30m gpio write 19 255                \033[0m\033[0m
+    \e[107m\e[30m gpio write 19 255                \e[0m\e[0m
     Write the value 255 to the GPIO pin 19.

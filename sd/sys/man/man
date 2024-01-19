@@ -1,14 +1,14 @@
-\033[1m`man` Command\033[1m
+\e[1m`man` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m man                \033[0m\033[0m
-    \033[107m\033[30m man <command>      \033[0m\033[0m
+    \e[107m\e[30m man                \e[0m\e[0m
+    \e[107m\e[30m man <command>      \e[0m\e[0m
 
     Parameters:
     * command: Name of the command's manual to be printed.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Command for printing manuals for a specified command name.
 Available command names are listed below:
@@ -22,7 +22,7 @@ Available command names are listed below:
     echo        neofetch    time        wr
     esp32cpu    passwd      touch
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m man echo           \033[0m\033[0m
+    \e[107m\e[30m man echo           \e[0m\e[0m
     Prints the manual for the command echo.

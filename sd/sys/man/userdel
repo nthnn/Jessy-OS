@@ -1,18 +1,18 @@
-\033[1m`userdel` Command\033[1m
+\e[1m`userdel` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m userdel <username> <password>    \033[0m\033[0m
+    \e[107m\e[30m userdel <username> <password>    \e[0m\e[0m
 
     Parameters:
     * username — Username of the account to be deleted.
     * password — Password of the account to be deleted.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Deletes the specified user account.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m userdel johndoe password123      \033[0m\033[0m
+    \e[107m\e[30m userdel johndoe password123      \e[0m\e[0m
     Deletes user named "johndoe."

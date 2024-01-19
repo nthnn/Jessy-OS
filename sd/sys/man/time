@@ -1,21 +1,21 @@
-\033[1m`time` Command\033[1m
+\e[1m`time` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m time                             \033[0m\033[0m
-    \033[107m\033[30m time update                      \033[0m\033[0m
+    \e[107m\e[30m time                             \e[0m\e[0m
+    \e[107m\e[30m time update                      \e[0m\e[0m
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Prints the current time to the standard output console with the
 format: hh:mm:ss. Can also be used to update the system time and
 date.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m time                             \033[0m\033[0m
+    \e[107m\e[30m time                             \e[0m\e[0m
     Prints time in hh:mm:ss format.
 
-    \033[107m\033[30m time update                      \033[0m\033[0m
+    \e[107m\e[30m time update                      \e[0m\e[0m
     Updates system RTC through internet connection. Needs to be
     rebooted.

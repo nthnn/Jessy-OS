@@ -1,19 +1,19 @@
-\033[1m`wget` Command\033[1m
+\e[1m`wget` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m wget <filename> <url>                \033[0m\033[0m
+    \e[107m\e[30m wget <filename> <url>                \e[0m\e[0m
 
     Parameters:
     * filename: Name of the output file.
     * url: URL of the file to be downloaded.
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Downloads file from specified URL. Currently not working on HTTPS.
 
-\033[4mExample Usage\033[0m:
+\e[4mExample Usage\e[0m:
 
-    \033[107m\033[30m wget index.html https://example.com/ \033[0m\033[0m
+    \e[107m\e[30m wget index.html https://example.com/ \e[0m\e[0m
     Downloads the index of example.com to file named "index.html" on
     the current working directory.

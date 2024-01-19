@@ -1,9 +1,9 @@
-\033[1m`pwd` Command\033[1m
+\e[1m`pwd` Command\e[1m
 
-\033[4mSyntax\033[0m:
+\e[4mSyntax\e[0m:
 
-    \033[107m\033[30m pwd                              \033[0m\033[0m
+    \e[107m\e[30m pwd                              \e[0m\e[0m
 
-\033[4mUsage\033[0m:
+\e[4mUsage\e[0m:
 
 Prints the current working directory.
