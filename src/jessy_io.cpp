@@ -30,21 +30,48 @@
 #include "jessy_io.h"
 #include "jessy_util.h"
 
+fabgl::PS2Controller PS2Controller;
+fabgl::VGA16Controller DisplayController;
+fabgl::Terminal Terminal;
+
+void JessyIO::init() {
+    DisplayController.begin();
+    DisplayController.setResolution(VGA_640x480_60Hz);
+
+    Terminal.begin(&DisplayController, 80, 25);
+    Terminal.loadFont(
+        fabgl::getPresetFontInfo(
+            Terminal.canvas()->getWidth(),
+            Terminal.canvas()->getHeight(),
+            80, 25
+        )
+    );
+
+    Terminal.setBackgroundColor(Color::Black);
+    Terminal.setForegroundColor(Color::White);
+
+    Terminal.clear();
+    Terminal.enableCursor(true);
+
+    PS2Controller.begin(PS2Preset::KeyboardPort0);
+}
+
 void JessyIO::print(String text) {
-    Serial.print(text);
+    Terminal.write("\e[37m");
+    Terminal.write(text.c_str());
+
     delay(3);
 }
 
 void JessyIO::println(String text) {
-    Serial.println(text);
+    JessyIO::print(text);
+    Terminal.write("\r\n");
+
     delay(3);
 }
 
 void JessyIO::clearScreen() {
-    JessyIO::println(F("<clear>"));
-    Serial.flush();
-
-    delay(100);
+    Terminal.clear();
 }
 
 bool JessyIO::mkdir(String path) {
