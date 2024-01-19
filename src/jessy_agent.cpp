@@ -65,7 +65,7 @@ String JessyAgent::plainShellString() {
 
 String JessyAgent::shellString() {
     String time = JessyUtility::getRTCString(JessyUtility::createClock().now());
-    return "┌┤ \033[36m[\033[0m" + this->plainShellString() + "\033[36m]\033[0m \033[36m(\033[0m" + time + "\033[36m)\033[0m\n└───┤ #~ ";
+    return "┌┤ \e[36m[\e[0m" + this->plainShellString() + "\e[36m]\e[0m \e[36m(\e[0m" + time + "\e[36m)\e[0m\n└───┤ #~ ";
 }
 
 void JessyAgent::anonymous() {

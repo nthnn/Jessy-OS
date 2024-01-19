@@ -60,23 +60,20 @@ JessyRTC JessyUtility::getRTC(DateTime dateTime) {
 void JessyUtility::log(JessyLogType logType, String message) {
     switch(logType) {
         case JSY_LOG_ERROR:
-            JessyIO::print(F("\033[91m[-] "));
-            break;
-        
-        case JSY_LOG_PLAIN:
-            JessyIO::print(F("\033[32m[+] "));
+            JessyIO::print(F("[\e[90m-\e[0m] "));
             break;
 
         case JSY_LOG_WARNING:
-            JessyIO::print(F("\033[93m[!] "));
+            JessyIO::print(F("[\e[94m!\e[0m] "));
             break;
 
+        case JSY_LOG_PLAIN:
         case JSY_LOG_SUCCESS:
-            JessyIO::print(F("\033[36m[*] "));
+            JessyIO::print(F("[\e[92m+\e[0m] "));
             break;
     }
 
-    JessyIO::println(message + F("\033[0m"));
+    JessyIO::println(message);
 }
 
 String JessyUtility::rtcStructString(JessyRTC rtc) {

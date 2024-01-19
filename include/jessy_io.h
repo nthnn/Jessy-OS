@@ -25,10 +25,12 @@
 #define JESSY_IO_H
 
 #include <Arduino.h>
+#include <fabgl.h>
 #include <jessy_defs.h>
 
 class JessyIO {
 public:
+    static void init();
     static void print(String text);
     static void println(String text = "");
     static void clearScreen();

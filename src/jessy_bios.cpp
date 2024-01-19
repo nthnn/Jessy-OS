@@ -46,15 +46,17 @@ bool JessyBIOS::checkRTC() {
 }
 
 void JessyBIOS::bootUp(JessyAgent &agent) {
-    JessyIO::println(F("---\n"));
-    delay(500);
-
-    JessyIO::println("\033[44m\033[97m        Jessy OS " +
+    JessyIO::println(
+        String("\r\n\e[44m                                        \r\n") +
+        String("        Jessy OS ") +
         String(JESSY_OS_VERSION) + F(" [") +
-        String(getCpuFrequencyMhz()) + F("Mhz]       \033[0m\n"));
+        String(getCpuFrequencyMhz()) + F("Mhz]        \r\n") +
+        String("            (alpha-test-r3)             \r\n") +
+        String("                                        \r\n\e[0m")
+    );
 
     JessyUtility::log(JSY_LOG_WARNING, F("Booting up..."));
-    JessyUtility::log(JSY_LOG_PLAIN, F("Check up DS1307 RTC..."));
+    JessyUtility::log(JSY_LOG_PLAIN, F("Checking up DS1307 RTC..."));
 
     if(!JessyBIOS::checkRTC()) {
         JessyUtility::log(JSY_LOG_ERROR, F("No real-time clock found."));
@@ -146,9 +148,7 @@ void JessyBIOS::login(JessyAgent &agent, String user, String password, void (*pr
         agent.setName(user);
         agent.setWorkingDirectory("/root/" + user);
 
-        delay(200);
         JessyBIOS::autorun(agent);
-
         return;
     }
 
@@ -167,8 +167,10 @@ void JessyBIOS::autorun(JessyAgent &agent) {
 }
 
 void JessyBIOS::halt() {
-    while(true)
+    while(true) {
         yield();
+        vTaskDelay(10);
+    }
 }
 
 void JessyBIOS::fileSystemCheck() {

@@ -32,13 +32,11 @@
 #include "jessy_util.h"
 
 void setup() {
-    Serial.begin(115200);
-    while(!Serial)
-        yield();
+    JessyIO::init();
 
     JessyBIOS::bootUp(currentAgent);
     JessyBIOS::fileSystemCheck();
-    JessyIO::println(F("\n\033[91m██\033[92m██\033[93m██\033[94m██\033[95m██\033[96m██\033[97m██\033[0m\n"));
+    JessyIO::println(F("\n\e[31m██\e[32m██\e[33m██\e[34m██\e[35m██\e[36m██\e[37m██\e[0m\n"));
 
     JessyBIOS::autorun(currentAgent);
     delay(100);
