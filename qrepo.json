@@ -1,0 +1,29 @@
+{
+	"name": "Jessy-OS",
+	"author": "Nathanne Isip",
+	"version": "v2.0.0",
+	"description": "",
+	"git": "https://github.com/nthnn/Jessy-OS.git",
+	"scripts": {
+		"linux:compile": [
+			"mkdir -p dist",
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,.pio/libdeps/upesy_wrover/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -I.pio/libdeps/upesy_wrover/rishka/sdk .pio/libdeps/upesy_wrover/rishka/sdk/librishka_impl.cpp {{1}} .pio/libdeps/upesy_wrover/rishka/scripts/launcher.s",
+			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
+			"rm dist/{{2}}.out"
+		],
+		"windows:compile": [
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,.pio/libdeps/upesy_wrover/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -I.pio/libdeps/upesy_wrover/rishka/sdk .pio/libdeps/upesy_wrover/rishka/sdk/librishka_impl.cpp {{1}} .pio/libdeps/upesy_wrover/rishka/scripts/launcher.s",
+			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
+			"rm dist/{{2}}.out"
+		],
+		"compile-programs": [
+			"qrepo run compile programs/boot.cpp boot",
+			"qrepo run compile programs/cd.cpp cd",
+			"qrepo run compile programs/clear.cpp clear",
+			"qrepo run compile programs/ls.cpp ls",
+			"qrepo run compile programs/mkdir.cpp mkdir",
+			"qrepo run compile programs/pwd.cpp pwd",
+			"qrepo run compile programs/sysinfo.cpp sysinfo"
+		]
+	}
+}
