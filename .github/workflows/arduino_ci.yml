@@ -29,4 +29,4 @@ jobs:
 
       - name: Build Jessy OS via Arduino CLI
         run: |
-          ./bin/arduino-cli compile --fqbn esp32:esp32:esp32wrover --library lib/Arduino-List --library lib/FabGL --library lib/rishka --build-path build --verbose kernel
+          ./bin/arduino-cli compile --fqbn esp32:esp32:esp32wrover --library ../lib/Arduino-List --library ../lib/FabGL --library ../lib/rishka --build-path build --verbose kernel
