@@ -1,0 +1,3 @@
+[submodule "lib/rishka"]
+	path = lib/rishka
+	url = https://github.com/nthnn/rishka.git
