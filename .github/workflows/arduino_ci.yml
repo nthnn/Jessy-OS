@@ -25,7 +25,7 @@ jobs:
         run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 
       - name: Install Arduino ESP32 Devkit
-        run: arduino-cli core install esp32:esp32
+        run: ./bin/arduino-cli core install esp32:esp32
 
       - name: Build Jessy OS via Arduino CLI
         run: |
