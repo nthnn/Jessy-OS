@@ -18,18 +18,12 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install Arduino CLI
-        uses: arduino/setup-arduino-cli@v1
-
       - name: Install Python serial library
         run: python -m pip install pyserial
 
-      - name: Arduino ESP32 Platform Installation
-        run: arduino-cli core install esp32:esp32
-
-      - name: Pull all library submodules
-        run: git submodule update --recursive --remote
+      - name: Install Arduino CLI
+        run: curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 
       - name: Build Jessy OS via Arduino CLI
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library ./lib/Arduino-List --library ./lib/fabgl --library ./lib/rishka --build-path build kernel
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library lib/Arduino-List --library lib/FabGL --library lib/rishka --build-path build --verbose kernel
