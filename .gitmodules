@@ -1,3 +1,3 @@
-[submodule ".pio/libdeps/upesy_wroom/rishka"]
-	path = .pio/libdeps/upesy_wroom/rishka
+[submodule ".pio/libdeps/upesy_wrover/rishka"]
+	path = .pio/libdeps/upesy_wrover/rishka
 	url = https://github.com/nthnn/rishka.git
