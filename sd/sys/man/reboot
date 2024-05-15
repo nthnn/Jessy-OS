@@ -1,9 +1,0 @@
-\e[1m`reboot` Command\e[1m
-
-\e[4mSyntax\e[0m:
-
-    \e[107m\e[30m reboot                           \e[0m\e[0m
-
-\e[4mUsage\e[0m:
-
-Reboot the ESP32 via firmware.
