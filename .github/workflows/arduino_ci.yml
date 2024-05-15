@@ -27,6 +27,9 @@ jobs:
       - name: Arduino ESP32 Platform Installation
         run: arduino-cli core install esp32:esp32
 
+      - name: Pull all library submodules
+        run: git submodule update --recursive --remote
+
       - name: Build Jessy OS via Arduino CLI
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library ../lib/Arduino-List --library ../lib/fabgl --library ../lib/rishka --build-path build kernel
+          arduino-cli compile --fqbn esp32:esp32:esp32wrover --library lib/Arduino-List --library lib/fabgl --library lib/rishka --build-path build kernel
