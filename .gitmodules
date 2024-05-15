@@ -4,3 +4,6 @@
 [submodule "lib/FabGL"]
 	path = lib/FabGL
 	url = https://github.com/fdivitto/FabGL
+[submodule "lib/rishka"]
+	path = lib/rishka
+	url = https://github.com/nthnn/rishka
