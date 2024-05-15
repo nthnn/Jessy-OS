@@ -1,3 +1,6 @@
-[submodule ".pio/libdeps/upesy_wrover/rishka"]
-	path = .pio/libdeps/upesy_wrover/rishka
-	url = https://github.com/nthnn/rishka.git
+[submodule "lib/Arduino-List"]
+	path = lib/Arduino-List
+	url = https://github.com/nkaaf/Arduino-List
+[submodule "lib/FabGL"]
+	path = lib/FabGL
+	url = https://github.com/fdivitto/FabGL
