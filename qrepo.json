@@ -16,7 +16,7 @@
 			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
 			"rm dist/{{2}}.out"
 		],
-		"compile-programs": [
+		"build-programs": [
 			"qrepo run compile programs/boot.cpp boot",
 			"qrepo run compile programs/cd.cpp cd",
 			"qrepo run compile programs/clear.cpp clear",
@@ -24,6 +24,12 @@
 			"qrepo run compile programs/mkdir.cpp mkdir",
 			"qrepo run compile programs/pwd.cpp pwd",
 			"qrepo run compile programs/sysinfo.cpp sysinfo"
+		],
+		"build-kernel": [
+			"arduino-cli compile --fqbn esp32:esp32:esp32wrover --library lib/Arduino-List --library lib/FabGL --library lib/rishka --build-path build --verbose kernel"
+		],
+		"upload-kernel": [
+			"arduino-cli upload --input-dir build -p {{1}} -b esp32:esp32:esp32wrover"
 		]
 	}
 }
