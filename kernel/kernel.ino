@@ -57,6 +57,7 @@ void setup() {
     JessyOS::initSDCard();
     JessyOS::initPSRAM();
 
+    vm = new RishkaVM();
     JessyOS::startVM(vm);
     JessyOS::loadBoot(vm);
 

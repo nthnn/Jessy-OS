@@ -21,9 +21,9 @@
 #include <fabgl.h>
 #include <SD.h>
 
-fabgl::ILI9341Controller DisplayController;
-fabgl::PS2Controller     PS2Controller;
-fabgl::Terminal          Terminal;
+static fabgl::ILI9341Controller DisplayController;
+static fabgl::PS2Controller     PS2Controller;
+static fabgl::Terminal          Terminal;
 
 SPIClass sdSpi(HSPI);
 
@@ -65,7 +65,6 @@ void JessyOS::initPSRAM() {
 }
 
 void JessyOS::startVM(RishkaVM* vm) {
-    vm = new RishkaVM();
     vm->initialize(&Terminal);
 
     Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {
