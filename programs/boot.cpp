@@ -17,33 +17,62 @@
 
 #include <librishka.h>
 
+typedef enum {
+    INFO,
+    ERROR,
+    WARNING
+} log_t;
+
+void log(log_t type, string message) {
+    IO::print(F("["), TERM_FG_GREEN, TERM_BG_BLACK, TERM_STYLE_BOLD);
+
+    switch(type) {
+        case INFO:
+            IO::print(F("+"));
+            break;
+
+        case ERROR:
+            IO::print(F("-"));
+            break;
+
+        case WARNING:
+            IO::print(F("!"));
+            break;
+
+        default: break;
+    }
+
+    IO::print(F("] "), TERM_FG_GREEN, TERM_BG_BLACK, TERM_STYLE_BOLD);
+    IO::println(message);
+}
+
 void check_sys_folders() {
    if(!FS::exists("~/bin")) {
         FS::mkdir(F("~/bin"));
-        IO::print(F("Folder ~/bin not found, created one.\r\n"));
+        log(ERROR, F("Folder ~/bin not found, created one."));
     }
 
     if(!FS::exists("~/etc")) {
         FS::mkdir(F("~/etc"));
-        IO::print(F("Folder ~/etc not found, created one.\r\n"));
+        log(ERROR, F("Folder ~/etc not found, created one."));
     }
 
     if(!FS::exists("~/home")) {
         FS::mkdir(F("~/home"));
-        IO::print(F("Folder ~/home not found, created one.\r\n"));
+        log(ERROR, F("Folder ~/home not found, created one."));
     }
 
     if(!FS::exists("~/man")) {
         FS::mkdir(F("~/man"));
-        IO::print(F("Folder ~/man not found, created one.\r\n"));
+        log(ERROR, F("Folder ~/man not found, created one."));
     }
 
     if(!FS::exists("~/tmp")) {
         FS::mkdir(F("~/tmp"));
-        IO::print(F("Folder ~/tmp not found, created one.\r\n"));
+        log(ERROR, F("Folder ~/tmp not found, created one."));
     }
 
-    IO::print(F("Checking system folders done!\r\n"));
+    log(INFO, F("Checking system folders done!"));
 }
 
 void u8_to_hexstring(u8 value, string str) {
@@ -62,27 +91,27 @@ void scan_i2c_devs() {
             rune addr[3];
             u8_to_hexstring(address, addr);
 
-            IO::print(F("I2C device found with address 0x"));
+            IO::print(F("  I2C device found at address 0x"));
             IO::print(addr);
-            IO::print(F(".\r\n"));
+            IO::println(F("."));
 
             ndevices++;
         }
     }
 
     if(ndevices == 0)
-        IO::print(F("No I2C devices found.\r\n"));
-    IO::print(F("Scanning I2C devices done!\r\n"));
+        log(ERROR, F("No I2C devices found."));
+    log(INFO, F("Scanning I2C devices done!"));
 }
 
 i32 main() {
-    IO::print(F("Booting up Jessy OS...\r\n"));
+    log(INFO, F("Booting up Jessy OS..."));
 
     check_sys_folders();
     scan_i2c_devs();
 
-    IO::print(F("Boot up done!\r\n"));
-    Sys::delay(3000);
+    log(INFO, F("Boot up done!"));
+    Sys::delay(3500);
     Sys::shellexec(F("clear"), 0,  (char**) nil);
 
     return 0;
