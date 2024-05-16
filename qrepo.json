@@ -7,12 +7,12 @@
 	"scripts": {
 		"linux:compile": [
 			"mkdir -p dist",
-			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,.pio/libdeps/upesy_wrover/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -I.pio/libdeps/upesy_wrover/rishka/sdk .pio/libdeps/upesy_wrover/rishka/sdk/librishka_impl.cpp {{1}} .pio/libdeps/upesy_wrover/rishka/scripts/launcher.s",
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,lib/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -Ilib/rishka/sdk lib/rishka/sdk/librishka_impl.cpp {{1}} lib/rishka/scripts/launcher.s",
 			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
 			"rm dist/{{2}}.out"
 		],
 		"windows:compile": [
-			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,.pio/libdeps/upesy_wrover/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -I.pio/libdeps/upesy_wrover/rishka/sdk .pio/libdeps/upesy_wrover/rishka/sdk/librishka_impl.cpp {{1}} .pio/libdeps/upesy_wrover/rishka/scripts/launcher.s",
+			"riscv64-unknown-elf-g++ -march=rv64im -mabi=lp64 -nostdlib -Wl,-T,lib/rishka/scripts/link.ld -O2 -o dist/{{2}}.out -Ilib/rishka/sdk lib/rishka/sdk/librishka_impl.cpp {{1}} lib/rishka/scripts/launcher.s",
 			"riscv64-unknown-elf-objcopy -O binary dist/{{2}}.out dist/{{2}}.bin",
 			"rm dist/{{2}}.out"
 		],
