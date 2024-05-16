@@ -8,7 +8,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+          lfs: true
 
       - uses: actions/setup-go@v4
         with:
@@ -20,6 +23,6 @@ jobs:
       - name: Install RISC-V GNU toolchain
         run: sudo apt install gcc-riscv64-unknown-elf
 
-      - name: Build SDK Examples
+      - name: Build Jessy OS binary programs
         run: |
           qrepo run build-programs
