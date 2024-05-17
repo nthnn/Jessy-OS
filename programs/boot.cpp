@@ -104,11 +104,29 @@ void scan_i2c_devs() {
     log(INFO, F("Scanning I2C devices done!"));
 }
 
+void check_ps2_keyboard() {
+    if(Keyboard::device_type() == PS2_DEV_UNKNOWN) {
+        log(ERROR, F("Invalid or no PS/2 keyboard found."));
+        Sys::exit(-1);
+    }
+
+    log(INFO, F("PS/2 keyboard detected!"));
+
+    IO::print(F("  Layout name: "));
+    IO::print(Keyboard::layout_name());
+    IO::println();
+
+    IO::print(F("  Layout desc: "));
+    IO::print(Keyboard::layout_desc());
+    IO::println();
+}
+
 i32 main() {
     log(INFO, F("Booting up Jessy OS..."));
 
     check_sys_folders();
     scan_i2c_devs();
+    check_ps2_keyboard();
 
     log(INFO, F("Boot up done!"));
     Sys::delay(3500);
