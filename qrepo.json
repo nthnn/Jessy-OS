@@ -26,6 +26,9 @@
 			"qrepo run compile programs/sysinfo.cpp sysinfo"
 		],
 		"build-kernel": [
+			"rm -rf build",
+			"mkdir build",
+			"cp memconfig.csv build/partitions.csv",
 			"arduino-cli compile --fqbn esp32:esp32:esp32wrover --library lib/Arduino-List --library lib/FabGL --library lib/rishka --build-path build --verbose kernel"
 		],
 		"upload-kernel": [
