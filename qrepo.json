@@ -30,6 +30,9 @@
 		],
 		"upload-kernel": [
 			"arduino-cli upload --input-dir build -p {{1}} -b esp32:esp32:esp32wrover"
+		],
+		"clean": [
+			"rm -rf dist build"
 		]
 	}
 }
