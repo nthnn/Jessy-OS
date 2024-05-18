@@ -38,7 +38,7 @@ void JessyOS::initTerminal() {
     Terminal.begin(&DisplayController);
     Terminal.loadFont(&fabgl::FONT_8x14);
     Terminal.setBackgroundColor(Color::Black);
-    Terminal.setForegroundColor(Color::White);
+    Terminal.setForegroundColor(Color::BrightWhite);
     Terminal.connectLocally();
     Terminal.clear();
     Terminal.enableCursor(true);
@@ -78,7 +78,7 @@ void JessyOS::startVM(RishkaVM* vm) {
 }
 
 void JessyOS::loadBoot(RishkaVM* vm) {
-    if(!vm->loadFile("/bin/boot.bin")) {
+    if(!vm->loadFile("/bin/boot.bin", true)) {
         Terminal.println("Failed to \e[94mload\e[97m boot binary.");
         while(true);
     }
