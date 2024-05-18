@@ -31,15 +31,19 @@ i32 main() {
 }
 
 static void print_info_num(string msg, sysinfon_t key) {
-    IO::print(msg);
-    IO::print(Sys::info_num(key));
-    IO::print(F("\r\n"));
+    IO::printf(
+        F("{s}{i}\r\n"),
+        msg,
+        Sys::info_num(key)
+    );
 }
 
 static void print_info_str(string msg, sysinfos_t key) {
-    IO::print(msg);
-    IO::print(Sys::info_str(key));
-    IO::print(F("\r\n"));
+    IO::printf(
+        F("{s}{s}\r\n"),
+        msg,
+        Sys::info_str(key)
+    );
 }
 
 void print_sd_info() {

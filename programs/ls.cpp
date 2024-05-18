@@ -23,10 +23,11 @@ void listFiles(File root) {
         if(!file.is_ok())
             break;
 
-        IO::print(file.name());
-        IO::print(file.is_dir() ? F("/") : F(""));
-        IO::print(F("\r\n"));
-
+        IO::printf(
+            F("{s}{s}\r\n"),
+            file.is_dir() ? F("/") : F(""),
+            file.name()
+        );
         file.close();
     }
 }

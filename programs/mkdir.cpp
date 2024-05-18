@@ -19,7 +19,7 @@
 
 i32 main() {
     if(Args::count() == 1) {
-        IO::print(F("Usage:\r\n\tmkdir <path>\r\n"));
+        IO::print(F("Usage:\r\n  mkdir <path>\r\n"));
         return -1;
     }
 
@@ -27,9 +27,10 @@ i32 main() {
         string path = Args::value(i);
 
         if(!FS::mkdir(path)) {
-            IO::print(F("Cannot create folder: "));
-            IO::print(path);
-            IO::print(F("\r\n"));
+            IO::printf(
+                F("Cannot create folder: {s}\r\n"),
+                path
+            );
 
             break;
         }

@@ -91,10 +91,10 @@ void scan_i2c_devs() {
             rune addr[3];
             u8_to_hexstring(address, addr);
 
-            IO::print(F("  I2C device found at address 0x"));
-            IO::print(addr);
-            IO::println(F("."));
-
+            IO::printf(
+                F("  I2C device found at address 0x{u}.\r\n"),
+                addr
+            );
             ndevices++;
         }
     }
@@ -112,13 +112,14 @@ void check_ps2_keyboard() {
 
     log(INFO, F("PS/2 keyboard detected!"));
 
-    IO::print(F("  Layout name: "));
-    IO::print(Keyboard::layout_name());
-    IO::println();
-
-    IO::print(F("  Layout desc: "));
-    IO::print(Keyboard::layout_desc());
-    IO::println();
+    IO::printf(
+        F("  Layout name: {s}\r\n"),
+        Keyboard::layout_name()
+    );
+    IO::printf(
+        F("  Layout desc: {s}\r\n"),
+        Keyboard::layout_desc()
+    );
 }
 
 i32 main() {
@@ -129,6 +130,7 @@ i32 main() {
     check_ps2_keyboard();
 
     log(INFO, F("Boot up done!"));
+ 
     Sys::delay(3500);
     Sys::shellexec(F("clear"), 0,  (char**) nil);
 

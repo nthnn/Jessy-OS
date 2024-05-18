@@ -18,8 +18,6 @@
 #include <librishka.h>
 
 i32 main() {
-    IO::print(Sys::working_dir());
-    IO::print(F("\r\n"));
-
+    IO::println(Sys::working_dir());
     return 0;
 }
