@@ -65,7 +65,7 @@ void JessyOS::initPSRAM() {
 }
 
 void JessyOS::startVM(RishkaVM* vm) {
-    vm->initialize(&Terminal);
+    vm->initialize(&Terminal, &DisplayController);
 
     Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {
         if(vkItem->CTRL && vkItem->vk == VirtualKey::VK_c && vm->isRunning()) {
