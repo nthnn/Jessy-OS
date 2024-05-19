@@ -122,9 +122,31 @@ void check_ps2_keyboard() {
     );
 }
 
+void display_info() {
+    log(INFO, F("Logging display info..."));
+
+    IO::printf(
+        F("  Screen size:\t{i}x{i}\r\n"),
+        Display::screen_width(),
+        Display::screen_height()
+    );
+
+    IO::printf(
+        F("  Viewport:\t{i}x{i}\r\n"),
+        Display::viewport_width(),
+        Display::viewport_height()
+    );
+
+    IO::printf(
+        F("  Colors:\t{i}\r\n"),
+        Display::supported_colors()
+    );
+}
+
 i32 main() {
     log(INFO, F("Booting up Jessy OS..."));
 
+    display_info();
     check_sys_folders();
     scan_i2c_devs();
     check_ps2_keyboard();
