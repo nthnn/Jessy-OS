@@ -23,6 +23,7 @@
 			"qrepo run compile programs/ls.cpp ls",
 			"qrepo run compile programs/mkdir.cpp mkdir",
 			"qrepo run compile programs/pwd.cpp pwd",
+			"qrepo run compile programs/shell.cpp shell",
 			"qrepo run compile programs/sysinfo.cpp sysinfo"
 		],
 		"build-kernel": [
