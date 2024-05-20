@@ -72,6 +72,7 @@ void JessyOS::startVM(RishkaVM* vm) {
             vm->stopVM();
             vm->reset();
 
+            vTaskDelay(10);
             Terminal.println("^C");
         }
     };
