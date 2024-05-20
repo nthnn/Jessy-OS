@@ -19,7 +19,7 @@
 
 i32 main() {
     if(Args::count() != 2) {
-        IO::print(F("Usage:\r\n\tcd <path>\r\n"));
+        IO::print(F("Usage:\r\n  cd <path>\r\n"));
         return -1;
     }
 

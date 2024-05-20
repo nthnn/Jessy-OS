@@ -38,7 +38,10 @@ i32 main() {
         origin = File::open(Args::value(1), F("n"));
 
     if(!origin.is_ok()) {
-        IO::print(F("Cannot open specified path.\r\n"));
+        IO::printf(
+            F("Cannot open specified path:\r\n  {s}\r\n"),
+            Args::value(1)
+        );
         return 0;
     }
 
