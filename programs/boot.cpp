@@ -154,7 +154,8 @@ i32 main() {
     log(INFO, F("Boot up done!"));
  
     Sys::delay(3500);
-    Sys::shellexec(F("clear"), 0,  (char**) nil);
+    Sys::shellexec(F("clear"));
+    Sys::shellexec(F("shell"));
 
     return 0;
 }
