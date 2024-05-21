@@ -18,13 +18,16 @@
 		],
 		"build-programs": [
 			"qrepo run compile programs/boot.cpp boot",
+			"qrepo run compile programs/cat.cpp cat",
 			"qrepo run compile programs/cd.cpp cd",
 			"qrepo run compile programs/clear.cpp clear",
 			"qrepo run compile programs/ls.cpp ls",
 			"qrepo run compile programs/mkdir.cpp mkdir",
 			"qrepo run compile programs/pwd.cpp pwd",
+			"qrepo run compile programs/rm.cpp rm",
 			"qrepo run compile programs/shell.cpp shell",
-			"qrepo run compile programs/sysinfo.cpp sysinfo"
+			"qrepo run compile programs/sysinfo.cpp sysinfo",
+			"qrepo run compile programs/touch.cpp touch"
 		],
 		"build-kernel": [
 			"arduino-cli compile --fqbn esp32:esp32:esp32wrover:PartitionScheme=huge_app --library lib/Arduino-List --library lib/FabGL --library lib/rishka --build-path build --verbose kernel"
