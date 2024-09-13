@@ -21,17 +21,23 @@
 #include <fabgl.h>
 #include <SD.h>
 
-static fabgl::ILI9341Controller DisplayController;
+static fabgl::VGATextController DisplayController;
 static fabgl::PS2Controller     PS2Controller;
 static fabgl::Terminal          Terminal;
 
+ArduinoNvs NvsStorage;
 SPIClass sdSpi(HSPI);
 
 void JessyOS::initDevices() {
     PS2Controller.begin(PS2Preset::KeyboardPort0);
 
-    DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);
-    DisplayController.setResolution("\"TFT_320x240\" 320 240");
+    // Put these lines to comment for ILI9341 version
+    DisplayController.begin();
+    DisplayController.setResolution();
+
+    // Uncomment these lines for ILI9341 version
+    // DisplayController.begin(TFT_SCK, TFT_MOSI, TFT_DC, TFT_RESET, TFT_CS, TFT_SPIBUS);
+    // DisplayController.setResolution("\"TFT_320x240\" 320 240");
 }
 
 void JessyOS::initTerminal() {
@@ -65,7 +71,16 @@ void JessyOS::initPSRAM() {
 }
 
 void JessyOS::startVM(RishkaVM* vm) {
-    vm->initialize(&Terminal, &DisplayController);
+    if(!NvsStorage.begin()) {
+        Terminal.println("Unable to \e[94initialize\e[97m non-volatile storage.");
+        return;
+    }
+
+    vm->initialize(
+        &Terminal,
+        &DisplayController,
+        &NvsStorage
+    );
 
     Terminal.onVirtualKeyItem = [&](VirtualKeyItem * vkItem) {
         if(vkItem->CTRL && vkItem->vk == VirtualKey::VK_c && vm->isRunning()) {

@@ -27,9 +27,9 @@
 #define TFT_RESET  4            // TFT reset pin
 #define TFT_SPIBUS VSPI_HOST    // TFT SPI bus
 
-#define SD_CS      2            // SD card chip select pin
+#define SD_CS      13           // SD card chip select pin (2 for ILI9341 version)
 #define SD_SCK     14           // SD card SPI clock pin
-#define SD_MOSI    13           // SD card SPI MOSI pin
-#define SD_MISO    12           // SD card SPI MISO pin
+#define SD_MOSI    12           // SD card SPI MOSI pin (13 for ILI9341 version)
+#define SD_MISO    35           // SD card SPI MISO pin (12 for ILI9341 version)
 
 #endif
